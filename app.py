@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from google import genai
 from google.genai import types
 
@@ -34,7 +35,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, डोमेन लेबल्स व ऑप्शन्स
+# ३. सर्व १० भाषांनुसार संपूर्ण डेटा, डोमेन लेबल्स व फूटर
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -168,7 +169,7 @@ translations = {
     }
 }
 
-# ४. भाषा निवड
+# ४. भाषा व डोमेन निवड
 col1, col2 = st.columns([1, 1.2])
 
 with col1:
@@ -180,16 +181,21 @@ with col1:
 lang_data = translations.get(language, translations["मराठी"])
 
 with col2:
-    # निवडलेल्या भाषेनुसार डोमेनचे पर्याय
     mode_options = [lang_data["opt_personal"], lang_data["opt_business"]]
     selected_mode = st.selectbox(
         lang_data["domain_label"],
         mode_options
     )
 
-# ५. बिझनेस मोड निवडला आहे का ते तपासणे
 is_business = (selected_mode == lang_data["opt_business"])
 
+# ५. श्रीकृष्ण आणि अर्जुन यांची प्रतिमा शीर्षकाच्या वर दाखवणे
+for img_name in ["BHAGWAT GETA.jpeg", "sarathi_banner.jpg", "sarathi.jpg", "logo1.jpg"]:
+    if os.path.exists(img_name):
+        st.image(img_name, use_container_width=True)
+        break
+
+# ६. शीर्षके व प्लेसहोल्डर
 if is_business:
     st.title(lang_data["title_b"])
     st.caption(lang_data["desc_b"])
@@ -199,13 +205,13 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. सिस्टीम मार्गदर्शक सूचना (Prompt)
+# ७. सिस्टीम मार्गदर्शक सूचना
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
 वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार वाढवणे, नेतृत्व, तोटा, बाजारातील मंदी, जोखीम व्यवस्थापन (Risk Management) किंवा आर्थिक गुंतवणुकीतील निर्णय याविषयी असतील.
 
-तुझे काम:
+तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
 १. समस्येचे आणि व्यावसायिक उद्दिष्टाचे संक्षिप्त व प्रभावी विश्लेषण.
 २. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ आणि त्याचा आधुनिक व्यापार/गुंतवणूक संदर्भातील अर्थ.
 ३. २ ते ३ व्यावहारिक आणि रणनीतिक पावले (Actionable Strategic Steps).
@@ -216,7 +222,7 @@ else:
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
 वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न विचारेल.
 
-तुझे काम:
+तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
 १. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत सांगणे.
 २. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ (संस्कृत श्लोक आणि सोपा अर्थ).
 ३. २ ते ३ व्यावहारिक पावले (Actionable Advice).
@@ -230,7 +236,7 @@ SYSTEM_INSTRUCTION = f"""
 सध्या निवडलेली भाषा: {language}
 """
 
-# ७. API Key व्यवस्थापन
+# ८. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -239,10 +245,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# ८. Client सुरू करणे
+# ९. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# ९. चॅट हिस्ट्री
+# १०. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -250,7 +256,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
+# ११. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -293,7 +299,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-# ११. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर
+# १२. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

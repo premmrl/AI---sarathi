@@ -5,39 +5,38 @@ from google.genai import types
 
 # १. पेज सेटिंग्ज
 st.set_page_config(
-    page_title="AI सारथी | Vighnaharta Gold Foundation",
-    page_icon="🕉️",
+    page_title="AI सारथी | Gita AI Guide",
+    page_icon="🕉️️",
     layout="centered"
 )
 
-# २. ब्रँडिंग व डिझाइन स्टाईल (Custom CSS)
+# २. स्टाईल (CSS)
 st.markdown("""
     <style>
-    .brand-header {
+    .footer-container {
         text-align: center;
-        margin-top: 5px;
-        margin-bottom: 12px;
+        margin-top: 60px;
+        padding-top: 20px;
+        border-top: 1px solid #333333;
     }
     .brand-title {
-        font-size: 14px;
+        font-size: 13px;
         color: #d4af37;
         font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
+        margin-top: 10px;
     }
     .footer-text {
-        text-align: center;
         color: #888888;
-        font-size: 13px;
-        margin-top: 45px;
-        padding-top: 15px;
-        border-top: 1px solid #333333;
-        line-height: 1.6;
+        font-size: 12px;
+        margin-top: 4px;
+        line-height: 1.5;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सिस्टीम मार्गदर्शक सूचना (मराठी, हिंदी व इंग्रजी तिन्हींसाठी)
+# ३. सिस्टीम मार्गदर्शक सूचना
 SYSTEM_INSTRUCTION = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
 वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न त्यांच्या भाषेत (मराठी, हिंदी किंवा इंग्रजी) विचारेल.
@@ -58,24 +57,9 @@ language = st.selectbox(
     ["मराठी", "हिंदी", "English"]
 )
 
-# ५. लोगो दाखवणे (logo1.jpg किंवा logo.jpg)
-col1, col2, col3 = st.columns([1.2, 1.6, 1.2])
-with col2:
-    for img_name in ["logo1.jpg", "logo.jpg", "logo.png", "logo.jpeg"]:
-        if os.path.exists(img_name):
-            st.image(img_name, use_container_width=True)
-            break
-
-# ६. ब्रँडिंग हेडर
-st.markdown("""
-    <div class='brand-header'>
-        <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>
-    </div>
-""", unsafe_allow_html=True)
-
-# ७. निवडलेल्या भाषेनुसार शीर्षके आणि मजकूर
+# ५. निवडलेल्या भाषेनुसार शीर्षके
 if language == "हिंदी":
-    st.title("🕉️ AI सारथी")
+    st.title("🕉️️ AI सारथी")
     st.caption("आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन")
     input_placeholder = "अपनी समस्या या प्रश्न यहाँ लिखें..."
     thinking_text = "सारथी विचार कर रहे हैं..."
@@ -90,7 +74,7 @@ else:
     input_placeholder = "तुमचा प्रश्न किंवा समस्या येथे लिहा..."
     thinking_text = "सारथी विचार करत आहेत..."
 
-# ८. API Key व्यवस्थापन
+# ६. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -99,10 +83,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# ९. Client सुरू करणे
+# ७. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# १०. चॅट हिस्ट्री व्यवस्थापन
+# ८. चॅट हिस्ट्री व्यवस्थापन
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -110,7 +94,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. युझरचा प्रश्न घेणे आणि उत्तर देणे
+# ९. युझरचा प्रश्न घेणे आणि उत्तर देणे
 if user_prompt := st.chat_input(input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -128,7 +112,6 @@ if user_prompt := st.chat_input(input_placeholder):
                     )
                 )
 
-            # सर्व्हर लोड टाळण्यासाठी पर्यायी मॉडेल्स
             reply_text = None
             for model_name in ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-3-flash-preview"]:
                 try:
@@ -151,10 +134,22 @@ if user_prompt := st.chat_input(input_placeholder):
             else:
                 st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.")
 
-# १२. अधिकृत फूटर (Footer)
+# १०. सर्वात शेवटी: लहान आकाराचा लोगो आणि फूटर ब्रँडिंग
+st.markdown("<div class='footer-container'>", unsafe_allow_html=True)
+
+# लोगो लहान आकारात दाखवण्यासाठी तीन कॉलम
+f_col1, f_col2, f_col3 = st.columns([1.6, 0.8, 1.6])
+with f_col2:
+    for img_name in ["logo1.jpg", "logo.jpg", "logo.png", "logo.jpeg"]:
+        if os.path.exists(img_name):
+            st.image(img_name, use_container_width=True)
+            break
+
 st.markdown("""
-    <div class='footer-text'>
-        प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>
-        भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम
+        <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>
+        <div class='footer-text'>
+            प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>
+            भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम
+        </div>
     </div>
 """, unsafe_allow_html=True)

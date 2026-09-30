@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 from google import genai
 from google.genai import types
 
@@ -35,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार संपूर्ण डेटा, डोमेन लेबल्स व फूटर
+# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, लेबल्स व फूटर
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -189,13 +188,7 @@ with col2:
 
 is_business = (selected_mode == lang_data["opt_business"])
 
-# ५. श्रीकृष्ण आणि अर्जुन यांची प्रतिमा शीर्षकाच्या वर दाखवणे
-for img_name in ["BHAGWAT GETA.jpeg", "sarathi_banner.jpg", "sarathi.jpg", "logo1.jpg"]:
-    if os.path.exists(img_name):
-        st.image(img_name, use_container_width=True)
-        break
-
-# ६. शीर्षके व प्लेसहोल्डर
+# ५. शीर्षके व प्लेसहोल्डर
 if is_business:
     st.title(lang_data["title_b"])
     st.caption(lang_data["desc_b"])
@@ -205,7 +198,7 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ७. सिस्टीम मार्गदर्शक सूचना
+# ६. सिस्टीम मार्गदर्शक सूचना
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
@@ -236,7 +229,7 @@ SYSTEM_INSTRUCTION = f"""
 सध्या निवडलेली भाषा: {language}
 """
 
-# ८. API Key व्यवस्थापन
+# ७. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -245,10 +238,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# ९. Client सुरू करणे
+# ८. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# १०. चॅट हिस्ट्री
+# ९. चॅट हिस्ट्री व्यवस्थापन
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -256,7 +249,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -299,7 +292,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-# १२. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर
+# ११. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर (इमेज पूर्णपणे वगळलेली आहे)
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

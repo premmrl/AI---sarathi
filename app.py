@@ -109,7 +109,7 @@ translations = {
         "business_placeholder": "మీ వ్యాపార లేదా పెట్టుబడి ప్రశ్నను ఇక్కడ రాయండి...",
         "title_p": "🕉️ AI సారథి",
         "desc_p": "భగవద్గీత వెలుగులో జీవిత సమస్యలకు మార్గదర్శనం",
-        "title_b": "💼 🕉️ AI సారథి — Business & Wealth",
+        "title_b": "💼 🕉️️ AI సారథి — Business & Wealth",
         "desc_b": "వ్యాపారం మరియు పెట్టుబడులకు భగవద్గీత ఆధారిత మార్గదర్శనం",
         "thinking": "సారథి ఆలోచిస్తున్నారు...",
         "footer_desc": "ప్రాజెక్ట్ కాన్సెప్ట్ మరియు నిర్వహణ: <b>Vighnaharta Gold Foundation</b><br>భగవద్గీత సూత్రాల ఆధారంగా ఒక డిజిటల్ కార్యక్రమం"
@@ -270,8 +270,8 @@ if user_prompt := st.chat_input(current_input_placeholder):
             reply_text = None
             error_details = ""
             
-            # अधिकृत, सक्रिय आणि अतिजलद मॉडेल
-            models = ["gemini-2.5-flash", "gemini-2.5-pro"]
+            # केवळ सध्या चालू असलेली अधिकृत मॉडेल्स
+            models = ["gemini-2.5-flash", "gemini-3.1-pro-preview"]
 
             for m in models:
                 try:

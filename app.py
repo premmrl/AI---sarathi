@@ -63,46 +63,145 @@ with col2:
         ]
     )
 
-# ४. सिस्टीम मार्गदर्शक सूचना
-if "Business" in mode:
+# ४. भाषेनुसार आणि डोमेननुसार डायनॅमिक मजकूर (Dynamic Localization)
+is_business = "Business" in mode
+
+# भाषेनुसार इनपुट बॉक्समधील सूचना (Placeholders)
+placeholders = {
+    "मराठी": {
+        "personal": "तुमचा प्रश्न किंवा समस्या येथे लिहा...",
+        "business": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
+        "title_p": "🕉️ AI सारथी",
+        "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
+        "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
+        "desc_b": "व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन",
+        "thinking": "सारथी विचार करत आहेत..."
+    },
+    "हिंदी": {
+        "personal": "अपनी समस्या या प्रश्न यहाँ लिखें...",
+        "business": "अपनी व्यावसायिक दुविधा या निवेश संबंधी प्रश्न यहाँ लिखें...",
+        "title_p": "🕉️ AI सारथी",
+        "desc_p": "आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन",
+        "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
+        "desc_b": "व्यापार, नेतृत्व और वित्तीय निवेश के लिए भगवद्गीता पर आधारित प्रबंधकीय मार्गदर्शन",
+        "thinking": "सारथी विचार कर रहे हैं..."
+    },
+    "English": {
+        "personal": "Type your life question or dilemma here...",
+        "business": "Enter your business challenge or investment query here...",
+        "title_p": "🕉️ AI Sarathi",
+        "desc_p": "Timeless guidance from the Bhagavad Gita for life's challenges",
+        "title_b": "💼 🕉️ AI Sarathi — Business & Wealth",
+        "desc_b": "Managerial and strategic wisdom from the Bhagavad Gita for business and wealth",
+        "thinking": "Sarathi is reflecting..."
+    },
+    "ગુજરાતી (Gujarati)": {
+        "personal": "તમારો પ્રશ્ન અથવા મૂંઝવણ અહીં લખો...",
+        "business": "તમારો વ્યવસાયિક પ્રશ્ન અહીં લખો...",
+        "title_p": "🕉️ AI સારથી",
+        "desc_p": "જીવનની સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન",
+        "title_b": "💼 🕉️ AI સારથી — Business & Wealth",
+        "desc_b": "વેપાર અને રોકાણ માટે ભગવદ્ગીતા આધારિત માર્ગદર્શન",
+        "thinking": "સારથી વિચારી રહ્યા છે..."
+    },
+    "ಕನ್ನಡ (Kannada)": {
+        "personal": "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
+        "business": "ನಿಮ್ಮ ವ್ಯಾಪಾರ ಅಥವಾ ಹೂಡಿಕೆ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
+        "title_p": "🕉️ AI ಸಾರಥಿ",
+        "desc_p": "ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಜೀವನದ ಮಾರ್ಗದರ್ಶನ",
+        "title_b": "💼 🕉️ AI ಸಾರಥಿ — Business & Wealth",
+        "desc_b": "ವ್ಯವಹಾರ ಮತ್ತು ಹೂಡಿಕೆಗಾಗಿ ಭಗವದ್ಗೀತೆ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶನ",
+        "thinking": "ಸಾರಥಿ ಯೋಚಿಸುತ್ತಿದ್ದಾರೆ..."
+    },
+    "తెలుగు (Telugu)": {
+        "personal": "మీ ప్రశ్నను ఇక్కడ రాయండి...",
+        "business": "మీ వ్యాపార లేదా పెట్టుబడి ప్రశ్నను ఇక్కడ రాయండి...",
+        "title_p": "🕉️ AI సారథి",
+        "desc_p": "భగవద్గీత వెలుగులో జీవిత సమస్యలకు మార్గదర్శనం",
+        "title_b": "💼 🕉️ AI సారథి — Business & Wealth",
+        "desc_b": "వ్యాపారం మరియు పెట్టుబడులకు భగవద్గీత ఆధారిత మార్గదర్శనం",
+        "thinking": "సారథి ఆలోచిస్తున్నారు..."
+    },
+    "தமிழ் (Tamil)": {
+        "personal": "உங்கள் கேள்வியை இங்கே எழுதுங்கள்...",
+        "business": "உங்கள் வணிகம் அல்லது முதலீட்டு கேள்வியை இங்கே எழுதுங்கள்...",
+        "title_p": "🕉️ AI சாரதி",
+        "desc_p": "பகவத் கீதையின் வழிகாட்டுதலில் தீர்வுகள்",
+        "title_b": "💼 🕉️ AI சாரதி — Business & Wealth",
+        "desc_b": "வணிகம் மற்றும் முதலீட்டிற்கான பகவத் கீதை வழிகாட்டுதல்",
+        "thinking": "சாரதி சிந்திக்கிறார்..."
+    },
+    "বাংলা (Bengali)": {
+        "personal": "আপনার প্রশ্ন এখানে লিখুন...",
+        "business": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
+        "title_p": "🕉️ AI সারথি",
+        "desc_p": "ভগবদ্গীতার আলোকে জীবনের সঠিক পথনির্দেশ",
+        "title_b": "💼 🕉️ AI সারথি — Business & Wealth",
+        "desc_b": "ব্যবসা ও বিনিয়োগের জন্য ভগবদ্গীতা ভিত্তিক পরামর্শ",
+        "thinking": "সারথি চিন্তা করছেন..."
+    },
+    "മലയാളം (Malayalam)": {
+        "personal": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ എഴുതുക...",
+        "business": "നിങ്ങളുടെ ബിസിനസ്സ് ചോദ്യം ഇവിടെ എഴുതുക...",
+        "title_p": "🕉️ AI സാരഥി",
+        "desc_p": "ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ ജീവിത മാർഗ്ഗദർശനം",
+        "title_b": "💼 🕉️ AI സാരഥി — Business & Wealth",
+        "desc_b": "ബിസിനസ്സിനും നിക്ഷേപത്തിനുമുള്ള ഭഗവദ്ഗീത മാർഗ്ഗദർശനം",
+        "thinking": "സാരഥി ചിന്തിക്കുന്നു..."
+    },
+    "ਪੰਜਾਬੀ (Punjabi)": {
+        "personal": "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
+        "business": "ਆਪਣਾ ਕਾਰੋਬਾਰੀ ਜਾਂ ਨਿਵੇਸ਼ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
+        "title_p": "🕉️ AI ਸਾਰਥੀ",
+        "desc_p": "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਜੀਵਨ ਦਾ ਮਾਰਗਦਰਸ਼ਨ",
+        "title_b": "💼 🕉️ AI ਸਾਰਥੀ — Business & Wealth",
+        "desc_b": "ਕਾਰੋਬਾਰ ਅਤੇ ਨਿਵੇਸ਼ ਲਈ ਗੀਤਾ ਅਧਾਰਤ ਮਾਰਗਦਰਸ਼ਨ",
+        "thinking": "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ..."
+    }
+}
+
+lang_dict = placeholders.get(language, placeholders["मराठी"])
+
+# शीर्षके आणि इनपुट बॉक्स भाषेनुसार निवडणे
+if is_business:
+    st.title(lang_dict["title_b"])
+    st.caption(lang_dict["desc_b"])
+    current_input_placeholder = lang_dict["business"]
+else:
+    st.title(lang_dict["title_p"])
+    st.caption(lang_dict["desc_p"])
+    current_input_placeholder = lang_dict["personal"]
+
+# ५. सिस्टीम मार्गदर्शक सूचना (Prompt)
+if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
-वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार वाढवणे (उदा. व्यवसाय १० पट करणे), नेतृत्व, तोटा, बाजारातील मंदी, जोखीम व्यवस्थापन किंवा आर्थिक निर्णय याविषयी असतील.
+वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार वाढवणे, नेतृत्व, तोटा, बाजारातील मंदी, जोखीम व्यवस्थापन (Risk Management) किंवा आर्थिक गुंतवणुकीतील निर्णय याविषयी असतील.
 
-तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
+तुझे काम:
 १. समस्येचे आणि व्यावसायिक उद्दिष्टाचे संक्षिप्त व प्रभावी विश्लेषण.
-२. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ (संस्कृत श्लोक व त्याचा आधुनिक व्यापार/गुंतवणूक संदर्भातील अर्थ).
-३. ध्येय गाठण्यासाठी २ ते ३ व्यावहारिक आणि रणनीतिक पावले (Actionable Strategic Steps).
-उत्तर प्रेरणादायी, धोरणी आणि थेट असावे.
+२. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ आणि त्याचा आधुनिक व्यापार/गुंतवणूक संदर्भातील अर्थ.
+३. २ ते ३ व्यावहारिक आणि रणनीतिक पावले (Actionable Strategic Steps).
+उत्तर धोरणी, थेट आणि व्यावसायिक असावे.
 """
 else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
 वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न विचारेल.
 
-तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
+तुझे काम:
 १. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत सांगणे.
 २. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ (संस्कृत श्लोक आणि सोपा अर्थ).
-३. दैनंदिन जीवनात आचरणात आणण्यासाठी २ ते ३ व्यावहारिक पावले (Actionable Advice).
+३. २ ते ३ व्यावहारिक पावले (Actionable Advice).
 उत्तर प्रेमळ, सकारात्मक आणि सुटसुटीत असावे.
 """
 
 SYSTEM_INSTRUCTION = f"""
 {DOMAIN_PROMPT}
 
-नियम: वापरकर्त्याला उत्तर निवडलेल्या भाषेतच दे.
+नियम: वापरकर्त्याने निवडलेल्या भाषेतच संपूर्ण उत्तर दे.
 सध्या निवडलेली भाषा: {language}
 """
-
-# ५. शीर्षके व इनपुट
-if "Business" in mode:
-    st.title("💼 🕉️ AI सारथी — Business & Wealth")
-    st.caption("व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन")
-    input_placeholder = "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा..."
-else:
-    st.title("🕉️ AI सारथी")
-    st.caption("तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन")
-    input_placeholder = "तुमचा प्रश्न किंवा समस्या येथे लिहा..."
 
 # ६. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
@@ -124,14 +223,14 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न घेणे आणि खात्रीशीर उत्तर देणे
-if user_prompt := st.chat_input(input_placeholder):
+# ९. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
+if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("सारथी विचार करत आहेत..."):
+        with st.spinner(lang_dict["thinking"]):
             history_contents = []
             for msg in st.session_state.messages:
                 role = "user" if msg["role"] == "user" else "model"
@@ -143,7 +242,6 @@ if user_prompt := st.chat_input(input_placeholder):
                 )
 
             reply_text = None
-            # थेट सक्रिय मॉडेल्सचा क्रम
             models_to_try = ["gemini-3.8-flash", "gemini-3-flash-preview", "gemini-2.5-flash"]
             
             for m_name in models_to_try:
@@ -166,7 +264,7 @@ if user_prompt := st.chat_input(input_placeholder):
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
             else:
-                st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया Secrets मध्ये Gemini API Key बरोबर असल्याची खात्री करा.")
+                st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
 # १०. तळाशी ब्रँडिंग फूटर
 st.markdown("""

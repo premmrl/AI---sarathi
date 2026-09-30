@@ -34,12 +34,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सिस्टीम मार्गदर्शक सूचना
+# ३. सिस्टीम मार्गदर्शक सूचना (सर्व भारतीय भाषांसाठी)
 SYSTEM_INSTRUCTION = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
-वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न त्यांच्या भाषेत (मराठी, हिंदी किंवा इंग्रजी) विचारेल.
+वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न कोणत्याही भाषेत विचारेल.
 
-महत्त्वाचा नियम: वापरकर्त्याने ज्या भाषेत प्रश्न विचारला आहे, त्याला संपूर्ण उत्तर त्याच भाषेत दे (उदा. हिंदीमध्ये विचारल्यास शुद्ध, प्रेमळ व सोप्या हिंदीत; मराठीत विचारल्यास मराठीत; इंग्रजीत विचारल्यास इंग्रजीत).
+महत्त्वाचा नियम: वापरकर्त्याने निवडलेल्या भाषेत (किंवा ज्या भाषेत प्रश्न विचारला आहे), त्याला संपूर्ण उत्तर त्याच भाषेत दे (उदा. गुजरातीमध्ये विचारल्यास गुजरातीत, तमिळमध्ये विचारल्यास तमिळमध्ये, मराठीत विचारल्यास मराठीत).
 
 तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
 १. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत स्पष्ट करणे.
@@ -49,28 +49,41 @@ SYSTEM_INSTRUCTION = """
 तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
 """
 
-# ४. भाषा निवड
+# ४. भाषा निवड (भारतातील प्रमुख १० भाषा)
 language = st.selectbox(
     "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
-    ["मराठी", "हिंदी", "English"]
+    [
+        "मराठी", 
+        "हिंदी", 
+        "English", 
+        "ગુજરાતી (Gujarati)", 
+        "ಕನ್ನಡ (Kannada)", 
+        "తెలుగు (Telugu)", 
+        "தமிழ் (Tamil)", 
+        "বাংলা (Bengali)", 
+        "മലയാളം (Malayalam)", 
+        "ਪੰਜਾਬੀ (Punjabi)"
+    ]
 )
 
-# ५. भाषेनुसार शीर्षके
-if language == "हिंदी":
-    st.title("🕉️ AI सारथी")
-    st.caption("आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन")
-    input_placeholder = "अपनी समस्या या प्रश्न यहाँ लिखें..."
-    thinking_text = "सारथी विचार कर रहे हैं..."
-elif language == "English":
-    st.title("🕉️ AI Sarathi")
-    st.caption("Timeless guidance from the Bhagavad Gita for modern life's challenges")
-    input_placeholder = "Type your question or dilemma here..."
-    thinking_text = "Sarathi is reflecting..."
-else:
-    st.title("🕉️ AI सारथी")
-    st.caption("तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन")
-    input_placeholder = "तुमचा प्रश्न किंवा समस्या येथे लिहा..."
-    thinking_text = "सारथी विचार करत आहेत..."
+# ५. निवडलेल्या भाषेनुसार शीर्षके आणि मजकूर
+titles = {
+    "मराठी": ("🕉️ AI सारथी", "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन", "तुमचा प्रश्न किंवा समस्या येथे लिहा...", "सारथी विचार करत आहेत..."),
+    "हिंदी": ("🕉️ AI सारथी", "आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन", "अपनी समस्या या प्रश्न यहाँ लिखें...", "सारथी विचार कर रहे हैं..."),
+    "English": ("🕉️ AI Sarathi", "Timeless guidance from the Bhagavad Gita for modern life's challenges", "Type your question or dilemma here...", "Sarathi is reflecting..."),
+    "ગુજરાતી (Gujarati)": ("🕉️ AI સારથી", "તમારા જીવનના પ્રશ્નો અને સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન", "તમારો પ્રશ્ન અહીં લખો...", "સારથી વિચારી રહ્યા છે..."),
+    "ಕನ್ನಡ (Kannada)": ("🕉️ AI ಸಾರಥಿ", "ನಿಮ್ಮ ಜೀವನದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ", "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...", "ಸಾರಥಿ ಯೋಚಿಸುತ್ತಿದ್ದಾರೆ..."),
+    "తెలుగు (Telugu)": ("🕉️️ AI సారథి", "భగవద్గీత వెలుగులో మీ సమస్యలకు సరైన మార్గదర్శనం", "మీ ప్రశ్నను ఇక్కడ రాయండి...", "సారథి ఆలోచిస్తున్నారు..."),
+    "தமிழ் (Tamil)": ("🕉️ AI சாரதி", "பகவத் கீதையின் வழிகாட்டுதலில் உங்கள் கேள்விகளுக்கான தீர்வு", "உங்கள் கேள்வியை இங்கே எழுதுங்கள்...", "சாரதி சிந்திக்கிறார்..."),
+    "বাংলা (Bengali)": ("🕉️ AI সারথি", "ভগবদ্গীতার আলোকে আপনার জীবনের সমস্যা ও প্রশ্নের সমাধান", "আপনার প্রশ্ন এখানে লিখুন...", "সারথি চিন্তা করছেন..."),
+    "മലയാളം (Malayalam)": ("🕉️ AI സാരഥി", "ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ നിങ്ങളുടെ പ്രശ്നങ്ങൾക്കുള്ള പരിഹാരം", "നിങ്ങളുടെ ചോദ്യം ഇവിടെ എഴുതുക...", "സാരഥി ചിന്തിക്കുന്നു..."),
+    "ਪੰਜਾਬੀ (Punjabi)": ("🕉️ AI ਸਾਰਥੀ", "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਤੁਹਾਡੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸਹੀ ਮਾਰਗਦਰਸ਼ਨ", "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...", "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ...")
+}
+
+current_title, current_caption, input_placeholder, thinking_text = titles.get(language, titles["मराठी"])
+
+st.title(current_title)
+st.caption(current_caption)
 
 # ६. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
@@ -84,7 +97,7 @@ if not api_key:
 # ७. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# ८. चॅट हिस्ट्री
+# ८. चॅट हिस्ट्री व्यवस्थापन
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -92,7 +105,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न घेणे व उत्तर देणे
+# ९. प्रश्न घेणे आणि उत्तर देणे
 if user_prompt := st.chat_input(input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -117,7 +130,7 @@ if user_prompt := st.chat_input(input_placeholder):
                         model=model_name,
                         contents=history_contents,
                         config=types.GenerateContentConfig(
-                            system_instruction=SYSTEM_INSTRUCTION,
+                            system_instruction=f"{SYSTEM_INSTRUCTION}\nसध्या निवडलेली भाषा: {language}",
                             temperature=0.7
                         )
                     )
@@ -132,7 +145,7 @@ if user_prompt := st.chat_input(input_placeholder):
             else:
                 st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-# १०. तळाशी केवळ साधे नाव (लोगो काढून टाकण्यात आला आहे)
+# १०. तळाशी ब्रँडिंग फूटर (लोगो वगळलेला आहे)
 st.markdown("""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

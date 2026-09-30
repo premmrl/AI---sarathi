@@ -34,42 +34,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. भाषा आणि मार्गदर्शन क्षेत्र निवड
-col1, col2 = st.columns([1, 1.2])
-
-with col1:
-    language = st.selectbox(
-        "🌐 Language / भाषा:",
-        [
-            "मराठी", 
-            "हिंदी", 
-            "English", 
-            "ગુજરાતી (Gujarati)", 
-            "ಕನ್ನಡ (Kannada)", 
-            "తెలుగు (Telugu)", 
-            "தமிழ் (Tamil)", 
-            "বাংলা (Bengali)", 
-            "മലയാളം (Malayalam)", 
-            "ਪੰਜਾਬੀ (Punjabi)"
-        ]
-    )
-
-with col2:
-    mode = st.selectbox(
-        "🎯 Guidance Domain / मार्गदर्शन क्षेत्र:",
-        [
-            "जीवन व वैयक्तिक (Life & Personal)",
-            "व्यवसाय व गुंतवणूक (Business & Wealth)"
-        ]
-    )
-
-# ४. भाषेनुसार आणि डोमेननुसार डायनॅमिक मजकूर (सर्व मजकूर व फूटरसह)
-is_business = "Business" in mode
-
+# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, डोमेन लेबल्स व ऑप्शन्स
 translations = {
     "मराठी": {
-        "personal": "तुमचा प्रश्न किंवा समस्या येथे लिहा...",
-        "business": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
+        "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
+        "opt_personal": "जीवन व वैयक्तिक समस्या",
+        "opt_business": "व्यवसाय व आर्थिक गुंतवणूक",
+        "personal_placeholder": "तुमचा प्रश्न किंवा समस्या येथे लिहा...",
+        "business_placeholder": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
         "title_p": "🕉️ AI सारथी",
         "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
         "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
@@ -78,8 +50,11 @@ translations = {
         "footer_desc": "प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
     },
     "हिंदी": {
-        "personal": "अपनी समस्या या प्रश्न यहाँ लिखें...",
-        "business": "अपनी व्यावसायिक दुविधा या निवेश संबंधी प्रश्न यहाँ लिखें...",
+        "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
+        "opt_personal": "जीवन एवं व्यक्तिगत चुनौतियाँ",
+        "opt_business": "व्यापार एवं वित्तीय निवेश",
+        "personal_placeholder": "अपनी समस्या या प्रश्न यहाँ लिखें...",
+        "business_placeholder": "अपनी व्यावसायिक दुविधा या निवेश संबंधी प्रश्न यहाँ लिखें...",
         "title_p": "🕉️ AI सारथी",
         "desc_p": "आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन",
         "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
@@ -88,8 +63,11 @@ translations = {
         "footer_desc": "परियोजना संकल्पना एवं संचालन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीता के सिद्धांतों पर आधारित लोक-कल्याणकारी डिजिटल पहल"
     },
     "English": {
-        "personal": "Type your life question or dilemma here...",
-        "business": "Enter your business challenge or investment query here...",
+        "domain_label": "🎯 Guidance Domain:",
+        "opt_personal": "Life & Personal Challenges",
+        "opt_business": "Business & Wealth / Investments",
+        "personal_placeholder": "Type your life question or dilemma here...",
+        "business_placeholder": "Enter your business challenge or investment query here...",
         "title_p": "🕉️ AI Sarathi",
         "desc_p": "Timeless guidance from the Bhagavad Gita for modern life's challenges",
         "title_b": "💼 🕉️ AI Sarathi — Business & Wealth",
@@ -98,8 +76,11 @@ translations = {
         "footer_desc": "Project Concept & Initiative: <b>Vighnaharta Gold Foundation</b><br>A community-focused digital initiative based on the teachings of Bhagavad Gita"
     },
     "ગુજરાતી (Gujarati)": {
-        "personal": "તમારો પ્રશ્ન અથવા મૂંઝવણ અહીં લખો...",
-        "business": "તમારો વ્યવસાયિક પ્રશ્ન અહીં લખો...",
+        "domain_label": "🎯 માર્ગદર્શન ક્ષેત્ર:",
+        "opt_personal": "જીવન અને વ્યક્તિગત પ્રશ્નો",
+        "opt_business": "વેપાર અને આર્થિક રોકાણ",
+        "personal_placeholder": "તમારો પ્રશ્ન અથવા મૂંઝવણ અહીં લખો...",
+        "business_placeholder": "તમારો વ્યવસાયિક પ્રશ્ન અહીં લખો...",
         "title_p": "🕉️ AI સારથી",
         "desc_p": "જીવનની સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન",
         "title_b": "💼 🕉️ AI સારથી — Business & Wealth",
@@ -108,8 +89,11 @@ translations = {
         "footer_desc": "પ્રોજેક્ટ સંકલ્પના અને સંચાલન: <b>Vighnaharta Gold Foundation</b><br>ભગવદ્ગીતાના સિદ્ધાંતો પર આધારિત લોકકલ્યાણકારી ડિજિટલ પહેલ"
     },
     "ಕನ್ನಡ (Kannada)": {
-        "personal": "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
-        "business": "ನಿಮ್ಮ ವ್ಯಾಪಾರ ಅಥವಾ ಹೂಡಿಕೆ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
+        "domain_label": "🎯 ಮಾರ್ಗದರ್ಶನ ಕ್ಷೇತ್ರ:",
+        "opt_personal": "ಜೀವನ ಮತ್ತು ವೈಯಕ್ತಿಕ ಸವಾಲುಗಳು",
+        "opt_business": "ವ್ಯವಹಾರ ಮತ್ತು ಆರ್ಥಿಕ ಹೂಡಿಕೆ",
+        "personal_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
+        "business_placeholder": "ನಿಮ್ಮ ವ್ಯಾಪಾರ ಅಥವಾ ಹೂಡಿಕೆ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
         "title_p": "🕉️ AI ಸಾರಥಿ",
         "desc_p": "ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಜೀವನದ ಮಾರ್ಗದರ್ಶನ",
         "title_b": "💼 🕉️ AI ಸಾರಥಿ — Business & Wealth",
@@ -118,8 +102,11 @@ translations = {
         "footer_desc": "ಯೋಜನೆಯ ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>Vighnaharta Gold Foundation</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರದ ಮೇಲೆ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
     },
     "తెలుగు (Telugu)": {
-        "personal": "మీ ప్రశ్నను ఇక్కడ రాయండి...",
-        "business": "మీ వ్యాపార లేదా పెట్టుబడి ప్రశ్నను ఇక్కడ రాయండి...",
+        "domain_label": "🎯 మార్గదర్శక రంగం:",
+        "opt_personal": "జీవితం మరియు వ్యక్తిగత సమస్యలు",
+        "opt_business": "వ్యాపారం మరియు పెట్టుబడులు",
+        "personal_placeholder": "మీ ప్రశ్నను ఇక్కడ రాయండి...",
+        "business_placeholder": "మీ వ్యాపార లేదా పెట్టుబడి ప్రశ్నను ఇక్కడ రాయండి...",
         "title_p": "🕉️ AI సారథి",
         "desc_p": "భగవద్గీత వెలుగులో జీవిత సమస్యలకు మార్గదర్శనం",
         "title_b": "💼 🕉️ AI సారథి — Business & Wealth",
@@ -128,8 +115,11 @@ translations = {
         "footer_desc": "ప్రాజెక్ట్ కాన్సెప్ట్ మరియు నిర్వహణ: <b>Vighnaharta Gold Foundation</b><br>భగవద్గీత సూత్రాల ఆధారంగా ఒక డిజిటల్ కార్యక్రమం"
     },
     "தமிழ் (Tamil)": {
-        "personal": "உங்கள் கேள்வியை இங்கே எழுதுங்கள்...",
-        "business": "உங்கள் வணிகம் அல்லது முதலீட்டு கேள்வியை இங்கே எழுதுங்கள்...",
+        "domain_label": "🎯 வழிகாட்டுதல் துறை:",
+        "opt_personal": "வாழ்க்கை மற்றும் தனிப்பட்ட சவால்கள்",
+        "opt_business": "வணிகம் மற்றும் முதலீடுகள்",
+        "personal_placeholder": "உங்கள் கேள்வியை இங்கே எழுதுங்கள்...",
+        "business_placeholder": "உங்கள் வணிகம் அல்லது முதலீட்டு கேள்வியை இங்கே எழுதுங்கள்...",
         "title_p": "🕉️ AI சாரதி",
         "desc_p": "பகவத் கீதையின் வழிகாட்டுதலில் தீர்வுகள்",
         "title_b": "💼 🕉️ AI சாரதி — Business & Wealth",
@@ -138,8 +128,11 @@ translations = {
         "footer_desc": "திட்ட கருத்து மற்றும் வழிகாட்டுதல்: <b>Vighnaharta Gold Foundation</b><br>பகவத் கீதையின் கொள்கைகளை அடிப்படையாகக் கொண்ட டிஜிட்டல் முயற்சி"
     },
     "বাংলা (Bengali)": {
-        "personal": "আপনার প্রশ্ন এখানে লিখুন...",
-        "business": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
+        "domain_label": "🎯 দিকনির্দেশনার ক্ষেত্র:",
+        "opt_personal": "জীবন ও ব্যক্তিগত সমস্যা",
+        "opt_business": "ব্যবসা ও আর্থিক বিনিয়োগ",
+        "personal_placeholder": "আপনার প্রশ্ন এখানে লিখুন...",
+        "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
         "title_p": "🕉️ AI সারথি",
         "desc_p": "ভগবদ্গীতার আলোকে জীবনের সঠিক পথনির্দেশ",
         "title_b": "💼 🕉️ AI সারথি — Business & Wealth",
@@ -148,8 +141,11 @@ translations = {
         "footer_desc": "প্রকল্প পরিকল্পনা ও পরিচালনা: <b>Vighnaharta Gold Foundation</b><br>ভগবদ্গীতার নীতির ওপর ভিত্তি করে জনকল্যাণমূলক ডিজিটাল উদ্যোগ"
     },
     "മലയാളം (Malayalam)": {
-        "personal": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ എഴുതുക...",
-        "business": "നിങ്ങളുടെ ബിസിനസ്സ് ചോദ്യം ഇവിടെ എഴുതുക...",
+        "domain_label": "🎯 മാർഗ്ഗദർശന മേഖല:",
+        "opt_personal": "ജീവിതവും വ്യക്തിഗത വെല്ലുവിളികളും",
+        "opt_business": "ബിസിനസ്സും സാമ്പത്തിക നിക്ഷേപവും",
+        "personal_placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ എഴുതുക...",
+        "business_placeholder": "നിങ്ങളുടെ ബിസിനസ്സ് ചോദ്യം ഇവിടെ എഴുതുക...",
         "title_p": "🕉️ AI സാരഥി",
         "desc_p": "ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ ജീവിത മാർഗ്ഗദർശനം",
         "title_b": "💼 🕉️ AI സാരഥി — Business & Wealth",
@@ -158,8 +154,11 @@ translations = {
         "footer_desc": "പദ്ധതി ആശയം: <b>Vighnaharta Gold Foundation</b><br>ഭഗവദ്ഗീതയുടെ തത്വങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ള ഡിജിറ്റൽ സംരംഭം"
     },
     "ਪੰਜਾਬੀ (Punjabi)": {
-        "personal": "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
-        "business": "ਆਪਣਾ ਕਾਰੋਬਾਰੀ ਜਾਂ ਨਿਵੇਸ਼ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
+        "domain_label": "🎯 ਮਾਰਗਦਰਸ਼ਨ ਖੇਤਰ:",
+        "opt_personal": "ਜੀਵਨ ਅਤੇ ਨਿੱਜੀ ਚੁਣੌਤੀਆਂ",
+        "opt_business": "ਕਾਰੋਬਾਰ ਅਤੇ ਵਿੱਤੀ ਨਿਵੇਸ਼",
+        "personal_placeholder": "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
+        "business_placeholder": "ਆਪਣਾ ਕਾਰੋਬਾਰੀ ਜਾਂ ਨਿਵੇਸ਼ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
         "title_p": "🕉️ AI ਸਾਰਥੀ",
         "desc_p": "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਜੀਵਨ ਦਾ ਮਾਰਗਦਰਸ਼ਨ",
         "title_b": "💼 🕉️ AI ਸਾਰਥੀ — Business & Wealth",
@@ -169,19 +168,38 @@ translations = {
     }
 }
 
+# ४. भाषा निवड
+col1, col2 = st.columns([1, 1.2])
+
+with col1:
+    language = st.selectbox(
+        "🌐 Language / भाषा:",
+        list(translations.keys())
+    )
+
 lang_data = translations.get(language, translations["मराठी"])
 
-# शीर्षके आणि इनपुट बॉक्स
+with col2:
+    # निवडलेल्या भाषेनुसार डोमेनचे पर्याय
+    mode_options = [lang_data["opt_personal"], lang_data["opt_business"]]
+    selected_mode = st.selectbox(
+        lang_data["domain_label"],
+        mode_options
+    )
+
+# ५. बिझनेस मोड निवडला आहे का ते तपासणे
+is_business = (selected_mode == lang_data["opt_business"])
+
 if is_business:
     st.title(lang_data["title_b"])
     st.caption(lang_data["desc_b"])
-    current_input_placeholder = lang_data["business"]
+    current_input_placeholder = lang_data["business_placeholder"]
 else:
     st.title(lang_data["title_p"])
     st.caption(lang_data["desc_p"])
-    current_input_placeholder = lang_data["personal"]
+    current_input_placeholder = lang_data["personal_placeholder"]
 
-# ५. सिस्टीम मार्गदर्शक सूचना
+# ६. सिस्टीम मार्गदर्शक सूचना (Prompt)
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
@@ -212,7 +230,7 @@ SYSTEM_INSTRUCTION = f"""
 सध्या निवडलेली भाषा: {language}
 """
 
-# ६. API Key व्यवस्थापन
+# ७. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -221,10 +239,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# ७. Client सुरू करणे
+# ८. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# ८. चॅट हिस्ट्री
+# ९. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -232,7 +250,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -275,7 +293,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-# १०. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर
+# ११. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

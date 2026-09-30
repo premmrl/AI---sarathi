@@ -62,7 +62,7 @@ if user_prompt := st.chat_input("तुमचा प्रश्न किंव
                     )
 
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model=model="gemini-3.8-flash",
                     contents=history_contents,
                     config=types.GenerateContentConfig(
                         system_instruction=SYSTEM_INSTRUCTION,

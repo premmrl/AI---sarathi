@@ -67,38 +67,38 @@ with col2:
 if "Business" in mode:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
-वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार, नेतृत्व, भागीदारी, नुकसान, बाजारातील मंदी, जोखीम व्यवस्थापन (Risk Management) किंवा आर्थिक गुंतवणुकीतील निर्णय याविषयी असतील.
+वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार, नेतृत्व, तोटा, बाजारातील मंदी, जोखीम व्यवस्थापन किंवा गुंतवणुकीतील निर्णय याविषयी असतील.
 
 तुझे काम:
-१. व्यावसायिक संभ्रम आणि भावनिक दबाव (उदा. लोभ, भीती, अस्थिरता) याचे विश्लेषण करणे.
-२. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ देणे (उदा. 'कर्मण्येवाधिकारस्ते', 'स्थितप्रज्ञ', 'समत्वं योग उच्यते', 'योगः कर्मसु कौशलम्' इत्यादी) आणि त्याचा आधुनिक व्यवस्थापन व गुंतवणुकीच्या संदर्भात अर्थ सांगणे.
-३. उद्योजक/गुंतवणूकदारासाठी २ ते ३ स्पष्ट, व्यावहारिक आणि रणनीतिक पावले (Strategic Steps) देणे.
-तुझा सूर व्यावसायिक, प्रेरणादायी, धोरणी आणि तत्त्वज्ञासारखा असावा.
+१. समस्येचे आणि मानसिक दबावाचे संक्षिप्त विश्लेषण करणे.
+२. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ देणे आणि त्याचा आधुनिक व्यवस्थापन/गुंतवणुकीतील अर्थ सांगणे.
+३. २ ते ३ स्पष्ट आणि रणनीतिक व्यावहारिक पावले (Actionable Steps) देणे.
+उत्तर स्पष्ट, धोरणी आणि थेट असावे.
 """
 else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
-वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न कोणत्याही भाषेत विचारेल.
+वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न विचारेल.
 
 तुझे काम:
-१. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत स्पष्ट करणे.
-२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ देणे (मूळ संस्कृत श्लोक आणि निवडलेल्या भाषेत सोपा अर्थ).
-३. हा विचार दैनंदिन जीवनात कसा आचरायचा, याची २ ते ३ व्यावहारिक पावले (Actionable Advice) देणे.
-तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
+१. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत सांगणे.
+२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ देणे (संस्कृत श्लोक आणि सोपा अर्थ).
+३. दैनंदिन जीवनात आचरणात आणण्यासाठी २ ते ३ व्यावहारिक पावले (Actionable Advice) देणे.
+उत्तर प्रेमळ, सकारात्मक आणि सुटसुटीत असावे.
 """
 
 SYSTEM_INSTRUCTION = f"""
 {DOMAIN_PROMPT}
 
-महत्त्वाचा नियम: वापरकर्त्याने निवडलेल्या भाषेत (किंवा ज्या भाषेत प्रश्न विचारला आहे), त्याला संपूर्ण उत्तर त्याच भाषेत दे.
+नियम: वापरकर्त्याला उत्तर निवडलेल्या भाषेतच दे.
 सध्या निवडलेली भाषा: {language}
 """
 
-# ५. शीर्षके व प्लेसहोल्डर
+# ५. शीर्षके व इनपुट
 if "Business" in mode:
     st.title("💼 🕉️ AI सारथी — Business & Wealth")
     st.caption("व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन")
-    input_placeholder = "तुमचा व्यावसायिक संभ्रम, गुंतवणुकीचा प्रश्न किंवा आव्हान येथे लिहा..."
+    input_placeholder = "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा..."
 else:
     st.title("🕉️ AI सारथी")
     st.caption("तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन")
@@ -116,7 +116,7 @@ if not api_key:
 # ७. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# ८. चॅट हिस्ट्री व्यवस्थापन
+# ८. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -124,47 +124,66 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न घेणे आणि उत्तर देणे
+# ९. प्रश्न घेणे आणि थेट फास्ट स्ट्रीमिंगने उत्तर देणे
 if user_prompt := st.chat_input(input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("सारथी विचार करत आहेत..."):
-            history_contents = []
-            for msg in st.session_state.messages:
-                role = "user" if msg["role"] == "user" else "model"
-                history_contents.append(
-                    types.Content(
-                        role=role,
-                        parts=[types.Part.from_text(text=msg["content"])]
+        history_contents = []
+        for msg in st.session_state.messages:
+            role = "user" if msg["role"] == "user" else "model"
+            history_contents.append(
+                types.Content(
+                    role=role,
+                    parts=[types.Part.from_text(text=msg["content"])]
+                )
+            )
+
+        # जलद गतीसाठी थेट कार्यरत मॉडेलवर स्ट्रीमिंग सुरू करणे
+        full_response = ""
+        message_placeholder = st.empty()
+        
+        try:
+            # generate_content_stream मुळे उत्तर तयार होताच लगेच स्क्रिनवर टाईप होते
+            response_stream = client.models.generate_content_stream(
+                model="gemini-2.5-flash",
+                contents=history_contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_INSTRUCTION,
+                    temperature=0.7
+                )
+            )
+            for chunk in response_stream:
+                if chunk.text:
+                    full_response += chunk.text
+                    message_placeholder.markdown(full_response + "▌")
+            
+            message_placeholder.markdown(full_response)
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+        except Exception:
+            # बॅकअप मॉडेल (आवश्यकता भासल्यास)
+            try:
+                response_stream = client.models.generate_content_stream(
+                    model="gemini-3.8-flash",
+                    contents=history_contents,
+                    config=types.GenerateContentConfig(
+                        system_instruction=SYSTEM_INSTRUCTION,
+                        temperature=0.7
                     )
                 )
+                for chunk in response_stream:
+                    if chunk.text:
+                        full_response += chunk.text
+                        message_placeholder.markdown(full_response + "▌")
+                message_placeholder.markdown(full_response)
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+            except Exception as e:
+                st.error("सर्व्हर प्रतिसाद देत नाही. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-            reply_text = None
-            for model_name in ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-3-flash-preview"]:
-                try:
-                    response = client.models.generate_content(
-                        model=model_name,
-                        contents=history_contents,
-                        config=types.GenerateContentConfig(
-                            system_instruction=SYSTEM_INSTRUCTION,
-                            temperature=0.7
-                        )
-                    )
-                    reply_text = response.text
-                    break
-                except Exception:
-                    continue
-
-            if reply_text:
-                st.markdown(reply_text)
-                st.session_state.messages.append({"role": "assistant", "content": reply_text})
-            else:
-                st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
-
-# १०. तळाशी ब्रँडिंग फूटर
+# १०. तळाशी फूटर
 st.markdown("""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

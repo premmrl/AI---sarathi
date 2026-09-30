@@ -3,23 +3,25 @@ import os
 from google import genai
 from google.genai import types
 
+# १. पेज सेटिंग्ज
 st.set_page_config(
     page_title="AI सारथी | Vighnaharta Gold Foundation",
     page_icon="🕉️",
     layout="centered"
 )
 
-# ब्रँडिंग व डिझाइन (Custom CSS)
+# २. ब्रँडिंग व डिझाइन स्टाईल (Custom CSS)
 st.markdown("""
     <style>
     .brand-header {
         text-align: center;
-        margin-bottom: 10px;
+        margin-top: 5px;
+        margin-bottom: 12px;
     }
     .brand-title {
-        font-size: 15px;
+        font-size: 14px;
         color: #d4af37;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
     }
@@ -27,46 +29,51 @@ st.markdown("""
         text-align: center;
         color: #888888;
         font-size: 13px;
-        margin-top: 40px;
+        margin-top: 45px;
         padding-top: 15px;
         border-top: 1px solid #333333;
+        line-height: 1.6;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# सिस्टीम मार्गदर्शक सूचना
+# ३. सिस्टीम मार्गदर्शक सूचना (मराठी, हिंदी व इंग्रजी तिन्हींसाठी)
 SYSTEM_INSTRUCTION = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
 वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न त्यांच्या भाषेत (मराठी, हिंदी किंवा इंग्रजी) विचारेल.
 
-महत्त्वाचा नियम: वापरकर्त्याने ज्या भाषेत प्रश्न विचारला आहे, त्याला संपूर्ण उत्तर त्याच भाषेत दे.
+महत्त्वाचा नियम: वापरकर्त्याने ज्या भाषेत प्रश्न विचारला आहे, त्याला संपूर्ण उत्तर त्याच भाषेत दे (उदा. हिंदीमध्ये विचारल्यास शुद्ध, प्रेमळ व सोप्या हिंदीत; मराठीत विचारल्यास मराठीत; इंग्रजीत विचारल्यास इंग्रजीत).
+
+तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
 १. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत स्पष्ट करणे.
-२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ देणे (मूळ संस्कृत श्लोक आणि त्याचा सोपा अर्थ).
+२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ देणे (मूळ संस्कृत श्लोक आणि त्याचा निवडलेल्या भाषेत सोपा अर्थ).
 ३. हा विचार दैनंदिन जीवनात कसा आचरायचा, याची २ ते ३ व्यावहारिक पावले (Actionable Advice) देणे.
+
 तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
 """
 
-# भाषा निवड (स्क्रीनच्या सर्वात वर)
+# ४. भाषा निवड (स्क्रीनच्या सर्वात वर)
 language = st.selectbox(
     "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
     ["मराठी", "हिंदी", "English"]
 )
 
-# लोगो आणि ब्रँड हेडर दाखवणे
-col1, col2, col3 = st.columns([1, 2, 1])
+# ५. लोगो दाखवणे (logo1.jpg किंवा logo.jpg)
+col1, col2, col3 = st.columns([1.2, 1.6, 1.2])
 with col2:
-    if os.path.exists("logo.jpg"):
-        st.image("logo.jpg", use_container_width=True)
-    elif os.path.exists("logo.png"):
-        st.image("logo.png", use_container_width=True)
+    for img_name in ["logo1.jpg", "logo.jpg", "logo.png", "logo.jpeg"]:
+        if os.path.exists(img_name):
+            st.image(img_name, use_container_width=True)
+            break
 
+# ६. ब्रँडिंग हेडर
 st.markdown("""
     <div class='brand-header'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>
     </div>
 """, unsafe_allow_html=True)
 
-# भाषेनुसार शीर्षके
+# ७. निवडलेल्या भाषेनुसार शीर्षके आणि मजकूर
 if language == "हिंदी":
     st.title("🕉️ AI सारथी")
     st.caption("आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन")
@@ -83,7 +90,7 @@ else:
     input_placeholder = "तुमचा प्रश्न किंवा समस्या येथे लिहा..."
     thinking_text = "सारथी विचार करत आहेत..."
 
-# API Key व्यवस्थापन
+# ८. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -92,10 +99,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# Client सुरू करणे
+# ९. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# चॅट हिस्ट्री
+# १०. चॅट हिस्ट्री व्यवस्थापन
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -103,7 +110,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# युझरचा प्रश्न घेणे
+# ११. युझरचा प्रश्न घेणे आणि उत्तर देणे
 if user_prompt := st.chat_input(input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -121,6 +128,7 @@ if user_prompt := st.chat_input(input_placeholder):
                     )
                 )
 
+            # सर्व्हर लोड टाळण्यासाठी पर्यायी मॉडेल्स
             reply_text = None
             for model_name in ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-3-flash-preview"]:
                 try:
@@ -141,9 +149,9 @@ if user_prompt := st.chat_input(input_placeholder):
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
             else:
-                st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
+                st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.")
 
-# तळाशी अधिकृत फूटर
+# १२. अधिकृत फूटर (Footer)
 st.markdown("""
     <div class='footer-text'>
         प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>

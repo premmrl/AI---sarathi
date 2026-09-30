@@ -23,9 +23,9 @@ SYSTEM_INSTRUCTION = """
 तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
 """
 
-# भाषा निवड (Sidebar)
-language = st.sidebar.selectbox(
-    "🌐 Select Language / भाषा निवडा",
+# भाषा निवड थेट मुख्य स्क्रीनवर (मोबाईलवर सहज दिसण्यासाठी)
+language = st.selectbox(
+    "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
     ["मराठी", "हिंदी", "English"]
 )
 

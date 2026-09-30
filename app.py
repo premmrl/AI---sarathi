@@ -1,12 +1,11 @@
 import streamlit as st
-import os
 from google import genai
 from google.genai import types
 
 # १. पेज सेटिंग्ज
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
-    page_icon="🕉️️",
+    page_icon="🕉️",
     layout="centered"
 )
 
@@ -15,8 +14,8 @@ st.markdown("""
     <style>
     .footer-container {
         text-align: center;
-        margin-top: 60px;
-        padding-top: 20px;
+        margin-top: 50px;
+        padding-top: 15px;
         border-top: 1px solid #333333;
     }
     .brand-title {
@@ -25,7 +24,6 @@ st.markdown("""
         font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
-        margin-top: 10px;
     }
     .footer-text {
         color: #888888;
@@ -51,15 +49,15 @@ SYSTEM_INSTRUCTION = """
 तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
 """
 
-# ४. भाषा निवड (स्क्रीनच्या सर्वात वर)
+# ४. भाषा निवड
 language = st.selectbox(
     "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
     ["मराठी", "हिंदी", "English"]
 )
 
-# ५. निवडलेल्या भाषेनुसार शीर्षके
+# ५. भाषेनुसार शीर्षके
 if language == "हिंदी":
-    st.title("🕉️️ AI सारथी")
+    st.title("🕉️ AI सारथी")
     st.caption("आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन")
     input_placeholder = "अपनी समस्या या प्रश्न यहाँ लिखें..."
     thinking_text = "सारथी विचार कर रहे हैं..."
@@ -86,7 +84,7 @@ if not api_key:
 # ७. Client सुरू करणे
 client = genai.Client(api_key=api_key)
 
-# ८. चॅट हिस्ट्री व्यवस्थापन
+# ८. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -94,7 +92,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. युझरचा प्रश्न घेणे आणि उत्तर देणे
+# ९. प्रश्न घेणे व उत्तर देणे
 if user_prompt := st.chat_input(input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -132,20 +130,11 @@ if user_prompt := st.chat_input(input_placeholder):
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
             else:
-                st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.")
+                st.warning("सर्व्हर सध्या व्यस्त आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
 
-# १०. सर्वात शेवटी: लहान आकाराचा लोगो आणि फूटर ब्रँडिंग
-st.markdown("<div class='footer-container'>", unsafe_allow_html=True)
-
-# लोगो लहान आकारात दाखवण्यासाठी तीन कॉलम
-f_col1, f_col2, f_col3 = st.columns([1.6, 0.8, 1.6])
-with f_col2:
-    for img_name in ["logo1.jpg", "logo.jpg", "logo.png", "logo.jpeg"]:
-        if os.path.exists(img_name):
-            st.image(img_name, use_container_width=True)
-            break
-
+# १०. तळाशी केवळ साधे नाव (लोगो काढून टाकण्यात आला आहे)
 st.markdown("""
+    <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>
         <div class='footer-text'>
             प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>

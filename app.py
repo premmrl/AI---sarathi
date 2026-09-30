@@ -3,7 +3,7 @@ from google import genai
 from google.genai import types
 
 st.set_page_config(
-    page_title="भगवद्गीता सारथी",
+    page_title="AI सारथी",
     page_icon="🕉️",
     layout="centered"
 )

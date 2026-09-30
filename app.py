@@ -50,35 +50,22 @@ if user_prompt := st.chat_input("तुमचा प्रश्न किंव
 
     with st.chat_message("assistant"):
         with st.spinner("सारथी विचार करत आहेत..."):
-            try:
-                history_contents = []
-                for msg in st.session_state.messages:
-                    role = "user" if msg["role"] == "user" else "model"
-                    history_contents.append(
-                        types.Content(
-                            role=role,
-                            parts=[types.Part.from_text(text=msg["content"])]
-                        )
-                    )
-
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=history_contents,
-                    config=types.GenerateContentConfig(
-                        system_instruction=SYSTEM_INSTRUCTION,
-                        temperature=0.7
+            history_contents = []
+            for msg in st.session_state.messages:
+                role = "user" if msg["role"] == "user" else "model"
+                history_contents.append(
+                    types.Content(
+                        role=role,
+                        parts=[types.Part.from_text(text=msg["content"])]
                     )
                 )
-                
-                reply_text = response.text
-                st.markdown(reply_text)
-                st.session_state.messages.append({"role": "assistant", "content": reply_text})
 
-            except Exception as e:
-                # जर जुने मॉडेल उपलब्ध नसेल तर थेट नवीन फ्लॅश मॉडेल वापरणे
+            # पहिल्यांदा मुख्य मॉडेल वापरणे
+            reply_text = None
+            for model_name in ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-3-flash-preview"]:
                 try:
                     response = client.models.generate_content(
-                        model="gemini-3.8-flash",
+                        model=model_name,
                         contents=history_contents,
                         config=types.GenerateContentConfig(
                             system_instruction=SYSTEM_INSTRUCTION,
@@ -86,7 +73,12 @@ if user_prompt := st.chat_input("तुमचा प्रश्न किंव
                         )
                     )
                     reply_text = response.text
-                    st.markdown(reply_text)
-                    st.session_state.messages.append({"role": "assistant", "content": reply_text})
-                except Exception as inner_e:
-                    st.error(f"काहीतरी त्रुटी आली: {inner_e}")
+                    break
+                except Exception:
+                    continue
+
+            if reply_text:
+                st.markdown(reply_text)
+                st.session_state.messages.append({"role": "assistant", "content": reply_text})
+            else:
+                st.warning("सर्व्हरवर सध्या खूप ताण आहे. कृपया १ मिनिट थांबून पुन्हा प्रयत्न करा.")

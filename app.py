@@ -34,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, लेबल्स व फूटर
+# ३. सर्व १० भाषांनुसार डेटा
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -44,7 +44,7 @@ translations = {
         "business_placeholder": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
         "title_p": "🕉️ AI सारथी",
         "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
-        "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
+        "title_b": "💼 🕉️️ AI सारथी — Business & Wealth",
         "desc_b": "व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन",
         "thinking": "सारथी विचार करत आहेत...",
         "footer_desc": "प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
@@ -109,7 +109,7 @@ translations = {
         "business_placeholder": "మీ వ్యాపార లేదా పెట్టుబడి ప్రశ్నను ఇక్కడ రాయండి...",
         "title_p": "🕉️ AI సారథి",
         "desc_p": "భగవద్గీత వెలుగులో జీవిత సమస్యలకు మార్గదర్శనం",
-        "title_b": "💼 🕉️️ AI సారథి — Business & Wealth",
+        "title_b": "💼 🕉️ AI సారథి — Business & Wealth",
         "desc_b": "వ్యాపారం మరియు పెట్టుబడులకు భగవద్గీత ఆధారిత మార్గదర్శనం",
         "thinking": "సారథి ఆలోచిస్తున్నారు...",
         "footer_desc": "ప్రాజెక్ట్ కాన్సెప్ట్ మరియు నిర్వహణ: <b>Vighnaharta Gold Foundation</b><br>భగవద్గీత సూత్రాల ఆధారంగా ఒక డిజిటల్ కార్యక్రమం"
@@ -132,7 +132,7 @@ translations = {
         "opt_personal": "জীবন ও व्यक्तिगत समस्या",
         "opt_business": "ব্যবসা ও আর্থিক বিনিয়োগ",
         "personal_placeholder": "আপনার প্রশ্ন এখানে লিখুন...",
-        "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
+        "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ प्रश्न এখানে লিখুন...",
         "title_p": "🕉️ AI সারথি",
         "desc_p": "ভগবদ্গীতার আলোকে জীবনের সঠিক পথনির্দেশ",
         "title_b": "💼 🕉️ AI সারথি — Business & Wealth",
@@ -198,21 +198,20 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. थेट, अचूक व अतिजलद सिस्टीम प्रॉम्प्ट
+# ६. थेट आणि संक्षिप्त सिस्टीम प्रॉम्प्ट (कमी टोकन्स = प्रचंड वेग)
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
 व्यावसायिक किंवा गुंतवणूकदाराच्या प्रश्नावर थेट, वेगाने व अचूक उत्तर दे:
-१. व्यावसायिक समस्येचे/प्रश्नाचे संक्षिप्त विश्लेषण (२ ओळींत).
-२. भगवद्गीतेतील अचूक श्लोक आणि त्याचा आधुनिक व्यापार/गुंतवणुकीतील अर्थ.
+१. समस्येचे संक्षिप्त विश्लेषण (२ ओळींत).
+२. भगवद्गीतेतील अचूक श्लोक आणि आधुनिक व्यापार/गुंतवणुकीतील अर्थ.
 ३. लगेच करता येण्यासारखी २ ते ३ ठोस रणनीतिक पावले (Actionable Steps).
-विनाकारण प्रस्तावना नको, थेट मुद्द्यावर मार्गदर्शन कर.
 """
 else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक आणि तत्त्वज्ञ.
 वापरकर्त्याच्या प्रश्नावर थेट आणि सुटसुटीत उत्तर दे:
-१. दिलासा आणि समस्येचे मूळ कारण.
+१. मानसिक दिलासा आणि समस्येचे मूळ कारण.
 २. भगवद्गीतेतील अचूक श्लोक व सोपा अर्थ.
 ३. दैनंदिन जीवनातील २ ते ३ व्यावहारिक पावले.
 """
@@ -242,7 +241,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि थेट योग्य मॉडेलद्वारे उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट फास्ट मॉडेलद्वारे उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -250,28 +249,19 @@ if user_prompt := st.chat_input(current_input_placeholder):
 
     with st.chat_message("assistant"):
         with st.spinner(lang_data["thinking"]):
-            # चॅट हिस्ट्री व्यवस्थित तयार करणे आणि सलग आलेले user मेसेज एकत्र करणे
-            history_contents = []
-            last_role = None
-            
-            for msg in st.session_state.messages[-4:]:
-                role = "user" if msg["role"] == "user" else "model"
-                if role == last_role and history_contents:
-                    history_contents[-1].parts[0].text += "\n\n" + msg["content"]
-                else:
-                    history_contents.append(
-                        types.Content(
-                            role=role,
-                            parts=[types.Part.from_text(text=msg["content"])]
-                        )
-                    )
-                    last_role = role
+            # कोटा वाचवण्यासाठी फक्त सध्याचा प्रश्न पाठवणे
+            history_contents = [
+                types.Content(
+                    role="user",
+                    parts=[types.Part.from_text(text=user_prompt)]
+                )
+            ]
 
             reply_text = None
             error_details = ""
             
-            # केवळ सध्या चालू असलेली अधिकृत मॉडेल्स
-            models = ["gemini-2.5-flash", "gemini-3.1-pro-preview"]
+            # कमाल कोटा आणि अतिजलद प्रतिसाद देणारे मॉडेल
+            models = ["gemini-2.5-flash-lite", "gemini-2.5-flash"]
 
             for m in models:
                 try:
@@ -296,7 +286,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
                     st.session_state.messages.pop()
-                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया थोड्या वेळाने प्रयत्न करा.")
+                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया १ मिनिटाने पुन्हा प्रयत्न करा.")
                 if error_details:
                     with st.expander("तांत्रिक तपशील (Technical Details)"):
                         st.caption(error_details)

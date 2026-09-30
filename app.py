@@ -34,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार संपूर्ण डेटा, लेबल्स व फूटर
+# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, लेबल्स व फूटर
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -83,7 +83,7 @@ translations = {
         "business_placeholder": "તમારો વ્યવસાયિક પ્રશ્ન અહીં લખો...",
         "title_p": "🕉️ AI સારથી",
         "desc_p": "જીવનની સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન",
-        "title_b": "💼 🕉️️ AI સારથી — Business & Wealth",
+        "title_b": "💼 🕉️ AI સારથી — Business & Wealth",
         "desc_b": "વેપાર અને રોકાણ માટે ભગવદ્ગીતા આધારિત માર્ગદર્શન",
         "thinking": "સારથી વિચારી રહ્યા છે...",
         "footer_desc": "પ્રોજેક્ટ સંકલ્પના અને સંચાલન: <b>Vighnaharta Gold Foundation</b><br>ભગવદ્ગીતાના સિદ્ધાંતો પર આધારિત લોકકલ્યાણકારી ડિજિટલ પહેલ"
@@ -129,7 +129,7 @@ translations = {
     },
     "বাংলা (Bengali)": {
         "domain_label": "🎯 দিকনির্দেশনার ক্ষেত্র:",
-        "opt_personal": "জীবন ও व्यक्तिगत সমস্যা",
+        "opt_personal": "জীবন ও व्यक्तिगत समस्या",
         "opt_business": "ব্যবসা ও আর্থিক বিনিয়োগ",
         "personal_placeholder": "আপনার প্রশ্ন এখানে লিখুন...",
         "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
@@ -198,27 +198,28 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. सिस्टीम मार्गदर्शक सूचना
+# ६. थेट, अचूक व अतिजलद सिस्टीम प्रॉम्प्ट
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
-व्यावसायिक, उद्योजक किंवा गुंतवणूकदाराच्या प्रश्नावर थेट, व्यावहारिक व स्पष्ट मार्गदर्शन कर:
-१. समस्येचे/प्रश्नाचे संक्षिप्त व थेट विश्लेषण (२-३ ओळींत).
-२. भगवद्गीतेतील अचूक श्लोकाचा संदर्भ व त्याचा आधुनिक व्यवसाय किंवा गुंतवणुकीतील सोपा अर्थ.
-३. लगेच अंमलात आणता येण्यासारखी २ ते ३ ठोस रणनीतिक पावले (Actionable Steps).
+व्यावसायिक किंवा गुंतवणूकदाराच्या प्रश्नावर थेट, वेगाने व अचूक उत्तर दे:
+१. व्यावसायिक समस्येचे/प्रश्नाचे संक्षिप्त विश्लेषण (२ ओळींत).
+२. भगवद्गीतेतील अचूक श्लोक आणि त्याचा आधुनिक व्यापार/गुंतवणुकीतील अर्थ.
+३. लगेच करता येण्यासारखी २ ते ३ ठोस रणनीतिक पावले (Actionable Steps).
+विनाकारण प्रस्तावना नको, थेट मुद्द्यावर मार्गदर्शन कर.
 """
 else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक आणि तत्त्वज्ञ.
-वापरकर्त्याच्या दैनंदिन जीवन, मनःशांती व संभ्रमावर थेट व सुटसुटीत मार्गदर्शन कर:
-१. मानसिक दिलासा आणि मूळ कारण.
+वापरकर्त्याच्या प्रश्नावर थेट आणि सुटसुटीत उत्तर दे:
+१. दिलासा आणि समस्येचे मूळ कारण.
 २. भगवद्गीतेतील अचूक श्लोक व सोपा अर्थ.
 ३. दैनंदिन जीवनातील २ ते ३ व्यावहारिक पावले.
 """
 
 SYSTEM_INSTRUCTION = f"""
 {DOMAIN_PROMPT}
-महत्त्वाचा नियम: संपूर्ण उत्तर केवळ {language} या भाषेतच असावे.
+नियम: संपूर्ण उत्तर केवळ {language} या भाषेतच दे.
 """
 
 # ७. API Key व्यवस्थापन
@@ -237,12 +238,11 @@ client = genai.Client(api_key=api_key)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# हिस्ट्री स्वच्छ आणि योग्य रोल क्रमाने दाखवणे
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि हिस्ट्री दुरुस्त करून अचूक उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट योग्य मॉडेलद्वारे उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -250,14 +250,13 @@ if user_prompt := st.chat_input(current_input_placeholder):
 
     with st.chat_message("assistant"):
         with st.spinner(lang_data["thinking"]):
-            # चॅट हिस्ट्री तयार करताना सलग 'user' रोल एकत्र करणे (Auto-Merge Fix)
+            # चॅट हिस्ट्री व्यवस्थित तयार करणे आणि सलग आलेले user मेसेज एकत्र करणे
             history_contents = []
             last_role = None
             
-            for msg in st.session_state.messages:
+            for msg in st.session_state.messages[-4:]:
                 role = "user" if msg["role"] == "user" else "model"
                 if role == last_role and history_contents:
-                    # सलग दोन user मेसेज आल्यास ते एकाच संदेशात जोडणे
                     history_contents[-1].parts[0].text += "\n\n" + msg["content"]
                 else:
                     history_contents.append(
@@ -269,15 +268,15 @@ if user_prompt := st.chat_input(current_input_placeholder):
                     last_role = role
 
             reply_text = None
-            last_error_msg = ""
+            error_details = ""
             
-            # खात्रीशीर आणि कार्यरत मॉडेल्स
-            models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+            # अधिकृत, सक्रिय आणि अतिजलद मॉडेल
+            models = ["gemini-2.5-flash", "gemini-2.5-pro"]
 
-            for m_name in models_to_try:
+            for m in models:
                 try:
                     response = client.models.generate_content(
-                        model=m_name,
+                        model=m,
                         contents=history_contents,
                         config=types.GenerateContentConfig(
                             system_instruction=SYSTEM_INSTRUCTION,
@@ -288,20 +287,19 @@ if user_prompt := st.chat_input(current_input_placeholder):
                         reply_text = response.text
                         break
                 except Exception as err:
-                    last_error_msg = str(err)
+                    error_details = str(err)
                     continue
 
             if reply_text:
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
             else:
-                # उत्तर न आल्यास अडकलेला प्रश्न काढून टाकणे जेणेकरून पुढील प्रश्न चालेल
                 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
                     st.session_state.messages.pop()
-                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया पुन्हा एकदा प्रश्न विचारा.")
-                if last_error_msg:
+                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया थोड्या वेळाने प्रयत्न करा.")
+                if error_details:
                     with st.expander("तांत्रिक तपशील (Technical Details)"):
-                        st.caption(last_error_msg)
+                        st.caption(error_details)
 
 # ११. तळाशी ब्रँडिंग फूटर
 st.markdown(f"""

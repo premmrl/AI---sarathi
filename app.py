@@ -34,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार डेटा
+# ३. सर्व १० भाषांनुसार संपूर्ण डेटा, लेबल्स व फूटर
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -44,7 +44,7 @@ translations = {
         "business_placeholder": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
         "title_p": "🕉️ AI सारथी",
         "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
-        "title_b": "💼 🕉️️ AI सारथी — Business & Wealth",
+        "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
         "desc_b": "व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन",
         "thinking": "सारथी विचार करत आहेत...",
         "footer_desc": "प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
@@ -241,7 +241,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि थेट फास्ट मॉडेलद्वारे उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट योग्य मॉडेलद्वारे उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -249,7 +249,6 @@ if user_prompt := st.chat_input(current_input_placeholder):
 
     with st.chat_message("assistant"):
         with st.spinner(lang_data["thinking"]):
-            # कोटा वाचवण्यासाठी फक्त सध्याचा प्रश्न पाठवणे
             history_contents = [
                 types.Content(
                     role="user",
@@ -260,7 +259,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             reply_text = None
             error_details = ""
             
-            # कमाल कोटा आणि अतिजलद प्रतिसाद देणारे मॉडेल
+            # उच्च मर्यादा आणि विनामूल्य कोटा असलेले मॉडेल्स
             models = ["gemini-2.5-flash-lite", "gemini-2.5-flash"]
 
             for m in models:
@@ -286,7 +285,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
                     st.session_state.messages.pop()
-                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया १ मिनिटाने पुन्हा प्रयत्न करा.")
+                st.error("गुगलचा मोफत कोटा तात्पुरता भरला आहे. कृपया १ मिनिट थांबून पुन्हा प्रयत्न करा.")
                 if error_details:
                     with st.expander("तांत्रिक तपशील (Technical Details)"):
                         st.caption(error_details)

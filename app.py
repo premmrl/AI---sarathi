@@ -46,7 +46,6 @@ translations = {
         "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
         "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
         "desc_b": "व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन",
-        "thinking": "सारथी विचार करत आहेत...",
         "footer_desc": "प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
     },
     "हिंदी": {
@@ -59,7 +58,6 @@ translations = {
         "desc_p": "आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन",
         "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
         "desc_b": "व्यापार, नेतृत्व और वित्तीय निवेश के लिए भगवद्गीता पर आधारित प्रबंधकीय मार्गदर्शन",
-        "thinking": "सारथी विचार कर रहे हैं...",
         "footer_desc": "परियोजना संकल्पना एवं संचालन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीता के सिद्धांतों पर आधारित लोक-कल्याणकारी डिजिटल पहल"
     },
     "English": {
@@ -72,7 +70,6 @@ translations = {
         "desc_p": "Timeless guidance from the Bhagavad Gita for modern life's challenges",
         "title_b": "💼 🕉️ AI Sarathi — Business & Wealth",
         "desc_b": "Managerial and strategic wisdom from the Bhagavad Gita for business and wealth",
-        "thinking": "Sarathi is reflecting...",
         "footer_desc": "Project Concept & Initiative: <b>Vighnaharta Gold Foundation</b><br>A community-focused digital initiative based on the teachings of Bhagavad Gita"
     },
     "ગુજરાતી (Gujarati)": {
@@ -85,7 +82,6 @@ translations = {
         "desc_p": "જીવનની સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન",
         "title_b": "💼 🕉️ AI સારથી — Business & Wealth",
         "desc_b": "વેપાર અને રોકાણ માટે ભગવદ્ગીતા આધારિત માર્ગદર્શન",
-        "thinking": "સારથી વિચારી રહ્યા છે...",
         "footer_desc": "પ્રોજેક્ટ સંકલ્પના અને સંચાલન: <b>Vighnaharta Gold Foundation</b><br>ભગવદ્ગીતાના સિદ્ધાંતો પર આધારિત લોકકલ્યાણકારી ડિજિટલ પહેલ"
     },
     "ಕನ್ನಡ (Kannada)": {
@@ -98,7 +94,6 @@ translations = {
         "desc_p": "ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಜೀವನದ ಮಾರ್ಗದರ್ಶನ",
         "title_b": "💼 🕉️ AI ಸಾರಥಿ — Business & Wealth",
         "desc_b": "ವ್ಯವಹಾರ ಮತ್ತು ಹೂಡಿಕೆಗಾಗಿ ಭಗವದ್ಗೀತೆ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶನ",
-        "thinking": "ಸಾರಥಿ ಯೋಚಿಸುತ್ತಿದ್ದಾರೆ...",
         "footer_desc": "ಯೋಜನೆಯ ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>Vighnaharta Gold Foundation</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರದ ಮೇಲೆ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
     },
     "తెలుగు (Telugu)": {
@@ -111,7 +106,6 @@ translations = {
         "desc_p": "భగవద్గీత వెలుగులో జీవిత సమస్యలకు మార్గదర్శనం",
         "title_b": "💼 🕉️ AI సారథి — Business & Wealth",
         "desc_b": "వ్యాపారం మరియు పెట్టుబడులకు భగవద్గీత ఆధారిత మార్గదర్శనం",
-        "thinking": "సారథి ఆలోచిస్తున్నారు...",
         "footer_desc": "ప్రాజెక్ట్ కాన్సెప్ట్ మరియు నిర్వహణ: <b>Vighnaharta Gold Foundation</b><br>భగవద్గీత సూత్రాల ఆధారంగా ఒక డిజిటల్ కార్యక్రమం"
     },
     "தமிழ் (Tamil)": {
@@ -124,7 +118,6 @@ translations = {
         "desc_p": "பகவத் கீதையின் வழிகாட்டுதலில் தீர்வுகள்",
         "title_b": "💼 🕉️ AI சாரதி — Business & Wealth",
         "desc_b": "வணிகம் மற்றும் முதலீட்டிற்கான பகவத் கீதை வழிகாட்டுதல்",
-        "thinking": "சாரதி சிந்திக்கிறார்...",
         "footer_desc": "திட்ட கருத்து மற்றும் வழிகாட்டுதல்: <b>Vighnaharta Gold Foundation</b><br>பகவத் கீதையின் கொள்கைகளை அடிப்படையாகக் கொண்ட டிஜிட்டல் முயற்சி"
     },
     "বাংলা (Bengali)": {
@@ -137,7 +130,6 @@ translations = {
         "desc_p": "ভগবদ্গীতার আলোকে জীবনের সঠিক পথনির্দেশ",
         "title_b": "💼 🕉️ AI সারথি — Business & Wealth",
         "desc_b": "ব্যবসা ও বিনিয়োগের জন্য ভগবদ্গীতা ভিত্তিক পরামর্শ",
-        "thinking": "সারথি চিন্তা করছেন...",
         "footer_desc": "প্রকল্প পরিকল্পনা ও পরিচালনা: <b>Vighnaharta Gold Foundation</b><br>ভগবদ্গীতার নীতির ওপর ভিত্তি করে জনকল্যাণমূলক ডিজিটাল উদ্যোগ"
     },
     "മലയാളം (Malayalam)": {
@@ -150,7 +142,6 @@ translations = {
         "desc_p": "ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ ജീവിത മാർഗ്ഗദർശനം",
         "title_b": "💼 🕉️ AI സാരഥി — Business & Wealth",
         "desc_b": "ബിസിനസ്സിനും നിക്ഷേപത്തിനുമുള്ള ഭഗവദ്ഗീത മാർഗ്ഗദർശനം",
-        "thinking": "സാരഥി ചിന്തിക്കുന്നു...",
         "footer_desc": "പദ്ധതി ആശയം: <b>Vighnaharta Gold Foundation</b><br>ഭഗവദ്ഗീതയുടെ തത്വങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ള ഡിജിറ്റൽ സംരംഭം"
     },
     "ਪੰਜਾਬੀ (Punjabi)": {
@@ -163,7 +154,6 @@ translations = {
         "desc_p": "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਜੀਵਨ ਦਾ ਮਾਰਗਦਰਸ਼ਨ",
         "title_b": "💼 🕉️ AI ਸਾਰਥੀ — Business & Wealth",
         "desc_b": "ਕਾਰੋਬਾਰ ਅਤੇ ਨਿਵੇਸ਼ ਲਈ ਗੀਤਾ ਅਧਾਰਤ ਮਾਰਗਦਰਸ਼ਨ",
-        "thinking": "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ...",
         "footer_desc": "ਪ੍ਰੋਜੈਕਟ ਸੰਕਲਪ ਅਤੇ ਪ੍ਰਬੰਧਨ: <b>Vighnaharta Gold Foundation</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲਕਦਮੀ"
     }
 }
@@ -198,35 +188,28 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. सिस्टीम मार्गदर्शक सूचना
+# ६. थेट आणि संक्षिप्त सिस्टीम मार्गदर्शक सूचना (Fast Execution)
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
-वापरकर्ता व्यावसायिक, उद्योजक, लीडर किंवा गुंतवणूकदार आहे. त्याचे प्रश्न व्यापार वाढवणे, नेतृत्व, तोटा, बाजारातील मंदी, जोखीम व्यवस्थापन (Risk Management) किंवा आर्थिक गुंतवणुकीतील निर्णय याविषयी असतील.
-
-तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
-१. समस्येचे आणि व्यावसायिक उद्दिष्टाचे संक्षिप्त व प्रभावी विश्लेषण.
-२. भगवद्गीतेतील अचूक अध्याय व श्लोकाचा संदर्भ आणि त्याचा आधुनिक व्यापार/गुंतवणूक संदर्भातील अर्थ.
-३. २ ते ३ व्यावहारिक आणि रणनीतिक पावले (Actionable Strategic Steps).
-उत्तर धोरणी, थेट आणि व्यावसायिक असावे.
+व्यावसायिक/गुंतवणूकदाराच्या प्रश्नावर थेट, वेगाने आणि संक्षिप्त उत्तर दे:
+१. समस्येचे संक्षिप्त विश्लेषण (२ ओळी).
+२. भगवद्गीतेतील अचूक श्लोक व आधुनिक व्यवसाय संदर्भातील अर्थ.
+३. २ ते ३ थेट रणनीतिक पावले (Actionable Steps).
+विनाकारण पाल्हाळ न लावता थेट मार्गदर्शन कर.
 """
 else:
     DOMAIN_PROMPT = """
-तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
-वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न विचारेल.
-
-तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
-१. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत सांगणे.
-२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ (संस्कृत श्लोक आणि सोपा अर्थ).
-३. २ ते ३ व्यावहारिक पावले (Actionable Advice).
-उत्तर प्रेमळ, सकारात्मक आणि सुटसुटीत असावे.
+तू 'AI सारथी' आहेस. 
+वापरकर्त्याच्या प्रश्नावर थेट आणि सुटसुटीत उत्तर दे:
+१. दिलासा आणि मूळ कारण.
+२. भगवद्गीतेतील अचूक श्लोक व सोपा अर्थ.
+३. दैनंदिन जीवनातील २ ते ३ व्यावहारिक पावले.
 """
 
 SYSTEM_INSTRUCTION = f"""
 {DOMAIN_PROMPT}
-
-नियम: वापरकर्त्याने निवडलेल्या भाषेतच संपूर्ण उत्तर दे.
-सध्या निवडलेली भाषा: {language}
+महत्त्वाचा नियम: संपूर्ण उत्तर केवळ {language} या भाषेतच असावे.
 """
 
 # ७. API Key व्यवस्थापन
@@ -238,10 +221,10 @@ if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-# ८. Client सुरू करणे
+# ८. Client
 client = genai.Client(api_key=api_key)
 
-# ९. चॅट हिस्ट्री व्यवस्थापन
+# ९. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -249,50 +232,61 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि थेट निवडलेल्या भाषेत उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट फास्ट स्ट्रीमिंगने उत्तर देणे (Instant Typing)
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner(lang_data["thinking"]):
-            history_contents = []
-            for msg in st.session_state.messages:
-                role = "user" if msg["role"] == "user" else "model"
-                history_contents.append(
-                    types.Content(
-                        role=role,
-                        parts=[types.Part.from_text(text=msg["content"])]
+        history_contents = []
+        for msg in st.session_state.messages:
+            role = "user" if msg["role"] == "user" else "model"
+            history_contents.append(
+                types.Content(
+                    role=role,
+                    parts=[types.Part.from_text(text=msg["content"])]
+                )
+            )
+
+        full_response = ""
+        response_box = st.empty()
+
+        # स्ट्रीमिंगद्वारे थेट वेगाने शब्द टाईप होणे
+        try:
+            response_stream = client.models.generate_content_stream(
+                model="gemini-2.5-flash",
+                contents=history_contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_INSTRUCTION,
+                    temperature=0.7
+                )
+            )
+            for chunk in response_stream:
+                if chunk.text:
+                    full_response += chunk.text
+                    response_box.markdown(full_response + "▌")
+            response_box.markdown(full_response)
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+        except Exception:
+            # पर्यायी जलद कॉल
+            try:
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=history_contents,
+                    config=types.GenerateContentConfig(
+                        system_instruction=SYSTEM_INSTRUCTION,
+                        temperature=0.7
                     )
                 )
+                if response and response.text:
+                    response_box.markdown(response.text)
+                    st.session_state.messages.append({"role": "assistant", "content": response.text})
+            except Exception as e:
+                response_box.error("सर्व्हर व्यस्त आहे. कृपया पुन्हा प्रयत्न करा.")
 
-            reply_text = None
-            models_to_try = ["gemini-3.8-flash", "gemini-3-flash-preview", "gemini-2.5-flash"]
-            
-            for m_name in models_to_try:
-                try:
-                    response = client.models.generate_content(
-                        model=m_name,
-                        contents=history_contents,
-                        config=types.GenerateContentConfig(
-                            system_instruction=SYSTEM_INSTRUCTION,
-                            temperature=0.7
-                        )
-                    )
-                    if response and response.text:
-                        reply_text = response.text
-                        break
-                except Exception:
-                    continue
-
-            if reply_text:
-                st.markdown(reply_text)
-                st.session_state.messages.append({"role": "assistant", "content": reply_text})
-            else:
-                st.error("सर्व्हर प्रतिसाद मिळण्यात अडचण येत आहे. कृपया थोड्या वेळाने प्रयत्न करा.")
-
-# ११. तळाशी भाषेनुसार बदलणारा ब्रँडिंग फूटर (इमेज पूर्णपणे वगळलेली आहे)
+# ११. तळाशी ब्रँडिंग फूटर
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>

@@ -62,7 +62,7 @@ if user_prompt := st.chat_input("तुमचा प्रश्न किंव
                     )
 
                 response = client.models.generate_content(
-                    model=model="gemini-3.8-flash",
+                    model="gemini-2.5-flash",
                     contents=history_contents,
                     config=types.GenerateContentConfig(
                         system_instruction=SYSTEM_INSTRUCTION,
@@ -75,4 +75,18 @@ if user_prompt := st.chat_input("तुमचा प्रश्न किंव
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
 
             except Exception as e:
-                st.error(f"काहीतरी त्रुटी आली: {e}")
+                # जर जुने मॉडेल उपलब्ध नसेल तर थेट नवीन फ्लॅश मॉडेल वापरणे
+                try:
+                    response = client.models.generate_content(
+                        model="gemini-3.8-flash",
+                        contents=history_contents,
+                        config=types.GenerateContentConfig(
+                            system_instruction=SYSTEM_INSTRUCTION,
+                            temperature=0.7
+                        )
+                    )
+                    reply_text = response.text
+                    st.markdown(reply_text)
+                    st.session_state.messages.append({"role": "assistant", "content": reply_text})
+                except Exception as inner_e:
+                    st.error(f"काहीतरी त्रुटी आली: {inner_e}")

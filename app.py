@@ -87,7 +87,7 @@ LOCALIZATION = {
         "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom"
     },
     "ગુજરાતી (Gujarati)": {
-        "title": "🕉️ AI સારથી",
+        "title": "🕉️️ AI સારથી",
         "caption": "જીવન અને વ્યવસાયના પ્રશ્નોનું ભગવદ્ગીતાના પ્રકાશમાં સચોટ માર્ગદર્શન",
         "modes": ["🌱 વ્યક્તિગત જીવન (Personal)", "💼 વ્યાપાર અને કારકિર્દી (Business)"],
         "input_placeholder": "તમારો પ્રશ્ન કે સમસ્યા અહીં લખો...",
@@ -96,7 +96,7 @@ LOCALIZATION = {
         "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
     },
     "ಕನ್ನಡ (Kannada)": {
-        "title": "🕉️️ AI ಸಾರಥಿ",
+        "title": "🕉️ AI ಸಾರಥಿ",
         "caption": "ವೈಯಕ್ತಿಕ ಜೀವನ ಮತ್ತು ವ್ಯಾಪಾರದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ",
         "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal)", "💼 ವ್ಯಾಪಾರ ಮತ್ತು ವೃತ್ತಿ (Business)"],
         "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
@@ -105,7 +105,7 @@ LOCALIZATION = {
         "brand_desc": "ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
     },
     "తెలుగు (Telugu)": {
-        "title": "🕉️️ AI సారథి",
+        "title": "🕉️ AI సారథి",
         "caption": "జీవితం మరియు వ్యాపార నిర్ణయాలకు భగవద్గీత వెలుగులో సరైన మార్గదర్శనం",
         "modes": ["🌱 వ్యక్తిగత జీవితం (Personal)", "💼 వ్యాపారం & వృత్తి (Business)"],
         "input_placeholder": "మీ ప్రశ్నను ఇక్కడ నమోదు చేయండి...",
@@ -196,7 +196,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न व उत्तर
+# ९. प्रश्न व उत्तर (५०३ लोड एरर रोखण्यासाठी फॉलबॅक रचना)
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -205,16 +205,30 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
     with st.chat_message("assistant"):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
-            try:
-                response = client.models.generate_content(
-                    model="gemini-3.8-flash",
-                    contents=full_prompt
-                )
-                reply_text = response.text
+            
+            # प्रायोरिटीनुसार मॉडेल्सची यादी
+            candidate_models = ["gemini-2.0-flash", "gemini-3.8-flash"]
+            reply_text = None
+            last_err = ""
+            
+            for m in candidate_models:
+                try:
+                    response = client.models.generate_content(
+                        model=m,
+                        contents=full_prompt
+                    )
+                    if response.text:
+                        reply_text = response.text
+                        break
+                except Exception as e:
+                    last_err = str(e)
+                    continue
+            
+            if reply_text:
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
-            except Exception as e:
-                st.error(f"तांत्रिक माहिती: {str(e)}")
+            else:
+                st.error(f"तांत्रिक माहिती: {last_err}")
 
 # १०. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
 st.markdown(f"""

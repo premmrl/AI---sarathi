@@ -2,7 +2,7 @@ import streamlit as st
 import time
 from google import genai
 
-# १. पेज सेटिंग्ज
+# १. पेज कॉन्फिगरेशन
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
     page_icon="🕉️",
@@ -58,31 +58,31 @@ language = st.selectbox(
     LANGUAGES
 )
 
-# ४. भाषेनुसार स्थानिक डेटा (शीर्षक, ब्रँडिंग व मोड्स)
+# ४. भाषेनुसार स्थानिक मजकूर व ब्रँडिंग
 LOCALIZATION = {
     "मराठी": {
         "title": "🕉️ AI सारथी",
-        "caption": "तुमच्या जीवनातील व व्यवसायातील प्रश्नांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
+        "caption": "जीवनातील आणि व्यवसायातील निर्णयांना भगवद्गीतेच्या प्रकाशात अचूक दिशा",
         "modes": ["🌱 वैयक्तिक जीवन (Personal Guidance)", "💼 व्यवसाय आणि करिअर (Business & Career)"],
-        "input_placeholder": "तुमचा प्रश्न किंवा अडचण येथे मांडा...",
+        "input_placeholder": "आपला प्रश्न किंवा अडचण येथे मांडा...",
         "thinking": "सारथी विचारमंथन करत आहेत...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
         "brand_desc": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
     },
     "हिंदी": {
         "title": "🕉️ AI सारथी",
-        "caption": "जीवन और व्यापार के कठिन प्रश्नों का भगवद्गीता के प्रकाश में सटीक समाधान",
+        "caption": "जीवन और कार्यक्षेत्र के निर्णयों को भगवद्गीता के प्रकाश में सटीक मार्गदर्शन",
         "modes": ["🌱 व्यक्तिगत जीवन (Personal Life)", "💼 व्यापार और करियर (Business & Career)"],
-        "input_placeholder": "अपनी समस्या या प्रश्न यहाँ लिखें...",
+        "input_placeholder": "अपनी समस्या या प्रश्न यहाँ साझा करें...",
         "thinking": "सारथी विचार कर रहे हैं...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
         "brand_desc": "प्रकल्प संकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के सिद्धांतों पर आधारित समाजोपयोगी डिजिटल पहल"
     },
     "English": {
-        "title": "🕉️ AI Sarathi",
+        "title": "🕉️️ AI Sarathi",
         "caption": "Timeless Wisdom from the Bhagavad Gita for Personal & Professional Life",
         "modes": ["🌱 Personal Life", "💼 Business & Career"],
-        "input_placeholder": "Type your situation or question here...",
+        "input_placeholder": "Share your situation or question here...",
         "thinking": "Sarathi is contemplating...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
         "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom"
@@ -97,7 +97,7 @@ LOCALIZATION = {
         "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
     },
     "ಕನ್ನಡ (Kannada)": {
-        "title": "🕉️️ AI ಸಾರಥಿ",
+        "title": "🕉️ AI ಸಾರಥಿ",
         "caption": "ವೈಯಕ್ತಿಕ ಜೀವನ ಮತ್ತು ವ್ಯಾಪಾರದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ",
         "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal)", "💼 ವ್ಯಾಪಾರ ಮತ್ತು ವೃತ್ತಿ (Business)"],
         "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
@@ -126,7 +126,7 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "modes": ["🌱 व्यक्तिगत জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
         "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
@@ -165,20 +165,24 @@ guidance_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ६. सिस्टीम मार्गदर्शक सूचना
+# ६. सिस्टीम मार्गदर्शक सूचना (लिंग-तटस्थ आणि आदरार्थी नियमांसह)
 SYSTEM_INSTRUCTION = f"""
-तू 'AI सारथी' आहेस - एक निष्पक्ष मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
+तू 'AI सारथी' आहेस - एक निष्पक्ष मार्गदर्शक, मित्र आणि आध्यात्मिक तत्त्वज्ञ.
 सध्या निवडलेली भाषा: {language}
 सध्या निवडलेला मोड: {guidance_mode}
 
-महत्त्वाचे नियम:
+महत्त्वाचे नियम व भाषेची शैली:
 १. वापरकर्त्याने निवडलेल्या भाषेतच ({language}) संपूर्ण उत्तर दे.
-२. जर मोड 'व्यवसाय आणि करिअर' असेल, तर व्यावसायिक नीतिमत्ता, नेतृत्व, निर्णयक्षमता, रणनीती आणि कर्मयोगावर भर दे.
-३. जर मोड 'वैयक्तिक जीवन' असेल, तर मानसिक शांतता, नातेसंबंध, ताणतणाव आणि आत्मसंयमावर मार्गदर्शन कर.
-४. उत्तराची रचना:
+२. लिंग-तटस्थ आणि आदरार्थी भाषा (Gender-Neutral & Respectful Tone):
+   - वापरकर्ता महिला असो वा पुरुष, दोघांनाही १००% समान लागू होईल अशी तटस्थ, सन्माननीय आणि आदरार्थी भाषा वापर.
+   - विशिष्ट एकवचनी लिंगभेद (उदा. 'करावा/करावी', 'झाला/झाली', 'होतो/होते') टाळावेत. त्याऐवजी नेहमी आदरार्थी बहुवचनी रूपे वापरावीत (उदा. "तुम्ही करू शकता", "आपण असा दृष्टिकोन ठेवावा", "आपल्या मनात", "स्वीकारावे", "मार्ग निवडावा").
+   - वापरकर्त्याला 'कर्मयोगी', 'साधक' किंवा 'जिज्ञासू' या उदात्त दृष्टीने संबोधित कर.
+३. जर मोड 'व्यवसाय आणि करिअर' असेल, तर व्यावसायिक नीतिमत्ता, नेतृत्व, निर्णयक्षमता, व्यावसायिक रणनीती आणि कर्मयोगावर भर दे.
+४. जर मोड 'वैयक्तिक जीवन' असेल, तर मानसिक शांतता, नातेसंबंध, ताणतणावमुक्ती आणि आत्मसंयमावर मार्गदर्शन कर.
+५. उत्तराची रचना:
    - समस्येचे मूळ कारण आणि तात्त्विक दिलासा.
    - भगवद्गीतेतील अचूक अध्याय आणि श्लोक संदर्भ (मूळ संस्कृत श्लोक + निवडलेल्या भाषेत सोपा अर्थ).
-   - २ ते ३ व्यावहारिक, अमलात आणण्याजोगी पावले (Actionable Steps).
+   - २ ते ३ व्यावहारिक, दैनंदिन जीवनात सहज अमलात आणण्याजोगी पावले (Actionable Steps).
 """
 
 # ७. API Key आणि Client व्यवस्थापन
@@ -189,18 +193,15 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-# ८. उपलब्ध मॉडेल्स स्वयंचलित शोधणे (Dynamic Model Discovery)
+# ८. उपलब्ध मॉडेल्स स्वयंचलित शोधणे
 @st.cache_resource(show_spinner=False)
 def get_supported_model_list():
     try:
         available = []
         for m in client.models.list():
-            # generateContent ला सपोर्ट करणारी आणि flash/pro असणारी मॉडेल्स शोधणे
-            methods = getattr(m, "supported_generation_methods", []) or getattr(m, "supported_actions", [])
             m_name = m.name.replace("models/", "")
             if "flash" in m_name or "pro" in m_name:
                 available.append(m_name)
-        # प्राधान्यक्रम: आधी 3.8-flash, मग इतर
         if "gemini-3.8-flash" in available:
             available.remove("gemini-3.8-flash")
             available.insert(0, "gemini-3.8-flash")
@@ -216,7 +217,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न व उत्तर हाताळणी
+# १०. प्रश्न व उत्तर हाताळणी (ऑटो-रीट्रायसह)
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):

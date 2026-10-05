@@ -4,7 +4,7 @@ import google.generativeai as genai
 # १. पेज सेटिंग्ज
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
-    page_icon="🕉️️",
+    page_icon="🕉️",
     layout="centered"
 )
 
@@ -13,8 +13,8 @@ st.markdown("""
     <style>
     .footer-container {
         text-align: center;
-        margin-top: 50px;
-        padding-top: 15px;
+        margin-top: 55px;
+        padding-top: 18px;
         border-top: 1px solid #333333;
     }
     .brand-title {
@@ -30,60 +30,157 @@ st.markdown("""
         margin-top: 4px;
         line-height: 1.5;
     }
+    .stRadio > div {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सिस्टीम मार्गदर्शक सूचना
-SYSTEM_INSTRUCTION = """
-तू 'AI सारथी' आहेस - एक मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
-वापरकर्ता दैनंदिन जीवनातील चिंता, नाती, करिअर, अपयश, राग किंवा इतर कोणताही प्रश्न कोणत्याही भाषेत विचारेल.
+# ३. भाषा निवड (स्क्रीनच्या सर्वात वर)
+LANGUAGES = [
+    "मराठी", 
+    "हिंदी", 
+    "English", 
+    "ગુજરાતી (Gujarati)", 
+    "ಕನ್ನಡ (Kannada)", 
+    "తెలుగు (Telugu)", 
+    "தமிழ் (Tamil)", 
+    "বাংলা (Bengali)", 
+    "മലയാളം (Malayalam)", 
+    "ਪੰਜਾਬੀ (Punjabi)"
+]
 
-महत्त्वाचा नियम: वापरकर्त्याने निवडलेल्या भाषेत (किंवा ज्या भाषेत प्रश्न विचारला आहे), त्याला संपूर्ण उत्तर त्याच भाषेत दे (उदा. गुजरातीमध्ये विचारल्यास गुजरातीत, तमिळमध्ये विचारल्यास तमिळमध्ये, मराठीत विचारल्यास मराठीत).
-
-तुझे काम खालील रचनेनुसार उत्तर देणे आहे:
-१. मानसिक दिलासा आणि समस्येचे मूळ कारण सोप्या शब्दांत स्पष्ट करणे.
-२. भगवद्गीतेतील अचूक अध्याय आणि श्लोकाचा संदर्भ देणे (मूळ संस्कृत श्लोक आणि त्याचा निवडलेल्या भाषेत सोपा अर्थ).
-३. हा विचार दैनंदिन जीवनात कसा आचरायचा, याची २ ते ३ व्यावहारिक पावले (Actionable Advice) देणे.
-
-तुझा सूर नेहमी प्रेमळ, सकारात्मक, संयमी आणि मार्गदर्शकासारखा असावा.
-"""
-
-# ४. भाषा निवड (१० प्रमुख भारतीय भाषा)
 language = st.selectbox(
     "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
-    [
-        "मराठी", 
-        "हिंदी", 
-        "English", 
-        "ગુજરાતી (Gujarati)", 
-        "ಕನ್ನಡ (Kannada)", 
-        "తెలుగు (Telugu)", 
-        "தமிழ் (Tamil)", 
-        "বাংলা (Bengali)", 
-        "മലയാളം (Malayalam)", 
-        "ਪੰਜਾਬੀ (Punjabi)"
-    ]
+    LANGUAGES
 )
 
-# ५. निवडलेल्या भाषेनुसार शीर्षके
-titles = {
-    "मराठी": ("🕉️ AI सारथी", "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन", "तुमचा प्रश्न किंवा समस्या येथे लिहा...", "सारथी विचार करत आहेत..."),
-    "हिंदी": ("🕉️ AI सारथी", "आपके जीवन के प्रश्नों और समस्याओं का भगवद्गीता के प्रकाश में सटीक मार्गदर्शन", "अपनी समस्या या प्रश्न यहाँ लिखें...", "सारथी विचार कर रहे हैं..."),
-    "English": ("🕉️ AI Sarathi", "Timeless guidance from the Bhagavad Gita for modern life's challenges", "Type your question or dilemma here...", "Sarathi is reflecting..."),
-    "ગુજરાતી (Gujarati)": ("🕉️ AI સારથી", "તમારા જીવનના પ્રશ્નો અને સમસ્યાઓનું ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન", "તમારો પ્રશ્ન અહીં લખો...", "સારથી વિચારી રહ્યા છે..."),
-    "ಕನ್ನಡ (Kannada)": ("🕉️ AI ಸಾರಥಿ", "ನಿಮ್ಮ ಜೀವನದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ", "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...", "ಸಾರಥಿ ಯೋಚಿಸುತ್ತಿದ್ದಾರೆ..."),
-    "తెలుగు (Telugu)": ("🕉 AI సారథి", "భగవద్గీత వెలుగులో మీ సమస్యలకు సరైన మార్గదర్శనం", "మీ ప్రశ్నను ఇక్కడ రాయండి...", "సారథి ఆలోచిస్తున్నారు..."),
-    "தமிழ் (Tamil)": ("🕉 AI சாரதி", "பகவத் கீதையின் வழிகாட்டுதலில் உங்கள் கேள்விகளுக்கான தீர்வு", "உங்கள் கேள்வியை இங்கே எழுதுங்கள்...", "சாரதி சிந்திக்கிறார்..."),
-    "বাংলা (Bengali)": ("🕉️ AI সারথি", "ভগবদ্গীতার আলোকে আপনার জীবনের সমস্যা ও প্রশ্নের সমাধান", "আপনার प्रश्न येथे लिहा...", "সারথি চিন্তা করছেন..."),
-    "മലയാളം (Malayalam)": ("🕉️ AI സാരഥി", "ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ നിങ്ങളുടെ പ്രശ്നങ്ങൾക്കുള്ള പരിഹാരം", "നിങ്ങളുടെ ചോദ്യം ഇവിടെ എഴുതുക...", "സാരഥി ചിന്തിക്കുന്നു..."),
-    "ਪੰਜਾਬੀ (Punjabi)": ("🕉 AI ਸਾਰਥੀ", "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਤੁਹਾਡੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸਹੀ ਮਾਰਗਦਰਸ਼ਨ", "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...", "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ...")
+# ४. भाषेनुसार स्थानिक डेटा (शीर्षक, ब्रँडिंग व मोड्स)
+LOCALIZATION = {
+    "मराठी": {
+        "title": "🕉️ AI सारथी",
+        "caption": "तुमच्या जीवनातील व व्यवसायातील प्रश्नांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
+        "modes": ["🌱 वैयक्तिक जीवन (Personal Guidance)", "💼 व्यवसाय आणि करिअर (Business & Career)"],
+        "input_placeholder": "तुमचा प्रश्न किंवा अडचण येथे मांडा...",
+        "thinking": "सारथी विचारमंथन करत आहेत...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
+    },
+    "हिंदी": {
+        "title": "🕉️ AI सारथी",
+        "caption": "जीवन और व्यापार के कठिन प्रश्नों का भगवद्गीता के प्रकाश में सटीक समाधान",
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal Life)", "💼 व्यापार और करियर (Business & Career)"],
+        "input_placeholder": "अपनी समस्या या प्रश्न यहाँ लिखें...",
+        "thinking": "सारथी विचार कर रहे हैं...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "प्रकल्प संकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के सिद्धांतों पर आधारित समाजोपयोगी डिजिटल पहल"
+    },
+    "English": {
+        "title": "🕉️ AI Sarathi",
+        "caption": "Timeless Wisdom from the Bhagavad Gita for Personal & Professional Life",
+        "modes": ["🌱 Personal Life", "💼 Business & Career"],
+        "input_placeholder": "Type your situation or question here...",
+        "thinking": "Sarathi is contemplating...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom"
+    },
+    "ગુજરાતી (Gujarati)": {
+        "title": "🕉️ AI સારથી",
+        "caption": "જીવન અને વ્યવસાયના પ્રશ્નોનું ભગવદ્ગીતાના પ્રકાશમાં સચોટ માર્ગદર્શન",
+        "modes": ["🌱 વ્યક્તિગત જીવન (Personal)", "💼 વ્યાપાર અને કારકિર્દી (Business)"],
+        "input_placeholder": "તમારો પ્રશ્ન કે સમસ્યા અહીં લખો...",
+        "thinking": "સારથી ચિંતન કરી રહ્યા છે...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
+    },
+    "ಕನ್ನಡ (Kannada)": {
+        "title": "🕉️ AI ಸಾರಥಿ",
+        "caption": "ವೈಯಕ್ತಿಕ ಜೀವನ ಮತ್ತು ವ್ಯಾಪಾರದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ",
+        "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal)", "💼 ವ್ಯಾಪಾರ ಮತ್ತು ವೃತ್ತಿ (Business)"],
+        "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
+        "thinking": "ಸಾರಥಿ ಆಲೋಚಿಸುತ್ತಿದ್ದಾರೆ...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
+    },
+    "తెలుగు (Telugu)": {
+        "title": "🕉️ AI సారథి",
+        "caption": "జీవితం మరియు వ్యాపార నిర్ణయాలకు భగవద్గీత వెలుగులో సరైన మార్గదర్శనం",
+        "modes": ["🌱 వ్యక్తిగత జీవితం (Personal)", "💼 వ్యాపారం & వృత్తి (Business)"],
+        "input_placeholder": "మీ ప్రశ్నను ఇక్కడ నమోదు చేయండి...",
+        "thinking": "సారథి ఆలోచిస్తున్నారు...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "రూపకల్పన & నిర్వహణ: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత సందేశంతో ప్రజోపయోగ డిజిటల్ వ్యవస్థ"
+    },
+    "தமிழ் (Tamil)": {
+        "title": "🕉️ AI சாரதி",
+        "caption": "தனிப்பட்ட வாழ்க்கை மற்றும் வணிக சவால்களுக்கு பகவத் கீதையின் வழிகாட்டுதல்",
+        "modes": ["🌱 தனிப்பட்ட வாழ்க்கை (Personal)", "💼 வணிகம் & தொழில் (Business)"],
+        "input_placeholder": "உங்கள் கேள்வி அல்லது சிக்கலை இங்கே எழுதுங்கள்...",
+        "thinking": "சாரதி சிந்திக்கிறார்...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "உருவாக்கம் & வழிகாட்டல்: <b>விக்னஹர்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் நல்வழியில் உருவான சேவை"
+    },
+    "বাংলা (Bengali)": {
+        "title": "🕉️ AI সারথি",
+        "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
+        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
+        "thinking": "সারথি চিন্তা করছেন...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "পরিকল্পনা ও রূপায়ণ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>ভগবদ্গীতার শিক্ষায় সমৃদ্ধ কল্যাণমুখী ডিজিটাল প্রয়াস"
+    },
+    "മലയാളം (Malayalam)": {
+        "title": "🕉️ AI സാരഥി",
+        "caption": "വ്യക്തിജീവിതത്തിലും ബിസിനസ്സിലും ഭഗവദ്ഗീതയുടെ വെളിച്ചത്തിൽ മാർഗ്ഗദർശനം",
+        "modes": ["🌱 വ്യക്തിജീവിതം (Personal)", "💼 ബിസിനസ്സും കരിയറും (Business)"],
+        "input_placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ രേഖപ്പെടുത്തുക...",
+        "thinking": "സാരഥി ചിന്തിക്കുന്നു...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "നേതൃത്വം: <b>വിഘ്നഹർത്താ ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളിൽ അധിഷ്ഠിതമായ ജനക്ഷേമ സംരംഭം"
+    },
+    "ਪੰਜਾਬੀ (Punjabi)": {
+        "title": "🕉️ AI ਸਾਰਥੀ",
+        "caption": "ਨਿੱਜੀ ਜੀਵਨ ਅਤੇ ਕਾਰੋਬਾਰ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦਾ ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਸਹੀ ਹੱਲ",
+        "modes": ["🌱 ਨਿੱਜੀ ਜੀਵਨ (Personal)", "💼 ਕਾਰੋਬਾਰ ਅਤੇ ਕਰੀਅਰ (Business)"],
+        "input_placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਲਿਖੋ...",
+        "thinking": "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ...",
+        "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
+        "brand_desc": "ਸੰਕਲਪ ਅਤੇ ਪ੍ਰਬੰਧਨ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਮਾਰਗ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਸੇਵਾ"
+    }
 }
-current_title, current_caption, input_placeholder, thinking_text = titles.get(language, titles["मराठी"])
 
-st.title(current_title)
-st.caption(current_caption)
+content = LOCALIZATION.get(language, LOCALIZATION["मराठी"])
 
-# ६. API Key कॉन्फिगरेशन
+# ५. शीर्षके व मोड निवड
+st.title(content["title"])
+st.caption(content["caption"])
+
+guidance_mode = st.radio(
+    "मार्गदर्शन प्रकार निवडा:",
+    content["modes"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
+
+# ६. सिस्टीम मार्गदर्शक सूचना
+SYSTEM_INSTRUCTION = f"""
+तू 'AI सारथी' आहेस - एक निष्पक्ष मार्गदर्शक, मित्र आणि तत्त्वज्ञ.
+सध्या निवडलेली भाषा: {language}
+सध्या निवडलेला मोड: {guidance_mode}
+
+महत्त्वाचे नियम:
+१. वापरकर्त्याने निवडलेल्या भाषेतच ({language}) संपूर्ण संवाद व उत्तर दे.
+२. जर मोड 'व्यवसाय आणि करिअर' असेल, तर उत्तर व्यावसायिक नेतृत्व, नीतिमत्ता, निर्णयक्षमता, भागीदार/कर्मचारी व्यवस्थापन आणि संकटातील रणनीती या संदर्भाने दे.
+३. जर मोड 'वैयक्तिक जीवन' असेल, तर मानसिक शांतता, नातेसंबंध, ताणतणाव आणि आत्मसंयमावर लक्ष केंद्रित कर.
+४. उत्तराची रचना खालीलप्रमाणे ठेव:
+   - समस्येचे मूळ कारण आणि तात्त्विक दिलासा.
+   - भगवद्गीतेतील अचूक अध्याय आणि श्लोक संदर्भ (संस्कृत श्लोक + निवडलेल्या भाषेत सोपा अर्थ).
+   - २ ते ३ व्यावहारिक, अमलात आणण्याजोगी पावले (Actionable Steps).
+"""
+
+# ७. API Key व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
@@ -91,7 +188,7 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-# ७. चॅट हिस्ट्री
+# ८. चॅट हिस्ट्री व्यवस्थापन
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -99,18 +196,18 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ८. प्रश्न आणि उत्तर
-if user_prompt := st.chat_input(input_placeholder):
+# ९. प्रश्न व उत्तर
+if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner(thinking_text):
+        with st.spinner(content["thinking"]):
             try:
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-flash",
-                    system_instruction=f"{SYSTEM_INSTRUCTION}\nसध्या निवडलेली भाषा: {language}"
+                    system_instruction=SYSTEM_INSTRUCTION
                 )
                 
                 history = []
@@ -119,7 +216,8 @@ if user_prompt := st.chat_input(input_placeholder):
                     history.append({"role": role, "parts": [msg["content"]]})
                 
                 chat = model.start_chat(history=history)
-                response = chat.send_message(user_prompt)
+                full_prompt = f"[क्षेत्र: {guidance_mode}] प्रश्न: {user_prompt}"
+                response = chat.send_message(full_prompt)
                 
                 reply_text = response.text
                 st.markdown(reply_text)
@@ -127,13 +225,10 @@ if user_prompt := st.chat_input(input_placeholder):
             except Exception as e:
                 st.error(f"त्रुटी आली आहे: {str(e)}")
 
-# ९. तळाशी ब्रँडिंग फूटर
-st.markdown("""
+# १०. तळाशी भाषेनुसार बदलणारे फूटर ब्रँडिंग
+st.markdown(f"""
     <div class='footer-container'>
-        <div class='brand-title'>An Initiative by Vighnaharta Gold Foundation</div>
-        <div class='footer-text'>
-            प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>
-            भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम
-        </div>
+        <div class='brand-title'>{content["brand_title"]}</div>
+        <div class='footer-text'>{content["brand_desc"]}</div>
     </div>
 """, unsafe_allow_html=True)

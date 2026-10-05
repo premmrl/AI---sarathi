@@ -97,7 +97,7 @@ LOCALIZATION = {
         "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
     },
     "ಕನ್ನಡ (Kannada)": {
-        "title": "🕉️ AI ಸಾರಥಿ",
+        "title": "🕉️️ AI ಸಾರಥಿ",
         "caption": "ವೈಯಕ್ತಿಕ ಜೀವನ ಮತ್ತು ವ್ಯಾಪಾರದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ",
         "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal)", "💼 ವ್ಯಾಪಾರ ಮತ್ತು ವೃತ್ತಿ (Business)"],
         "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
@@ -189,7 +189,26 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-# ८. चॅट हिस्ट्री
+# ८. उपलब्ध मॉडेल्स स्वयंचलित शोधणे (Dynamic Model Discovery)
+@st.cache_resource(show_spinner=False)
+def get_supported_model_list():
+    try:
+        available = []
+        for m in client.models.list():
+            # generateContent ला सपोर्ट करणारी आणि flash/pro असणारी मॉडेल्स शोधणे
+            methods = getattr(m, "supported_generation_methods", []) or getattr(m, "supported_actions", [])
+            m_name = m.name.replace("models/", "")
+            if "flash" in m_name or "pro" in m_name:
+                available.append(m_name)
+        # प्राधान्यक्रम: आधी 3.8-flash, मग इतर
+        if "gemini-3.8-flash" in available:
+            available.remove("gemini-3.8-flash")
+            available.insert(0, "gemini-3.8-flash")
+        return available if available else ["gemini-3.8-flash"]
+    except Exception:
+        return ["gemini-3.8-flash"]
+
+# ९. चॅट हिस्ट्री
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -197,7 +216,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न व उत्तर (५०३ लोड बायपास करणारी मल्टि-मॉडेल फॉलबॅक रचना)
+# १०. प्रश्न व उत्तर हाताळणी
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -207,31 +226,25 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
             
-            # ५०३ लोड आल्यास एकामागून एक वापरली जाणारी पर्यायी मॉडेल्स
-            candidate_models = [
-                "gemini-3.8-flash",
-                "gemini-2.5-pro",
-                "gemini-2.0-flash-lite",
-                "gemini-1.5-pro"
-            ]
-            
+            models_to_try = get_supported_model_list()
             reply_text = None
             last_err = ""
             
-            for m in candidate_models:
-                try:
-                    response = client.models.generate_content(
-                        model=m,
-                        contents=full_prompt
-                    )
-                    if response and response.text:
-                        reply_text = response.text
-                        break
-                except Exception as e:
-                    last_err = str(e)
-                    # जर ५०३ आला असेल तर सेकंदभर थांबा आणि पुढचे मॉडेल ट्राय करा
-                    time.sleep(1)
-                    continue
+            for m in models_to_try:
+                for attempt in range(2):
+                    try:
+                        response = client.models.generate_content(
+                            model=m,
+                            contents=full_prompt
+                        )
+                        if response and response.text:
+                            reply_text = response.text
+                            break
+                    except Exception as e:
+                        last_err = str(e)
+                        time.sleep(1)
+                if reply_text:
+                    break
             
             if reply_text:
                 st.markdown(reply_text)
@@ -239,7 +252,7 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
             else:
                 st.error(f"तांत्रिक माहिती: {last_err}")
 
-# १०. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
+# ११. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>{content["brand_title"]}</div>

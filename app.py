@@ -1,7 +1,7 @@
 import streamlit as st
 from google import genai
 
-# १. पेज सेटिंग्ज
+# १. पेज कॉन्फिगरेशन
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
     page_icon="🕉️",
@@ -87,7 +87,7 @@ LOCALIZATION = {
         "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom"
     },
     "ગુજરાતી (Gujarati)": {
-        "title": "🕉️️ AI સારથી",
+        "title": "🕉️ AI સારથી",
         "caption": "જીવન અને વ્યવસાયના પ્રશ્નોનું ભગવદ્ગીતાના પ્રકાશમાં સચોટ માર્ગદર્શન",
         "modes": ["🌱 વ્યક્તિગત જીવન (Personal)", "💼 વ્યાપાર અને કારકિર્દી (Business)"],
         "input_placeholder": "તમારો પ્રશ્ન કે સમસ્યા અહીં લખો...",
@@ -126,7 +126,7 @@ LOCALIZATION = {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
         "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
-        "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
+        "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
         "brand_desc": "পরিকল্পনা ও রূপায়ণ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>ভগবদ্গীতার শিক্ষায় সমৃদ্ধ কল্যাণমুখী ডিজিটাল প্রয়াস"
@@ -196,7 +196,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न व उत्तर (५०३ लोड एरर रोखण्यासाठी फॉलबॅक रचना)
+# ९. प्रश्न व उत्तर (स्थिर gemini-2.0-flash मॉडेल)
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -205,30 +205,16 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
     with st.chat_message("assistant"):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
-            
-            # प्रायोरिटीनुसार मॉडेल्सची यादी
-            candidate_models = ["gemini-2.0-flash", "gemini-3.8-flash"]
-            reply_text = None
-            last_err = ""
-            
-            for m in candidate_models:
-                try:
-                    response = client.models.generate_content(
-                        model=m,
-                        contents=full_prompt
-                    )
-                    if response.text:
-                        reply_text = response.text
-                        break
-                except Exception as e:
-                    last_err = str(e)
-                    continue
-            
-            if reply_text:
+            try:
+                response = client.models.generate_content(
+                    model="gemini-2.0-flash",
+                    contents=full_prompt
+                )
+                reply_text = response.text
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
-            else:
-                st.error(f"तांत्रिक माहिती: {last_err}")
+            except Exception as e:
+                st.error(f"तांत्रिक माहिती: {str(e)}")
 
 # १०. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
 st.markdown(f"""

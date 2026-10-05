@@ -44,7 +44,7 @@ translations = {
         "business_placeholder": "तुमचा व्यावसायिक संभ्रम किंवा प्रश्न येथे लिहा...",
         "title_p": "🕉️ AI सारथी",
         "desc_p": "तुमच्या मनातील प्रश्न आणि समस्यांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
-        "title_b": "💼 🕉️ AI सारथी — Business & Wealth",
+        "title_b": "💼 🕉️️ AI सारथी — Business & Wealth",
         "desc_b": "व्यापार, नेतृत्व आणि आर्थिक गुंतवणुकीसाठी भगवद्गीतेवर आधारित व्यवस्थापकीय मार्गदर्शन",
         "thinking": "सारथी विचार करत आहेत...",
         "footer_desc": "प्रकल्प संकल्पना व संचलन: <b>Vighnaharta Gold Foundation</b><br>भगवद्गीतेच्या तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
@@ -132,7 +132,7 @@ translations = {
         "opt_personal": "জীবন ও व्यक्तिगत समस्या",
         "opt_business": "ব্যবসা ও আর্থিক বিনিয়োগ",
         "personal_placeholder": "আপনার প্রশ্ন এখানে লিখুন...",
-        "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ प्रश्न এখানে লিখুন...",
+        "business_placeholder": "আপনার ব্যবসায়িক বা বিনিয়োগ প্রশ্ন এখানে লিখুন...",
         "title_p": "🕉️ AI সারথি",
         "desc_p": "ভগবদ্গীতার আলোকে জীবনের সঠিক পথনির্দেশ",
         "title_b": "💼 🕉️ AI সারথি — Business & Wealth",
@@ -159,7 +159,7 @@ translations = {
         "opt_business": "ਕਾਰੋਬਾਰ ਅਤੇ ਵਿੱਤੀ ਨਿਵੇਸ਼",
         "personal_placeholder": "ਆਪਣਾ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
         "business_placeholder": "ਆਪਣਾ ਕਾਰੋਬਾਰੀ ਜਾਂ ਨਿਵੇਸ਼ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...",
-        "title_p": "🕉️ AI ਸਾਰਥੀ",
+        "title_p": "🕉️️ AI ਸਾਰਥੀ",
         "desc_p": "ਭਗਵਦ ਗੀਤਾ ਦੀ ਰੌਸ਼ਨੀ ਵਿੱਚ ਜੀਵਨ ਦਾ ਮਾਰਗਦਰਸ਼ਨ",
         "title_b": "💼 🕉️ AI ਸਾਰਥੀ — Business & Wealth",
         "desc_b": "ਕਾਰੋਬਾਰ ਅਤੇ ਨਿਵੇਸ਼ ਲਈ ਗੀਤਾ ਅਧਾਰਤ ਮਾਰਗਦਰਸ਼ਨ",
@@ -198,7 +198,7 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. सिस्टीम प्रॉम्प्ट (कमी टोकन्स = वेगाने उत्तर)
+# ६. थेट सिस्टीम प्रॉम्प्ट
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
@@ -211,7 +211,7 @@ else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक आणि तत्त्वज्ञ.
 वापरकर्त्याच्या प्रश्नावर थेट आणि सुटसुटीत उत्तर दे:
-१. दिलासा आणि समस्येचे मूळ कारण.
+१. दिलासा आणि मूळ कारण.
 २. भगवद्गीतेतील अचूक श्लोक व सोपा अर्थ.
 ३. दैनंदिन जीवनातील २ ते ३ व्यावहारिक पावले.
 """
@@ -221,7 +221,7 @@ SYSTEM_INSTRUCTION = f"""
 नियम: संपूर्ण उत्तर केवळ {language} या भाषेतच दे.
 """
 
-# ७. API Key व्यवस्थापन
+# ७. API Key व्यवस्थापन (सुरक्षितपणे Secrets मधून घेणे)
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     api_key = st.sidebar.text_input("Gemini API Key:", type="password")
@@ -259,7 +259,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             reply_text = None
             error_details = ""
             
-            # उच्च मर्यादा आणि मोफत कोटा असलेले मॉडेल
+            # उच्च कोटा असलेली हलकी व जलद मॉडेल्स
             models = ["gemini-2.5-flash-lite", "gemini-2.5-flash"]
 
             for m in models:

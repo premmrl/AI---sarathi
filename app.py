@@ -34,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व १० भाषांनुसार संपूर्ण डेटा, लेबल्स व फूटर
+# ३. सर्व १० भाषांनुसार संपूर्ण मजकूर, लेबल्स व फूटर
 translations = {
     "मराठी": {
         "domain_label": "🎯 मार्गदर्शन क्षेत्र:",
@@ -198,7 +198,7 @@ else:
     st.caption(lang_data["desc_p"])
     current_input_placeholder = lang_data["personal_placeholder"]
 
-# ६. थेट आणि संक्षिप्त सिस्टीम प्रॉम्प्ट (कमी टोकन्स = प्रचंड वेग)
+# ६. सिस्टीम प्रॉम्प्ट (कमी टोकन्स = वेगाने उत्तर)
 if is_business:
     DOMAIN_PROMPT = """
 तू 'AI सारथी - Business & Wealth Edition' आहेस. 
@@ -211,7 +211,7 @@ else:
     DOMAIN_PROMPT = """
 तू 'AI सारथी' आहेस - एक मार्गदर्शक आणि तत्त्वज्ञ.
 वापरकर्त्याच्या प्रश्नावर थेट आणि सुटसुटीत उत्तर दे:
-१. मानसिक दिलासा आणि समस्येचे मूळ कारण.
+१. दिलासा आणि समस्येचे मूळ कारण.
 २. भगवद्गीतेतील अचूक श्लोक व सोपा अर्थ.
 ३. दैनंदिन जीवनातील २ ते ३ व्यावहारिक पावले.
 """
@@ -241,7 +241,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न घेणे आणि थेट योग्य मॉडेलद्वारे उत्तर देणे
+# १०. प्रश्न घेणे आणि थेट मॉडेलद्वारे उत्तर देणे
 if user_prompt := st.chat_input(current_input_placeholder):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -259,7 +259,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             reply_text = None
             error_details = ""
             
-            # उच्च मर्यादा आणि विनामूल्य कोटा असलेले मॉडेल्स
+            # उच्च मर्यादा आणि मोफत कोटा असलेले मॉडेल
             models = ["gemini-2.5-flash-lite", "gemini-2.5-flash"]
 
             for m in models:
@@ -285,7 +285,7 @@ if user_prompt := st.chat_input(current_input_placeholder):
             else:
                 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
                     st.session_state.messages.pop()
-                st.error("गुगलचा मोफत कोटा तात्पुरता भरला आहे. कृपया १ मिनिट थांबून पुन्हा प्रयत्न करा.")
+                st.error("सर्व्हरशी संपर्क होऊ शकला नाही. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.")
                 if error_details:
                     with st.expander("तांत्रिक तपशील (Technical Details)"):
                         st.caption(error_details)

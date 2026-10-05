@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 
 # १. पेज कॉन्फिगरेशन
 st.set_page_config(
@@ -60,7 +60,7 @@ language = st.selectbox(
 # ४. भाषेनुसार स्थानिक डेटा (शीर्षक, ब्रँडिंग व मोड्स)
 LOCALIZATION = {
     "मराठी": {
-        "title": "🕉️ AI सारथी",
+        "title": "🕉️️ AI सारथी",
         "caption": "तुमच्या जीवनातील व व्यवसायातील प्रश्नांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
         "modes": ["🌱 वैयक्तिक जीवन (Personal Guidance)", "💼 व्यवसाय आणि करिअर (Business & Career)"],
         "input_placeholder": "तुमचा प्रश्न किंवा अडचण येथे मांडा...",
@@ -125,7 +125,7 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
         "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
@@ -172,7 +172,7 @@ SYSTEM_INSTRUCTION = f"""
 
 महत्त्वाचे नियम:
 १. वापरकर्त्याने निवडलेल्या भाषेतच ({language}) संपूर्ण उत्तर दे.
-२. जर मोड 'व्यवसाय आणि करिअर' असेल, तर व्यावसायिक नीतिमत्ता, नेतृत्व, निर्णयक्षमता, संकटातील रणनीती आणि कर्मयोग यावर भर दे.
+२. जर मोड 'व्यवसाय आणि करिअर' असेल, तर व्यावसायिक नीतिमत्ता, नेतृत्व, निर्णयक्षमता, रणनीती आणि कर्मयोगावर भर दे.
 ३. जर मोड 'वैयक्तिक जीवन' असेल, तर मानसिक शांतता, नातेसंबंध, ताणतणाव आणि आत्मसंयमावर मार्गदर्शन कर.
 ४. उत्तराची रचना:
    - समस्येचे मूळ कारण आणि तात्त्विक दिलासा.
@@ -180,13 +180,13 @@ SYSTEM_INSTRUCTION = f"""
    - २ ते ३ व्यावहारिक, अमलात आणण्याजोगी पावले (Actionable Steps).
 """
 
-# ७. API Key व्यवस्थापन
+# ७. API Key आणि Client व्यवस्थापन
 api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     st.info("कृपया पुढे जाण्यासाठी API Key आवश्यक आहे.", icon="ℹ️")
     st.stop()
 
-genai.configure(api_key=api_key)
+client = genai.Client(api_key=api_key)
 
 # ८. चॅट हिस्ट्री
 if "messages" not in st.session_state:
@@ -205,19 +205,11 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
     with st.chat_message("assistant"):
         with st.spinner(content["thinking"]):
             try:
-                model = genai.GenerativeModel(
-                    model_name="gemini-1.5-flash",
-                    system_instruction=SYSTEM_INSTRUCTION
+                full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=full_prompt
                 )
-                
-                history = []
-                for msg in st.session_state.messages[:-1]:
-                    role = "user" if msg["role"] == "user" else "model"
-                    history.append({"role": role, "parts": [msg["content"]]})
-                
-                chat = model.start_chat(history=history)
-                full_prompt = f"[क्षेत्र: {guidance_mode}] प्रश्न: {user_prompt}"
-                response = chat.send_message(full_prompt)
                 
                 reply_text = response.text
                 st.markdown(reply_text)

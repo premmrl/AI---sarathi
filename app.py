@@ -96,7 +96,7 @@ LOCALIZATION = {
         "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
     },
     "ಕನ್ನಡ (Kannada)": {
-        "title": "🕉️ AI ಸಾರಥಿ",
+        "title": "🕉️️ AI ಸಾರಥಿ",
         "caption": "ವೈಯಕ್ತಿಕ ಜೀವನ ಮತ್ತು ವ್ಯಾಪಾರದ ಸಮಸ್ಯೆಗಳಿಗೆ ಭಗವದ್ಗೀತೆಯ ಬೆಳಕಿನಲ್ಲಿ ಮಾರ್ಗದರ್ಶನ",
         "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal)", "💼 ವ್ಯಾಪಾರ ಮತ್ತು ವೃತ್ತಿ (Business)"],
         "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
@@ -105,7 +105,7 @@ LOCALIZATION = {
         "brand_desc": "ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
     },
     "తెలుగు (Telugu)": {
-        "title": "🕉️ AI సారథి",
+        "title": "🕉️️ AI సారథి",
         "caption": "జీవితం మరియు వ్యాపార నిర్ణయాలకు భగవద్గీత వెలుగులో సరైన మార్గదర్శనం",
         "modes": ["🌱 వ్యక్తిగత జీవితం (Personal)", "💼 వ్యాపారం & వృత్తి (Business)"],
         "input_placeholder": "మీ ప్రశ్నను ఇక్కడ నమోదు చేయండి...",
@@ -125,7 +125,7 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 व्यक्तिगत জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
         "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
@@ -206,16 +206,14 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
             try:
-                # थेट स्थिर gemini-2.5-flash वर कॉल
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.8-flash",
                     contents=full_prompt
                 )
                 reply_text = response.text
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
             except Exception as e:
-                # जर काही एरर आला तर नेमकी त्रुटी स्क्रीनवर दिसेल
                 st.error(f"तांत्रिक माहिती: {str(e)}")
 
 # १०. तळाशी भाषेनुसार बदलणारे ब्रँडिंग

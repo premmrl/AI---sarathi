@@ -1,10 +1,10 @@
 import streamlit as st
 from google import genai
 
-# १. पेज कॉन्फिगरेशन
+# १. पेज सेटिंग्ज
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
-    page_icon="🕉️",
+    page_icon="🕉️️",
     layout="centered"
 )
 
@@ -60,7 +60,7 @@ language = st.selectbox(
 # ४. भाषेनुसार स्थानिक डेटा (शीर्षक, ब्रँडिंग व मोड्स)
 LOCALIZATION = {
     "मराठी": {
-        "title": "🕉️️ AI सारथी",
+        "title": "🕉️ AI सारथी",
         "caption": "तुमच्या जीवनातील व व्यवसायातील प्रश्नांवर भगवद्गीतेच्या प्रकाशात अचूक मार्गदर्शन",
         "modes": ["🌱 वैयक्तिक जीवन (Personal Guidance)", "💼 व्यवसाय आणि करिअर (Business & Career)"],
         "input_placeholder": "तुमचा प्रश्न किंवा अडचण येथे मांडा...",
@@ -125,7 +125,7 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 व्यक्तिगत जीवन (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "modes": ["🌱 व्यक्तिगत জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
         "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
@@ -207,7 +207,7 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
             try:
                 full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.8-flash",
                     contents=full_prompt
                 )
                 

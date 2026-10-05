@@ -1,7 +1,8 @@
 import streamlit as st
+import time
 from google import genai
 
-# १. पेज कॉन्फिगरेशन
+# १. पेज सेटिंग्ज
 st.set_page_config(
     page_title="AI सारथी | Gita AI Guide",
     page_icon="🕉️",
@@ -125,8 +126,8 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
-        "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
         "brand_desc": "পরিকল্পনা ও রূপায়ণ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>ভগবদ্গীতার শিক্ষায় সমৃদ্ধ কল্যাণমুখী ডিজিটাল প্রয়াস"
@@ -196,7 +197,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न व उत्तर (स्थिर gemini-2.0-flash मॉडेल)
+# ९. प्रश्न व उत्तर (अधिकृत gemini-3.8-flash + ऑटो री-ट्राय)
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -205,16 +206,28 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
     with st.chat_message("assistant"):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
-            try:
-                response = client.models.generate_content(
-                    model="gemini-2.0-flash",
-                    contents=full_prompt
-                )
-                reply_text = response.text
+            reply_text = None
+            last_err = ""
+            
+            # ५०३ सर्व्हर लोडसाठी ३ वेळा आपोआप प्रयत्न लूप
+            for attempt in range(3):
+                try:
+                    response = client.models.generate_content(
+                        model="gemini-3.8-flash",
+                        contents=full_prompt
+                    )
+                    if response.text:
+                        reply_text = response.text
+                        break
+                except Exception as e:
+                    last_err = str(e)
+                    time.sleep(1.5)  # १.५ सेकंद वाट पाहून पुन्हा प्रयत्न
+            
+            if reply_text:
                 st.markdown(reply_text)
                 st.session_state.messages.append({"role": "assistant", "content": reply_text})
-            except Exception as e:
-                st.error(f"तांत्रिक माहिती: {str(e)}")
+            else:
+                st.error(f"तांत्रिक माहिती: {last_err}")
 
 # १०. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
 st.markdown(f"""

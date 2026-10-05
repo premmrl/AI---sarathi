@@ -14,7 +14,7 @@ st.markdown("""
     <style>
     .footer-container {
         text-align: center;
-        margin-top: 55px;
+        margin-top: 50px;
         padding-top: 18px;
         border-top: 1px solid #333333;
     }
@@ -30,6 +30,13 @@ st.markdown("""
         font-size: 12px;
         margin-top: 4px;
         line-height: 1.5;
+    }
+    .visitor-box {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
     }
     .stRadio > div {
         display: flex;
@@ -67,7 +74,8 @@ LOCALIZATION = {
         "input_placeholder": "आपला प्रश्न किंवा अडचण येथे मांडा...",
         "thinking": "सारथी विचारमंथन करत आहेत...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
+        "brand_desc": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
+        "visitor_label": "एकूण भेट देणारे साधक"
     },
     "हिंदी": {
         "title": "🕉️ AI सारथी",
@@ -76,16 +84,18 @@ LOCALIZATION = {
         "input_placeholder": "अपनी समस्या या प्रश्न यहाँ साझा करें...",
         "thinking": "सारथी विचार कर रहे हैं...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "प्रकल्प संकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के सिद्धांतों पर आधारित समाजोपयोगी डिजिटल पहल"
+        "brand_desc": "प्रकल्प संकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के सिद्धांतों पर आधारित समाजोपयोगी डिजिटल पहल",
+        "visitor_label": "कुल आगंतुक"
     },
     "English": {
-        "title": "🕉️️ AI Sarathi",
+        "title": "🕉️ AI Sarathi",
         "caption": "Timeless Wisdom from the Bhagavad Gita for Personal & Professional Life",
         "modes": ["🌱 Personal Life", "💼 Business & Career"],
         "input_placeholder": "Share your situation or question here...",
         "thinking": "Sarathi is contemplating...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom"
+        "brand_desc": "Project Conception & Governance: <b>Vighnaharta Gold Foundation</b><br>A Digital Initiative Grounded in Bhagavad Gita Wisdom",
+        "visitor_label": "Total Seekers / Visitors"
     },
     "ગુજરાતી (Gujarati)": {
         "title": "🕉️ AI સારથી",
@@ -94,7 +104,8 @@ LOCALIZATION = {
         "input_placeholder": "તમારો પ્રશ્ન કે સમસ્યા અહીં લખો...",
         "thinking": "સારથી ચિંતન કરી રહ્યા છે...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ"
+        "brand_desc": "આયોજન અને સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના મૂલ્યો પર આધારિત ડિજિટલ સેવાયજ્ઞ",
+        "visitor_label": "કુલ મુલાકાતીઓ"
     },
     "ಕನ್ನಡ (Kannada)": {
         "title": "🕉️ AI ಸಾರಥಿ",
@@ -103,7 +114,8 @@ LOCALIZATION = {
         "input_placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸವಾಲನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ...",
         "thinking": "ಸಾರಥಿ ಆಲೋಚಿಸುತ್ತಿದ್ದಾರೆ...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ"
+        "brand_desc": "ಪರಿಕಲ್ಪನೆ ಮತ್ತು ನಿರ್ವಹಣೆ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಡಿಜಿಟಲ್ ಉಪಕ್ರಮ",
+        "visitor_label": "ಒಟ್ಟು ಸಂದರ್ಶಕರು"
     },
     "తెలుగు (Telugu)": {
         "title": "🕉️ AI సారథి",
@@ -112,7 +124,8 @@ LOCALIZATION = {
         "input_placeholder": "మీ ప్రశ్నను ఇక్కడ నమోదు చేయండి...",
         "thinking": "సారథి ఆలోచిస్తున్నారు...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "రూపకల్పన & నిర్వహణ: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత సందేశంతో ప్రజోపయోగ డిజిటల్ వ్యవస్థ"
+        "brand_desc": "రూపకల్పన & నిర్వహణ: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత సందేశంతో ప్రజోపయోగ డిజిటల్ వ్యవస్థ",
+        "visitor_label": "మొత్తం సందర్శకులు"
     },
     "தமிழ் (Tamil)": {
         "title": "🕉️ AI சாரதி",
@@ -121,16 +134,18 @@ LOCALIZATION = {
         "input_placeholder": "உங்கள் கேள்வி அல்லது சிக்கலை இங்கே எழுதுங்கள்...",
         "thinking": "சாரதி சிந்திக்கிறார்...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "உருவாக்கம் & வழிகாட்டல்: <b>விக்னஹர்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் நல்வழியில் உருவான சேவை"
+        "brand_desc": "உருவாக்கம் & வழிகாட்டல்: <b>விக்னஹர்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் நல்வழியில் உருவான சேவை",
+        "visitor_label": "பார்வையாளர்கள் எண்ணிக்கை"
     },
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 व्यक्तिगत জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
-        "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
+        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "input_placeholder": "আপনার প্রশ্ন বা সমস্যা এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "পরিকল্পনা ও রূপায়ণ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>ভগবদ্গীতার শিক্ষায় সমৃদ্ধ কল্যাণমুখী ডিজিটাল প্রয়াস"
+        "brand_desc": "পরিকল্পনা ও রূপায়ণ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>ভগবদ্গীতার শিক্ষায় সমৃদ্ধ কল্যাণমুখী ডিজিটাল প্রয়াস",
+        "visitor_label": "মোট দর্শনার্থী"
     },
     "മലയാളം (Malayalam)": {
         "title": "🕉️ AI സാരഥി",
@@ -139,7 +154,8 @@ LOCALIZATION = {
         "input_placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ രേഖപ്പെടുത്തുക...",
         "thinking": "സാരഥി ചിന്തിക്കുന്നു...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "നേതൃത്വം: <b>വിഘ്നഹർത്താ ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളിൽ അധിഷ്ഠിതമായ ജനക്ഷേമ സംരംഭം"
+        "brand_desc": "നേതൃത്വം: <b>വിഘ്നഹർത്താ ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളിൽ അധിഷ്ഠിതമായ ജനക്ഷേമ സംരംഭം",
+        "visitor_label": "ആകെ സന്ദർശകർ"
     },
     "ਪੰਜਾਬੀ (Punjabi)": {
         "title": "🕉️ AI ਸਾਰਥੀ",
@@ -148,7 +164,8 @@ LOCALIZATION = {
         "input_placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਲਿਖੋ...",
         "thinking": "ਸਾਰਥੀ ਸੋਚ ਰਹੇ ਹਨ...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
-        "brand_desc": "ਸੰਕਲਪ ਅਤੇ ਪ੍ਰਬੰਧਨ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਮਾਰਗ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਸੇਵਾ"
+        "brand_desc": "ਸੰਕਲਪ ਅਤੇ ਪ੍ਰਬੰਧਨ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਮਾਰਗ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਸੇਵਾ",
+        "visitor_label": "ਕੁੱਲ ਦਰਸ਼ਕ"
     }
 }
 
@@ -165,7 +182,7 @@ guidance_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ६. सिस्टीम मार्गदर्शक सूचना (लिंग-तटस्थ आणि आदरार्थी नियमांसह)
+# ६. सिस्टीम मार्गदर्शक सूचना (लिंग-तटस्थ आणि आदरार्थी नियम)
 SYSTEM_INSTRUCTION = f"""
 तू 'AI सारथी' आहेस - एक निष्पक्ष मार्गदर्शक, मित्र आणि आध्यात्मिक तत्त्वज्ञ.
 सध्या निवडलेली भाषा: {language}
@@ -175,7 +192,7 @@ SYSTEM_INSTRUCTION = f"""
 १. वापरकर्त्याने निवडलेल्या भाषेतच ({language}) संपूर्ण उत्तर दे.
 २. लिंग-तटस्थ आणि आदरार्थी भाषा (Gender-Neutral & Respectful Tone):
    - वापरकर्ता महिला असो वा पुरुष, दोघांनाही १००% समान लागू होईल अशी तटस्थ, सन्माननीय आणि आदरार्थी भाषा वापर.
-   - विशिष्ट एकवचनी लिंगभेद (उदा. 'करावा/करावी', 'झाला/झाली', 'होतो/होते') टाळावेत. त्याऐवजी नेहमी आदरार्थी बहुवचनी रूपे वापरावीत (उदा. "तुम्ही करू शकता", "आपण असा दृष्टिकोन ठेवावा", "आपल्या मनात", "स्वीकारावे", "मार्ग निवडावा").
+   - विशिष्ट एकवचनी लिंगभेद टाळावेत. त्याऐवजी नेहमी आदरार्थी बहुवचनी रूपे वापरावीत (उदा. "तुम्ही करू शकता", "आपण असा दृष्टिकोन ठेवावा", "आपल्या मनात", "स्वीकारावे", "मार्ग निवडावा").
    - वापरकर्त्याला 'कर्मयोगी', 'साधक' किंवा 'जिज्ञासू' या उदात्त दृष्टीने संबोधित कर.
 ३. जर मोड 'व्यवसाय आणि करिअर' असेल, तर व्यावसायिक नीतिमत्ता, नेतृत्व, निर्णयक्षमता, व्यावसायिक रणनीती आणि कर्मयोगावर भर दे.
 ४. जर मोड 'वैयक्तिक जीवन' असेल, तर मानसिक शांतता, नातेसंबंध, ताणतणावमुक्ती आणि आत्मसंयमावर मार्गदर्शन कर.
@@ -217,7 +234,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न व उत्तर हाताळणी (ऑटो-रीट्रायसह)
+# १०. प्रश्न व उत्तर हाताळणी
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -253,10 +270,14 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
             else:
                 st.error(f"तांत्रिक माहिती: {last_err}")
 
-# ११. तळाशी भाषेनुसार बदलणारे ब्रँडिंग
+# ११. तळाशी ब्रँडिंग आणि थेट व्हिजिटर काउंटर बॅज (Live Visitor Counter)
 st.markdown(f"""
     <div class='footer-container'>
         <div class='brand-title'>{content["brand_title"]}</div>
         <div class='footer-text'>{content["brand_desc"]}</div>
+        <div class='visitor-box'>
+            <span style='font-size: 11px; color: #aaaaaa;'>👁️ {content.get("visitor_label", "Visitors")}:</span>
+            <img src="https://hits.sh/ai-sarathi.streamlit.app.svg?view=today-total&style=flat-square&label=Views&extraPrefix=&color=d4af37&labelColor=222222" alt="Visitors" />
+        </div>
     </div>
 """, unsafe_allow_html=True)

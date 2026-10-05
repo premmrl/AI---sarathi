@@ -126,7 +126,7 @@ LOCALIZATION = {
     "বাংলা (Bengali)": {
         "title": "🕉️ AI সারথি",
         "caption": "ব্যক্তিগত জীবন ও ব্যবসার জটিল সমস্যার ভগবদ্গীতার আলোকে সমাধান",
-        "modes": ["🌱 व्यक्तिगत जीवन (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
+        "modes": ["🌱 ব্যক্তিগত জীবন (Personal)", "💼 ব্যবসা ও ক্যারিয়ার (Business)"],
         "input_placeholder": "আপনার প্রশ্ন বা समस्या এখানে লিখুন...",
         "thinking": "সারথি চিন্তা করছেন...",
         "brand_title": "AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION",
@@ -197,7 +197,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ९. प्रश्न व उत्तर (अधिकृत gemini-3.8-flash + ऑटो री-ट्राय)
+# ९. प्रश्न व उत्तर (५०३ लोड बायपास करणारी मल्टि-मॉडेल फॉलबॅक रचना)
 if user_prompt := st.chat_input(content["input_placeholder"]):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -206,22 +206,32 @@ if user_prompt := st.chat_input(content["input_placeholder"]):
     with st.chat_message("assistant"):
         with st.spinner(content["thinking"]):
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n[क्षेत्र: {guidance_mode}]\nप्रश्न: {user_prompt}"
+            
+            # ५०३ लोड आल्यास एकामागून एक वापरली जाणारी पर्यायी मॉडेल्स
+            candidate_models = [
+                "gemini-3.8-flash",
+                "gemini-2.5-pro",
+                "gemini-2.0-flash-lite",
+                "gemini-1.5-pro"
+            ]
+            
             reply_text = None
             last_err = ""
             
-            # ५०३ सर्व्हर लोडसाठी ३ वेळा आपोआप प्रयत्न लूप
-            for attempt in range(3):
+            for m in candidate_models:
                 try:
                     response = client.models.generate_content(
-                        model="gemini-3.8-flash",
+                        model=m,
                         contents=full_prompt
                     )
-                    if response.text:
+                    if response and response.text:
                         reply_text = response.text
                         break
                 except Exception as e:
                     last_err = str(e)
-                    time.sleep(1.5)  # १.५ सेकंद वाट पाहून पुन्हा प्रयत्न
+                    # जर ५०३ आला असेल तर सेकंदभर थांबा आणि पुढचे मॉडेल ट्राय करा
+                    time.sleep(1)
+                    continue
             
             if reply_text:
                 st.markdown(reply_text)

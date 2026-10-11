@@ -196,6 +196,7 @@ st.markdown("""
         line-height: 1.6;
     }
 
+    /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
@@ -284,7 +285,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫೌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోಲ್డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -306,13 +307,13 @@ LOCALIZED_CONTENT = {
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
             "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
         ],
-        "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
+        "placeholder": "আপনার प्रश्न বা সংশয় এখানে লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
-        "visitor_label": "মোট দর্শনার্থী साधक:"
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
+        "visitor_label": "মোট দর্শনার্থী সাধক:"
     },
     "മലയാളം": {
-        "title": "AI സಾರഥി",
+        "title": "AI സാരഥി",
         "tagline": "ഭഗവദ്ഗീതയുടെ ദിവ്യവെളിച്ചത്തിൽ ജീവിതത്തിലെയും ബിസിനസ്സിലെയും തീരുമാനങ്ങൾക്ക് കൃത്യമായ വഴികാട്ടി",
         "modes": [
             "🌱 വ്യക്തിജീവിതം (Personal Guidance)",
@@ -427,14 +428,14 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि २७९ वरून आपोआप पुढे वाढणारा व्हिजिटर काउंटर
+# १२. तळटीप ब्रँडिंग आणि नवीन फ्रेश रिअल-टाईम काउंटर (अखंड वाढणारा)
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <img src="https://komarev.com/ghpvc/?username=vighnaharta-ai-sarathi-live&base=279&color=f59e0b&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 6px; border-radius: 4px;">
+            <img src="https://komarev.com/ghpvc/?username=vgf-sarathi-seekers&color=f59e0b&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 6px; border-radius: 4px;">
         </div>
     </div>
 """, unsafe_allow_html=True)

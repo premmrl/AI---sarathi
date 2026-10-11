@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -9,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. संपूर्ण CSS डिझाइन आणि चॅट मेसेज फॉन्ट विझिबिलिटी
+# २. संपूर्ण CSS डिझाइन आणि फॉन्ट विझिबिलिटी
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -112,7 +113,7 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* चॅट मेसेज कार्ड्स आणि फॉन्ट विझिबिलिटी */
+    /* चॅट मेसेज कार्ड्स */
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
@@ -202,19 +203,49 @@ st.markdown("""
         align-items: center;
         gap: 8px;
         background: rgba(245, 158, 11, 0.15);
-        border: 1px solid rgba(251, 191, 36, 0.6);
+        border: 1.5px solid rgba(251, 191, 36, 0.6);
         color: #FEF08A;
-        padding: 6px 16px;
+        padding: 6px 18px;
         border-radius: 20px;
-        font-size: 13px;
+        font-size: 13.5px;
         font-weight: 600;
         margin-top: 14px;
         box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
     }
+
+    .views-counter-tag {
+        background: #D97706;
+        color: #FFFBEB;
+        padding: 2px 10px;
+        border-radius: 6px;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ३. स्थानिक भाषांतर डेटा (१० भाषा)
+# ३. रिअल-टाइम व्हिजिटर काउंटर लॉजिक (कॅश न होता आपोआप वाढणारे)
+@st.cache_resource(ttl=None)
+def get_or_create_counter_key():
+    return "vgf-sarathi-live-counter"
+
+def update_visitor_count():
+    key = get_or_create_counter_key()
+    try:
+        # मोफत CountAPI चा वापर
+        res = requests.get(f"https://api.counterapi.dev/v1/vgf-sarathi/{key}/up", timeout=3)
+        if res.status_code == 200:
+            return res.json().get("count", 1)
+    except:
+        pass
+    return None
+
+if "live_views" not in st.session_state:
+    updated = update_visitor_count()
+    st.session_state.live_views = updated if updated else 1
+
+# ४. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
     "मराठी": {
         "title": "AI सारथी",
@@ -285,7 +316,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోಲ್డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -305,11 +336,11 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
+            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
         ],
         "placeholder": "আপনার प्रश्न বা সংশয় এখানে লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
         "visitor_label": "মোট দর্শনার্থী সাধক:"
     },
     "മലയാളം": {
@@ -343,7 +374,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ४. मुख्य हेडर कार्ड
+# ५. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -352,7 +383,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ५. हेडर कार्डच्या खाली भाषा निवड
+# ६. हेडर कार्डच्या खाली भाषा निवड
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 भाषा निवडा / Choose Language:",
@@ -364,7 +395,7 @@ if chosen_lang != st.session_state.selected_lang:
     st.session_state.selected_lang = chosen_lang
     st.rerun()
 
-# ६. मार्गदर्शन विभाग (वैयक्तिक / व्यवसाय)
+# ७. मार्गदर्शन विभाग (वैयक्तिक / व्यवसाय)
 selected_mode = st.radio(
     "मार्गदर्शन क्षेत्र:",
     curr["modes"],
@@ -372,7 +403,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ७. सिस्टीम प्रॉम्ट
+# ८. सिस्टीम प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
@@ -383,7 +414,7 @@ system_prompt = (
     "३. कर्म, धर्म, अनासक्ती, मनःशांती आणि निर्णयक्षमतेवर भर दे."
 )
 
-# ८. Google GenAI क्लायंट
+# ९. Google GenAI क्लायंट
 api_token = st.secrets.get("GEMINI_API_KEY", "").strip()
 
 if not api_token:
@@ -396,7 +427,7 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. चालू व अचूक मॉडेल (gemini-3.8-flash)
+# १०. चालू मॉडेल (gemini-3.8-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
@@ -405,7 +436,7 @@ def get_sarathi_response(query):
     )
     return response.text
 
-# १०. चॅट हिस्ट्री
+# ११. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -413,7 +444,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट व स्पष्ट चिंतन इंडिकेटर
+# १२. प्रश्न इनपुट व स्पष्ट चिंतन इंडिकेटर
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -428,14 +459,16 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि नवीन फ्रेश रिअल-टाईम काउंटर (अखंड वाढणारा)
+# १३. तळटीप ब्रँडिंग आणि रिअल-टाइम व्हिजिटर काउंटर (न अडकणारा)
+views_display = st.session_state.get("live_views", 1)
+
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <img src="https://komarev.com/ghpvc/?username=vgf-sarathi-seekers&color=f59e0b&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 6px; border-radius: 4px;">
+            <span class="views-counter-tag">Views {views_display}</span>
         </div>
     </div>
 """, unsafe_allow_html=True)

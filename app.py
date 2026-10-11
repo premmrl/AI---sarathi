@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. CSS डिझाइन व इनपुट बॉक्स फॉन्ट विझिबिलिटी दुरुस्ती
+# २. दिव्य, व्हायब्रंट आणि इनपुट बॉक्स व्हिजिबिलिटी १००% दुरुस्त केलेली CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -111,23 +111,29 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* तळाचा चॅट इनपुट बॉक्स दुरुस्ती (Chat Input Visibility Fix) */
+    /* --- इनपुट बॉक्स आणि टायपिंग फॉन्ट १००% दृश्यमान करण्यासाठी अचूक CSS --- */
+    div[data-testid="stChatInput"],
+    div[data-testid="stChatInput"] > div,
     .stChatInputContainer {
-        background-color: #111827 !important;
-        border: 1.5px solid rgba(251, 191, 36, 0.6) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        background-color: #0f172a !important;
+        border: 1.5px solid rgba(251, 191, 36, 0.65) !important;
+        border-radius: 18px !important;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6) !important;
     }
 
+    div[data-testid="stChatInput"] textarea,
     .stChatInputContainer textarea {
         color: #ffffff !important;
-        font-size: 15px !important;
-        font-weight: 500 !important;
-        background-color: transparent !important;
+        background-color: #0f172a !important;
+        font-size: 15.5px !important;
+        font-weight: 600 !important;
+        caret-color: #fbbf24 !important; /* कर्सर सोनेरी दिसेल */
     }
 
+    div[data-testid="stChatInput"] textarea::placeholder,
     .stChatInputContainer textarea::placeholder {
         color: #94a3b8 !important;
+        font-weight: 400 !important;
     }
 
     /* फुटर व संस्था ब्रँडिंग */
@@ -254,7 +260,7 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
+            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",

@@ -9,21 +9,18 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. पर्सपेक्टिव्ह A: 'दिव्य रथ व कुरुक्षेत्र' (Celestial Chariot & Divine Gold Theme)
+# २. CSS डिझाइन व इनपुट बॉक्स फॉन्ट विझिबिलिटी दुरुस्ती
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
 
-    /* दिव्य आकाशीय व सात्विक पार्श्वभूमी (Celestial Midnight Cosmic Aura) */
     .stApp {
         background: radial-gradient(circle at 50% -10%, #2e1065 0%, #1e1b4b 35%, #0f172a 70%, #030712 100%) !important;
         font-family: 'Mukta', sans-serif !important;
         color: #f8fafc !important;
     }
 
-    /* मुख्य हेडर कार्ड (Hero Card - Celestial Chariot Aura) */
     .hero-card {
-        position: relative;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.5px solid rgba(251, 191, 36, 0.55);
         border-radius: 24px;
@@ -39,12 +36,6 @@ st.markdown("""
         line-height: 1.1;
         filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.9));
         margin-bottom: 4px;
-        animation: pulseGlow 3s infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-        0% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7)); }
-        100% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(251, 191, 36, 1)); }
     }
 
     .title-glow {
@@ -75,7 +66,7 @@ st.markdown("""
         margin-bottom: 4px !important;
     }
 
-    /* भाषा निवड ड्रॉपडाऊन बॉक्स */
+    /* भाषा निवड ड्रॉपडाऊन */
     div[data-baseweb="select"] {
         border-radius: 14px !important;
         border: 1.2px solid rgba(251, 191, 36, 0.55) !important;
@@ -99,7 +90,7 @@ st.markdown("""
         font-size: 14.5px !important;
     }
 
-    /* रेडिओ बटन्स - सुवर्ण प्रभाव असणारे पिल्स */
+    /* मोड सिलेक्टर (रेडिओ बटन्स) */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -109,7 +100,6 @@ st.markdown("""
         border: 1px solid rgba(251, 191, 36, 0.4) !important;
         gap: 8px !important;
         margin: 12px 0 18px 0 !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
     }
 
     div[role="radiogroup"] label {
@@ -121,14 +111,26 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* इनपुट बॉक्स स्टाईल */
-    div[data-baseweb="textarea"] {
-        background-color: rgba(30, 41, 59, 0.85) !important;
-        border: 1px solid rgba(251, 191, 36, 0.35) !important;
+    /* तळाचा चॅट इनपुट बॉक्स दुरुस्ती (Chat Input Visibility Fix) */
+    .stChatInputContainer {
+        background-color: #111827 !important;
+        border: 1.5px solid rgba(251, 191, 36, 0.6) !important;
         border-radius: 16px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
     }
 
-    /* तळटीप व संस्था ब्रँडिंग */
+    .stChatInputContainer textarea {
+        color: #ffffff !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        background-color: transparent !important;
+    }
+
+    .stChatInputContainer textarea::placeholder {
+        color: #94a3b8 !important;
+    }
+
+    /* फुटर व संस्था ब्रँडिंग */
     .footer-container {
         text-align: center;
         margin-top: 42px;
@@ -151,7 +153,6 @@ st.markdown("""
         line-height: 1.6;
     }
 
-    /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
@@ -253,7 +254,7 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
+            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -288,7 +289,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ४. मुख्य हेडर कार्ड (पर्सपेक्टिव्ह A)
+# ४. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -297,7 +298,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ५. हेडर कार्डच्या खाली ज्या ठिकाणी आहे तिथेच भाषा निवड
+# ५. हेडर कार्डच्या खाली भाषा निवड
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 भाषा निवडा / Choose Language:",
@@ -373,7 +374,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि २७९ वरून आपोआप पुढे वाढणारा रिअल-टाईम व्हिजिटर काउंटर
+# १२. तळटीप ब्रँडिंग आणि २७९ वरून आपोआप पुढे वाढणारा व्हिजिटर काउंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

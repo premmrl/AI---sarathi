@@ -149,15 +149,6 @@ st.markdown("""
         margin-top: 14px;
         box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
     }
-
-    .views-counter-box {
-        background: #D97706;
-        color: #FFFBEB;
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-weight: 800;
-        font-size: 12.5px;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -244,7 +235,7 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
-            "🌱 ব্যক্তিগত জীবন (Personal Guidance)",
+            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
             "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
@@ -365,16 +356,14 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि साधक काउंटर (२७९+ व्ह्यूज अखंड ठेवण्यासाठी)
-BASE_VIEWS = 279
-
+# १२. तळटीप ब्रँडिंग आणि रिअल-टाईम वाढणारा साधक काउंटर (base=279 सह)
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <span class="views-counter-box">Views {BASE_VIEWS}+</span>
+            <img src="https://komarev.com/ghpvc/?username=vighnaharta-ai-sarathi-live&base=279&color=f59e0b&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 6px; border-radius: 4px;">
         </div>
     </div>
 """, unsafe_allow_html=True)

@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. संपूर्ण CSS डिझाइन आणि सारथीच्या उत्तराची फॉन्ट विझिबिलिटी दुरुस्ती
+# २. संपूर्ण CSS डिझाइन आणि चॅट मेसेज फॉन्ट विझिबिलिटी
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -112,7 +112,7 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* --- सारथीचे उत्तर आणि चॅट मेसेज फॉन्ट १००% ठळक व वाचनीय करण्यासाठी CSS --- */
+    /* चॅट मेसेज कार्ड्स आणि फॉन्ट विझिबिलिटी */
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
@@ -122,7 +122,6 @@ st.markdown("""
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
     }
 
-    /* सारथीच्या उत्तरातील सर्व मजकूर, मथळे व याद्या स्पष्ट पांढऱ्या व सोनेरी रंगात */
     div[data-testid="stChatMessage"] * {
         color: #f8fafc !important;
     }
@@ -131,7 +130,7 @@ st.markdown("""
     div[data-testid="stChatMessage"] h2, 
     div[data-testid="stChatMessage"] h3, 
     div[data-testid="stChatMessage"] h4 {
-        color: #FDE68A !important; /* सोनेरी मथळे */
+        color: #FDE68A !important;
         font-weight: 700 !important;
         margin-top: 12px !important;
         margin-bottom: 6px !important;
@@ -139,17 +138,17 @@ st.markdown("""
 
     div[data-testid="stChatMessage"] p, 
     div[data-testid="stChatMessage"] li {
-        color: #f1f5f9 !important; /* स्वच्छ पांढरी अक्षरे */
+        color: #f1f5f9 !important;
         font-size: 16px !important;
         line-height: 1.75 !important;
     }
 
     div[data-testid="stChatMessage"] strong, 
     div[data-testid="stChatMessage"] b {
-        color: #FEF08A !important; /* ठळक शब्द सुवर्ण छटा */
+        color: #FEF08A !important;
     }
 
-    /* इनपुट बॉक्स स्टाईल */
+    /* इनपुट बॉक्स */
     div[data-testid="stChatInput"],
     div[data-testid="stChatInput"] > div,
     .stChatInputContainer {
@@ -285,7 +284,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫೌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -305,7 +304,7 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
+            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
@@ -313,7 +312,7 @@ LOCALIZED_CONTENT = {
         "visitor_label": "মোট দর্শনার্থী साधक:"
     },
     "മലയാളം": {
-        "title": "AI സാരഥി",
+        "title": "AI സಾರഥി",
         "tagline": "ഭഗവദ്ഗീതയുടെ ദിവ്യവെളിച്ചത്തിൽ ജീവിതത്തിലെയും ബിസിനസ്സിലെയും തീരുമാനങ്ങൾക്ക് കൃത്യമായ വഴികാട്ടി",
         "modes": [
             "🌱 വ്യക്തിജീവിതം (Personal Guidance)",
@@ -396,11 +395,11 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. उत्तर जनरेट करणारे फंक्शन
+# ९. चालू व अचूक मॉडेल (gemini-3.8-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=prompt_with_context
     )
     return response.text

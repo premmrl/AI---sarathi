@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. दिव्य, व्हायब्रंट आणि इनपुट बॉक्स व्हिजिबिलिटी १००% दुरुस्त केलेली CSS
+# २. संपूर्ण CSS डिझाइन आणि सारथीच्या उत्तराची फॉन्ट विझिबिलिटी दुरुस्ती
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -17,9 +17,10 @@ st.markdown("""
     .stApp {
         background: radial-gradient(circle at 50% -10%, #2e1065 0%, #1e1b4b 35%, #0f172a 70%, #030712 100%) !important;
         font-family: 'Mukta', sans-serif !important;
-        color: #f8fafc !important;
+        color: #ffffff !important;
     }
 
+    /* मुख्य हेडर कार्ड */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.5px solid rgba(251, 191, 36, 0.55);
@@ -111,7 +112,44 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* --- इनपुट बॉक्स आणि टायपिंग फॉन्ट १००% दृश्यमान करण्यासाठी अचूक CSS --- */
+    /* --- सारथीचे उत्तर आणि चॅट मेसेज फॉन्ट १००% ठळक व वाचनीय करण्यासाठी CSS --- */
+    div[data-testid="stChatMessage"] {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
+        border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
+        border-radius: 18px !important;
+        padding: 16px 20px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* सारथीच्या उत्तरातील सर्व मजकूर, मथळे व याद्या स्पष्ट पांढऱ्या व सोनेरी रंगात */
+    div[data-testid="stChatMessage"] * {
+        color: #f8fafc !important;
+    }
+
+    div[data-testid="stChatMessage"] h1, 
+    div[data-testid="stChatMessage"] h2, 
+    div[data-testid="stChatMessage"] h3, 
+    div[data-testid="stChatMessage"] h4 {
+        color: #FDE68A !important; /* सोनेरी मथळे */
+        font-weight: 700 !important;
+        margin-top: 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    div[data-testid="stChatMessage"] p, 
+    div[data-testid="stChatMessage"] li {
+        color: #f1f5f9 !important; /* स्वच्छ पांढरी अक्षरे */
+        font-size: 16px !important;
+        line-height: 1.75 !important;
+    }
+
+    div[data-testid="stChatMessage"] strong, 
+    div[data-testid="stChatMessage"] b {
+        color: #FEF08A !important; /* ठळक शब्द सुवर्ण छटा */
+    }
+
+    /* इनपुट बॉक्स स्टाईल */
     div[data-testid="stChatInput"],
     div[data-testid="stChatInput"] > div,
     .stChatInputContainer {
@@ -127,7 +165,7 @@ st.markdown("""
         background-color: #0f172a !important;
         font-size: 15.5px !important;
         font-weight: 600 !important;
-        caret-color: #fbbf24 !important; /* कर्सर सोनेरी दिसेल */
+        caret-color: #fbbf24 !important;
     }
 
     div[data-testid="stChatInput"] textarea::placeholder,
@@ -186,6 +224,7 @@ LOCALIZED_CONTENT = {
             "💼 व्यवसाय आणि करिअर (Business & Career)"
         ],
         "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
+        "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
         "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
         "visitor_label": "एकूण भेट देणारे साधक:"
     },
@@ -197,6 +236,7 @@ LOCALIZED_CONTENT = {
             "💼 व्यवसाय और करियर (Business & Career)"
         ],
         "placeholder": "अपना प्रश्न, दुविधा या चिंता यहाँ लिखें...",
+        "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
         "visitor_label": "कुल आगंतुक साधक:"
     },
@@ -208,6 +248,7 @@ LOCALIZED_CONTENT = {
             "💼 Business, Leadership & Career"
         ],
         "placeholder": "Ask your question, dilemma, or life situation here...",
+        "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
         "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
         "visitor_label": "Total Seekers Visited:"
     },
@@ -219,6 +260,7 @@ LOCALIZED_CONTENT = {
             "💼 વ્યવસાય અને કારકિર્દી (Business & Career)"
         ],
         "placeholder": "તમારો પ્રશ્ન કે મૂંઝવણ અહીં લખો...",
+        "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
         "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
         "visitor_label": "કુલ મુલાકાતી સાધકો:"
     },
@@ -230,6 +272,7 @@ LOCALIZED_CONTENT = {
             "💼 ಉದ್ಯೋಗ ಮತ್ತು ವ್ಯಾಪಾರ (Business & Career)"
         ],
         "placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸಂದೇಹವನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ...",
+        "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
         "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
         "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:"
     },
@@ -241,6 +284,7 @@ LOCALIZED_CONTENT = {
             "💼 వ్యాపారం & వృత్తి (Business & Career)"
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
+        "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
         "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
@@ -252,6 +296,7 @@ LOCALIZED_CONTENT = {
             "💼 வணிகம் & தொழில் (Business & Career)"
         ],
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
+        "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
         "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
         "visitor_label": "பார்வையிட்ட பக்தர்கள்:"
     },
@@ -260,11 +305,12 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
+            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
+        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
-        "visitor_label": "মোট দর্শনার্থী সাধক:"
+        "visitor_label": "মোট দর্শনার্থী साधक:"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",
@@ -274,6 +320,7 @@ LOCALIZED_CONTENT = {
             "💼 ബിസിനസ്സും കരിയറും (Business & Career)"
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
+        "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
         "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
@@ -285,6 +332,7 @@ LOCALIZED_CONTENT = {
             "💼 ਕਾਰੋਬਾਰ ਅਤੇ ਕਰੀਅਰ (Business & Career)"
         ],
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
+        "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
         "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
         "visitor_label": "ਕੁੱਲ ਸਾਧਕ:"
     }
@@ -348,16 +396,14 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. वेगवान स्ट्रीमिंग रिस्पॉन्स
-def stream_sarathi_response(query):
+# ९. उत्तर जनरेट करणारे फंक्शन
+def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
-    response_stream = client.models.generate_content_stream(
-        model="gemini-3.8-flash",
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
         contents=prompt_with_context
     )
-    for chunk in response_stream:
-        if chunk.text:
-            yield chunk.text
+    return response.text
 
 # १०. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
@@ -367,18 +413,20 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट बॉक्स
+# ११. प्रश्न इनपुट व स्पष्ट चिंतन इंडिकेटर
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        try:
-            full_response = st.write_stream(stream_sarathi_response(user_prompt))
-            st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
-        except Exception as e:
-            st.error(f"तांत्रिक अडचण: {str(e)}")
+        with st.spinner(curr["thinking"]):
+            try:
+                full_response = get_sarathi_response(user_prompt)
+                st.markdown(full_response)
+                st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
+            except Exception as e:
+                st.error(f"तांत्रिक अडचण: {str(e)}")
 
 # १२. तळटीप ब्रँडिंग आणि २७९ वरून आपोआप पुढे वाढणारा व्हिजिटर काउंटर
 st.markdown(f"""

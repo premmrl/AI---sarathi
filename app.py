@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. दिव्य आणि आधुनिक CSS डिझाइन
+# २. दिव्य आणि आधुनिक CSS डिझाइन (Gold Glow & Glassmorphism)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -20,11 +20,12 @@ st.markdown("""
         color: #f5f2eb !important;
     }
 
+    /* मुख्य हेडर कार्ड (Hero Card) */
     .hero-card {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(212, 175, 55, 0.04));
         border: 1px solid rgba(212, 175, 55, 0.35);
         border-radius: 22px;
-        padding: 24px 20px 18px 20px;
+        padding: 24px 20px 20px 20px;
         text-align: center;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 18px rgba(212, 175, 55, 0.12);
         backdrop-filter: blur(12px);
@@ -32,14 +33,14 @@ st.markdown("""
     }
 
     .om-icon {
-        font-size: 42px;
+        font-size: 44px;
         line-height: 1.1;
-        filter: drop-shadow(0 0 12px rgba(255, 179, 0, 0.65));
+        filter: drop-shadow(0 0 12px rgba(255, 179, 0, 0.7));
         margin-bottom: 4px;
     }
 
     .title-glow {
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 800;
         background: linear-gradient(135deg, #FFF176 0%, #FFD54F 40%, #FFA000 80%, #FF8F00 100%);
         -webkit-background-clip: text;
@@ -57,13 +58,14 @@ st.markdown("""
         opacity: 0.95;
     }
 
+    /* मोड सिलेक्टर (रेडिओ बटन्स) */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
         background: rgba(255, 255, 255, 0.04) !important;
         padding: 6px !important;
         border-radius: 30px !important;
-        border: 1px solid rgba(212, 175, 55, 0.2) !important;
+        border: 1px solid rgba(212, 175, 55, 0.25) !important;
         gap: 8px !important;
         margin: 10px 0 16px 0 !important;
     }
@@ -77,6 +79,15 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
+    /* भाषा निवड ड्रॉपडाऊन स्टाईल */
+    .stSelectbox > div > div {
+        background-color: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+        border-radius: 12px !important;
+        color: #FFF176 !important;
+    }
+
+    /* फुटर व संस्था ब्रँडिंग */
     .footer-container {
         text-align: center;
         margin-top: 40px;
@@ -116,7 +127,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. भाषा आणि त्यानुसार "वैयक्तिक जीवन" व "व्यवसाय/करिअर"चे स्थानिक भाषांतर
+# ३. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
     "मराठी": {
         "title": "AI सारथी",
@@ -199,8 +210,8 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
-            "🌱 ব্যক্তিগত জীবন (Personal Guidance)",
-            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
+            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
+            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -230,18 +241,13 @@ LOCALIZED_CONTENT = {
     }
 }
 
-# ४. भाषा निवड
-LANGUAGES = list(LOCALIZED_CONTENT.keys())
-language = st.selectbox(
-    "🌐 Choose Language / भाषा निवडा / अपनी भाषा चुनें:",
-    LANGUAGES,
-    index=0
-)
+# चालू भाषा सेशन स्टेटमध्ये ठेवणे
+if "selected_lang" not in st.session_state:
+    st.session_state.selected_lang = "मराठी"
 
-# निवडलेल्या भाषेनुसार मजकूर
-curr = LOCALIZED_CONTENT[language]
+curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ५. मुख्य हेडर कार्ड
+# ४. मुख्य हेडर कार्ड (सगळ्यात आधी वर दिसेल)
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -250,26 +256,40 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ६. भाषेनुसार "वैयक्तिक जीवन" आणि "व्यवसाय व करिअर" पर्याय
-selected_mode = st.radio(
-    "Select Mode:",
-    curr["modes"],
-    horizontal=True,
-    label_visibility="collapsed"
-)
+# ५. आता बॉक्सच्या खाली भाषा निवड
+col1, col2 = st.columns([1, 1])
 
-# ७. सिस्टीम प्रॉम्ट
+with col1:
+    LANGUAGES = list(LOCALIZED_CONTENT.keys())
+    chosen_lang = st.selectbox(
+        "🌐 Choose Language / भाषा निवडा:",
+        LANGUAGES,
+        index=LANGUAGES.index(st.session_state.selected_lang),
+        label_visibility="collapsed"
+    )
+    if chosen_lang != st.session_state.selected_lang:
+        st.session_state.selected_lang = chosen_lang
+        st.rerun()
+
+with col2:
+    selected_mode = st.radio(
+        "मार्गदर्शन क्षेत्र:",
+        curr["modes"],
+        label_visibility="collapsed"
+    )
+
+# ६. सिस्टीम प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
-    f"वापरकर्त्याने निवडलेली भाषा: {language}. निवडलेला विभाग: {selected_mode}. "
+    f"वापरकर्त्याने निवडलेली भाषा: {st.session_state.selected_lang}. निवडलेला विभाग: {selected_mode}. "
     "महत्त्वाचे नियम: "
-    f"१. संपूर्ण उत्तर १००% शुद्ध, आदरार्थी आणि सहज समजणाऱ्या {language} भाषेतच दे. "
+    f"१. संपूर्ण उत्तर १००% शुद्ध, आदरार्थी आणि सहज समजणाऱ्या {st.session_state.selected_lang} भाषेतच दे. "
     "२. उत्तरात थेट भगवद्गीतेतील समर्पक श्लोक किंवा श्रीकृष्ण-अर्जुन संवादाचा सारांश देऊन व्यावहारिक समुपदेशन कर. "
     "३. कर्म, धर्म, अनासक्ती, मनःशांती आणि निर्णयक्षमतेवर भर दे."
 )
 
-# ८. Google GenAI क्लायंट
+# ७. Google GenAI क्लायंट
 api_token = st.secrets.get("GEMINI_API_KEY", "").strip()
 
 if not api_token:
@@ -282,7 +302,7 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. वेगवान रिस्पॉन्स फंक्शन (Streaming)
+# ८. वेगवान स्ट्रीमिंग रिस्पॉन्स
 def stream_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response_stream = client.models.generate_content_stream(
@@ -293,7 +313,7 @@ def stream_sarathi_response(query):
         if chunk.text:
             yield chunk.text
 
-# १०. चॅट हिस्ट्री
+# ९. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -301,7 +321,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट बॉक्स (स्थानिक भाषेत)
+# १०. प्रश्न इनपुट बॉक्स
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -314,7 +334,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि साधक काउंटर (स्थानिक भाषेत)
+# ११. तळटीप ब्रँडिंग आणि साधक काउंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

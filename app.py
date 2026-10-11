@@ -58,32 +58,27 @@ st.markdown("""
         opacity: 0.95;
     }
 
-    /* भाषा निवड ड्रॉपडाऊन अक्षरे स्पष्ट दिसण्यासाठी (Font Visibility Fix) */
+    /* भाषा निवड ड्रॉपडाऊन अक्षरे स्पष्ट पांढरी/सोनेरी दिसण्यासाठी */
     div[data-baseweb="select"] {
         border-radius: 12px !important;
-        border: 1px solid rgba(212, 175, 55, 0.45) !important;
+        border: 1px solid rgba(212, 175, 55, 0.5) !important;
         background-color: rgba(255, 255, 255, 0.08) !important;
     }
 
     div[data-baseweb="select"] * {
-        color: #FFF59D !important; /* सोनेरी-पांढरी स्पष्ट अक्षरे */
-        font-weight: 600 !important;
-        font-size: 14.5px !important;
+        color: #FFF9C4 !important; /* स्पष्ट फिकट सोनेरी-पांढरी अक्षरे */
+        font-weight: 700 !important;
+        font-size: 15px !important;
     }
 
-    /* ड्रॉपडाऊन यादी (Dropdown Menu Items) */
+    /* ड्रॉपडाऊन मेनू यादी */
     ul[data-baseweb="menu"] {
         background-color: #1a1528 !important;
-        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+        border: 1px solid rgba(212, 175, 55, 0.4) !important;
     }
 
     ul[data-baseweb="menu"] li {
         color: #ffffff !important;
-    }
-
-    ul[data-baseweb="menu"] li:hover {
-        background-color: rgba(212, 175, 55, 0.2) !important;
-        color: #FFD54F !important;
     }
 
     /* रेडिओ बटन्स */
@@ -230,8 +225,8 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
-            "🌱 ব্যক্তিগত জীবন (Personal Guidance)",
-            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
+            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
+            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -275,7 +270,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ५. कार्डच्या खाली भाषा निवड आणि विभाग पर्याय
+# ५. कार्डच्या खाली भाषा निवड आणि विभाग
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 Choose Language / भाषा निवडा:",
@@ -351,14 +346,15 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# ११. तळटीप ब्रँडिंग आणि साधक काउंटर
+# ११. मूळ व्हिजिटर काउंटर लिंकसह तळटीप ब्रँडिंग
+# (टीप: आधीच्या मूळ लिंकनुसार 'ai-sarathi' ही मूळ की पुन्हा सेट केली आहे जेणेकरून मागील २७९+ आकडेवारी परत दिसेल)
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <img src="https://komarev.com/ghpvc/?username=aisarathi-vighnaharta&color=ffb300&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 4px; border-radius: 4px;">
+            <img src="https://komarev.com/ghpvc/?username=ai-sarathi&color=ffb300&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 4px; border-radius: 4px;">
         </div>
     </div>
 """, unsafe_allow_html=True)

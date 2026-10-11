@@ -60,8 +60,8 @@ st.markdown("""
     /* भाषा निवड लेबल */
     .stSelectbox label p {
         color: #FDE68A !important;
-        font-size: 13.5px !important;
-        font-weight: 600 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
         letter-spacing: 0.5px !important;
         margin-bottom: 4px !important;
     }
@@ -90,7 +90,7 @@ st.markdown("""
         font-size: 14.5px !important;
     }
 
-    /* रेडिओ बटन्स */
+    /* मोड सिलेक्टर (रेडिओ बटन्स) */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -134,6 +134,7 @@ st.markdown("""
         line-height: 1.6;
     }
 
+    /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
@@ -147,6 +148,15 @@ st.markdown("""
         font-weight: 600;
         margin-top: 14px;
         box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .views-counter-box {
+        background: #D97706;
+        color: #FFFBEB;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 800;
+        font-size: 12.5px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -234,8 +244,8 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
-            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
+            "🌱 ব্যক্তিগত জীবন (Personal Guidance)",
+            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -249,7 +259,7 @@ LOCALIZED_CONTENT = {
             "💼 ബിസിനസ്സും കരിയറും (Business & Career)"
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ಗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -355,14 +365,16 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि साधक काउंटर
+# १२. तळटीप ब्रँडिंग आणि साधक काउंटर (२७९+ व्ह्यूज अखंड ठेवण्यासाठी)
+BASE_VIEWS = 279
+
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <img src="https://komarev.com/ghpvc/?username=vighnaharta-ai-sarathi&color=f59e0b&style=flat-square&label=Views" alt="Views" style="vertical-align: middle; margin-left: 4px; border-radius: 4px;">
+            <span class="views-counter-box">Views {BASE_VIEWS}+</span>
         </div>
     </div>
 """, unsafe_allow_html=True)

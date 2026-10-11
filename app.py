@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. दिव्य आणि आधुनिक CSS डिझाइन (Gold Glow & Glassmorphism)
+# २. दिव्य, आधुनिक आणि फॉन्ट विझिबिलिटी सुधारित CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -20,7 +20,7 @@ st.markdown("""
         color: #f5f2eb !important;
     }
 
-    /* मुख्य हेडर कार्ड (Hero Card) */
+    /* मुख्य हेडर कार्ड */
     .hero-card {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(212, 175, 55, 0.04));
         border: 1px solid rgba(212, 175, 55, 0.35);
@@ -29,7 +29,7 @@ st.markdown("""
         text-align: center;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 18px rgba(212, 175, 55, 0.12);
         backdrop-filter: blur(12px);
-        margin-bottom: 22px;
+        margin-bottom: 20px;
     }
 
     .om-icon {
@@ -58,7 +58,35 @@ st.markdown("""
         opacity: 0.95;
     }
 
-    /* मोड सिलेक्टर (रेडिओ बटन्स) */
+    /* भाषा निवड ड्रॉपडाऊन अक्षरे स्पष्ट दिसण्यासाठी (Font Visibility Fix) */
+    div[data-baseweb="select"] {
+        border-radius: 12px !important;
+        border: 1px solid rgba(212, 175, 55, 0.45) !important;
+        background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #FFF59D !important; /* सोनेरी-पांढरी स्पष्ट अक्षरे */
+        font-weight: 600 !important;
+        font-size: 14.5px !important;
+    }
+
+    /* ड्रॉपडाऊन यादी (Dropdown Menu Items) */
+    ul[data-baseweb="menu"] {
+        background-color: #1a1528 !important;
+        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    }
+
+    ul[data-baseweb="menu"] li {
+        color: #ffffff !important;
+    }
+
+    ul[data-baseweb="menu"] li:hover {
+        background-color: rgba(212, 175, 55, 0.2) !important;
+        color: #FFD54F !important;
+    }
+
+    /* रेडिओ बटन्स */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -74,17 +102,9 @@ st.markdown("""
         padding: 8px 16px !important;
         border-radius: 20px !important;
         background: transparent !important;
-        color: #e0d8ee !important;
+        color: #ffffff !important;
         font-size: 13.5px !important;
         font-weight: 600 !important;
-    }
-
-    /* भाषा निवड ड्रॉपडाऊन स्टाईल */
-    .stSelectbox > div > div {
-        background-color: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(212, 175, 55, 0.3) !important;
-        border-radius: 12px !important;
-        color: #FFF176 !important;
     }
 
     /* फुटर व संस्था ब्रँडिंग */
@@ -127,7 +147,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. स्थानिक भाषांतर डेटा (१० भाषा)
+# ३. स्थानिक भाषांतर डेटा
 LOCALIZED_CONTENT = {
     "मराठी": {
         "title": "AI सारथी",
@@ -210,8 +230,8 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
-            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
+            "🌱 ব্যক্তিগত জীবন (Personal Guidance)",
+            "💼 ব্যবসা ও কর্মজীবন (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -241,13 +261,12 @@ LOCALIZED_CONTENT = {
     }
 }
 
-# चालू भाषा सेशन स्टेटमध्ये ठेवणे
 if "selected_lang" not in st.session_state:
     st.session_state.selected_lang = "मराठी"
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ४. मुख्य हेडर कार्ड (सगळ्यात आधी वर दिसेल)
+# ४. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -256,27 +275,25 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ५. आता बॉक्सच्या खाली भाषा निवड
-col1, col2 = st.columns([1, 1])
+# ५. कार्डच्या खाली भाषा निवड आणि विभाग पर्याय
+LANGUAGES = list(LOCALIZED_CONTENT.keys())
+chosen_lang = st.selectbox(
+    "🌐 Choose Language / भाषा निवडा:",
+    LANGUAGES,
+    index=LANGUAGES.index(st.session_state.selected_lang),
+    label_visibility="collapsed"
+)
 
-with col1:
-    LANGUAGES = list(LOCALIZED_CONTENT.keys())
-    chosen_lang = st.selectbox(
-        "🌐 Choose Language / भाषा निवडा:",
-        LANGUAGES,
-        index=LANGUAGES.index(st.session_state.selected_lang),
-        label_visibility="collapsed"
-    )
-    if chosen_lang != st.session_state.selected_lang:
-        st.session_state.selected_lang = chosen_lang
-        st.rerun()
+if chosen_lang != st.session_state.selected_lang:
+    st.session_state.selected_lang = chosen_lang
+    st.rerun()
 
-with col2:
-    selected_mode = st.radio(
-        "मार्गदर्शन क्षेत्र:",
-        curr["modes"],
-        label_visibility="collapsed"
-    )
+selected_mode = st.radio(
+    "मार्गदर्शन क्षेत्र:",
+    curr["modes"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
 
 # ६. सिस्टीम प्रॉम्ट
 system_prompt = (

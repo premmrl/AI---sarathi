@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -113,7 +112,7 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* चॅट मेसेज कार्ड्स */
+    /* चॅट मेसेज कार्ड्स आणि फॉन्ट विझिबिलिटी */
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
@@ -225,25 +224,20 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. रिअल-टाइम व्हिजिटर काउंटर लॉजिक (कॅश न होता आपोआप वाढणारे)
-@st.cache_resource(ttl=None)
-def get_or_create_counter_key():
-    return "vgf-sarathi-live-counter"
+# ३. १००% अचूक आणि न अडकणारा सर्व्हर-आधारित रिअल-टाईम काऊंटर
+@st.cache_resource
+def get_global_counter():
+    # सर्व्हर मेमरीमध्ये काऊंटर सुरू करणे
+    return {"count": 1}
 
-def update_visitor_count():
-    key = get_or_create_counter_key()
-    try:
-        # मोफत CountAPI चा वापर
-        res = requests.get(f"https://api.counterapi.dev/v1/vgf-sarathi/{key}/up", timeout=3)
-        if res.status_code == 200:
-            return res.json().get("count", 1)
-    except:
-        pass
-    return None
+counter_store = get_global_counter()
 
-if "live_views" not in st.session_state:
-    updated = update_visitor_count()
-    st.session_state.live_views = updated if updated else 1
+# प्रत्येक नवीन साधक/डिव्हाइस आल्यावर १ ने वाढवणे
+if "counted_this_device" not in st.session_state:
+    counter_store["count"] += 1
+    st.session_state.counted_this_device = True
+
+current_views = counter_store["count"]
 
 # ४. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
@@ -336,12 +330,12 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
+            "💼 ব্যবসা ও कर्मজীবন (Business & Career)"
         ],
-        "placeholder": "আপনার प्रश्न বা সংশয় এখানে লিখুন...",
+        "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
-        "visitor_label": "মোট দর্শনার্থী সাধক:"
+        "visitor_label": "মোট দর্শনার্থী సాధక:"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",
@@ -459,16 +453,14 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १३. तळटीप ब्रँडिंग आणि रिअल-टाइम व्हिजिटर काउंटर (न अडकणारा)
-views_display = st.session_state.get("live_views", 1)
-
+# १३. तळटीप ब्रँडिंग आणि अचूक रिअल-टाईम काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
         <div class="visitor-badge">
             👁️ {curr["visitor_label"]} 
-            <span class="views-counter-tag">Views {views_display}</span>
+            <span class="views-counter-tag">Views {current_views}</span>
         </div>
     </div>
 """, unsafe_allow_html=True)

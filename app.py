@@ -9,19 +9,17 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. व्हायब्रंट, प्रसन्न आणि सात्विक शांत CSS डिझाइन
+# २. दिव्य, व्हायब्रंट आणि सात्विक शांत CSS डिझाइन
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
 
-    /* तेजस्वी व शांत सात्विक पार्श्वभूमी (Divine Midnight Indigo Gradient) */
     .stApp {
         background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #030712 100%) !important;
         font-family: 'Mukta', sans-serif !important;
         color: #f8fafc !important;
     }
 
-    /* मुख्य हेडर कार्ड (Hero Card - Vibrant & Calming) */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(245, 158, 11, 0.08) 100%);
         border: 1px solid rgba(251, 191, 36, 0.45);
@@ -30,7 +28,7 @@ st.markdown("""
         text-align: center;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 158, 11, 0.2);
         backdrop-filter: blur(14px);
-        margin-bottom: 22px;
+        margin-bottom: 18px;
     }
 
     .om-icon {
@@ -59,7 +57,16 @@ st.markdown("""
         opacity: 0.95;
     }
 
-    /* भाषा निवड ड्रॉपडाऊन - स्पष्ट पांढरा/सोनेरी रंग */
+    /* भाषा निवड लेबल */
+    .stSelectbox label p {
+        color: #FDE68A !important;
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        margin-bottom: 4px !important;
+    }
+
+    /* भाषा निवड बॉक्स */
     div[data-baseweb="select"] {
         border-radius: 14px !important;
         border: 1px solid rgba(251, 191, 36, 0.5) !important;
@@ -83,7 +90,7 @@ st.markdown("""
         font-size: 14.5px !important;
     }
 
-    /* रेडिओ बटन्स - तेजस्वी व सुबक पिल्स */
+    /* रेडिओ बटन्स */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -127,7 +134,6 @@ st.markdown("""
         line-height: 1.6;
     }
 
-    /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
@@ -229,7 +235,7 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও কর্মজীবন (Business & Career)"
+            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
@@ -243,7 +249,7 @@ LOCALIZED_CONTENT = {
             "💼 ബിസിനസ്സും കരിയറും (Business & Career)"
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ಗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -264,7 +270,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ४. मुख्य हेडर कार्ड (सगळ्यात आधी वर दिसेल)
+# ४. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -273,13 +279,12 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ५. हेडर कार्डच्या खाली भाषा निवड
+# ५. हेडर कार्डच्या खाली स्पष्ट लेबलसह भाषा निवड
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
-    "🌐 Choose Language / भाषा निवडा:",
+    "🌐 भाषा निवडा / Choose Language:",
     LANGUAGES,
-    index=LANGUAGES.index(st.session_state.selected_lang),
-    label_visibility="collapsed"
+    index=LANGUAGES.index(st.session_state.selected_lang)
 )
 
 if chosen_lang != st.session_state.selected_lang:
@@ -305,7 +310,7 @@ system_prompt = (
     "३. कर्म, धर्म, अनासक्ती, मनःशांती आणि निर्णयक्षमतेवर भर दे."
 )
 
-# ८. Google GenAI क्लायंट सेटअप
+# ८. Google GenAI क्लायंट
 api_token = st.secrets.get("GEMINI_API_KEY", "").strip()
 
 if not api_token:
@@ -350,7 +355,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         except Exception as e:
             st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १२. तळटीप ब्रँडिंग आणि साधक काउंटर (२७९+ व्ह्यूज चालू राहण्यासाठी बेस पॅरामीटर)
+# १२. तळटीप ब्रँडिंग आणि साधक काउंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

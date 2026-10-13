@@ -20,14 +20,14 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* वरून कार्ड खाली घेण्यासाठी मुख्य कंटेनरचे स्पेसिंग वाढवले */
+    /* वरून कार्ड खाली घेण्यासाठी मुख्य कंटेनरचे स्पेसिंग */
     .block-container {
         padding-top: 2.8rem !important;
         padding-bottom: 4.5rem !important;
         max-width: 520px !important;
     }
 
-    /* मुख्य हेडर कार्ड - वर योग्य मार्जिन आणि पॅडिंग */
+    /* मुख्य हेडर कार्ड */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.2px solid rgba(251, 191, 36, 0.55);
@@ -211,10 +211,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर (चालू आकडा २४ वरून पुढे)
+# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर (चालू आकडा २५ वरून पुढे)
 @st.cache_resource
 def get_global_counter():
-    return {"count": 24}
+    return {"count": 25}
 
 counter_store = get_global_counter()
 
@@ -315,15 +315,15 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
+            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
         ],
         "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
-        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
+        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
         "visitor_label": "মোট দর্শনার্থী সাধक:"
     },
     "മലയാളം": {
-        "title": "AI സാരഥി",
+        "title": "AI സಾರഥി",
         "tagline": "ഭഗവദ്ഗീതയുടെ ദിവ്യവെളിച്ചത്തിൽ ജീവിതത്തിലെയും ബിസിനസ്സിലെയും തീരുമാനങ്ങൾക്ക് കൃത്യമായ വഴികാട്ടി",
         "modes": [
             "🌱 വ്യക്തിജീവിതം (Personal Guidance)",
@@ -331,7 +331,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ तத்துவங்களின் டிஜிറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗવദ്गीതാ तத்துவங்களின் டிஜிറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -405,15 +405,16 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
+# ९. अधिक कोटा असलेले मोफत मॉडेल (gemini-1.5-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
-        model="gemini-3.8-flash",
+        model="gemini-1.5-flash",
         contents=prompt_with_context
     )
     return response.text
 
-# ९. चॅट हिस्ट्री
+# १०. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -421,7 +422,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १०. प्रश्न इनपुट बॉक्स
+# ११. प्रश्न इनपुट बॉक्स
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -436,7 +437,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# ११. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
+# १२. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

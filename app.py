@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल लेआउट CSS (वर योग्य मोकळी जागा दिलेली)
+# २. परफेक्ट मोबाइल लेआउट CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -20,14 +20,12 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* वरून कार्ड खाली घेण्यासाठी मुख्य कंटेनरचे स्पेसिंग */
     .block-container {
         padding-top: 2.8rem !important;
         padding-bottom: 4.5rem !important;
         max-width: 520px !important;
     }
 
-    /* मुख्य हेडर कार्ड */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.2px solid rgba(251, 191, 36, 0.55);
@@ -66,7 +64,6 @@ st.markdown("""
         opacity: 0.95;
     }
 
-    /* भाषा निवड लेबल */
     .stSelectbox label p {
         color: #FDE68A !important;
         font-size: 12px !important;
@@ -75,7 +72,6 @@ st.markdown("""
         margin-bottom: 2px !important;
     }
 
-    /* भाषा निवड बॉक्स */
     div[data-baseweb="select"] {
         border-radius: 10px !important;
         border: 1.2px solid rgba(251, 191, 36, 0.55) !important;
@@ -89,7 +85,6 @@ st.markdown("""
         font-size: 13.5px !important;
     }
 
-    /* रेडिओ बटन्स */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -110,7 +105,6 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* चॅट मेसेज कार्ड्स */
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
@@ -138,7 +132,6 @@ st.markdown("""
         line-height: 1.55 !important;
     }
 
-    /* इनपुट बॉक्स */
     div[data-testid="stChatInput"],
     div[data-testid="stChatInput"] > div,
     .stChatInputContainer {
@@ -162,7 +155,6 @@ st.markdown("""
         font-weight: 400 !important;
     }
 
-    /* कॉम्पॅक्ट फुटर */
     .footer-container {
         text-align: center;
         margin-top: 6px;
@@ -185,7 +177,6 @@ st.markdown("""
         line-height: 1.35;
     }
 
-    /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
@@ -211,7 +202,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर (चालू आकडा २५ वरून पुढे)
+# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर
 @st.cache_resource
 def get_global_counter():
     return {"count": 25}
@@ -235,6 +226,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
         "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
+        "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
         "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
         "visitor_label": "एकूण भेट देणारे साधक:"
     },
@@ -247,6 +239,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "अपना प्रश्न, दुविधा या चिंता यहाँ लिखें...",
         "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
+        "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
         "visitor_label": "कुल आगंतुक साधक:"
     },
@@ -259,6 +252,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "Ask your question, dilemma, or life situation here...",
         "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
+        "quota_msg": "ॐ Many seekers are seeking guidance right now. Please ask your question again in a little while.",
         "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
         "visitor_label": "Total Seekers Visited:"
     },
@@ -271,6 +265,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "તમારો પ્રશ્ન કે મૂંઝવણ અહીં લખો...",
         "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
+        "quota_msg": "ॐ ઘણા સાધકો હાલ માર્ગદર્શન લઈ રહ્યા છે. કૃપા કરીને થોડા સમય પછી ફરી પૂછો.",
         "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
         "visitor_label": "કુલ મુલાકાતી સાધકો:"
     },
@@ -283,6 +278,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸಂದೇಹವನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ...",
         "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
+        "quota_msg": "ॐ ಸದ್ಯಕ್ಕೆ ಅನೇಕ ಸಾಧಕರು ಮಾರ್ಗದರ್ಶನ ಪಡೆಯುತ್ತಿದ್ದಾರೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
         "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:"
     },
@@ -295,6 +291,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
+        "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
         "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
@@ -307,6 +304,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
         "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
+        "quota_msg": "ॐ தற்போது பல பக்தர்கள் வழிகாட்டுதல் பெற்று வருகின்றனர். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
         "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
         "visitor_label": "பார்வையிட்ட பக்தர்கள்:"
     },
@@ -317,13 +315,14 @@ LOCALIZED_CONTENT = {
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
             "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
         ],
-        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
+        "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
         "visitor_label": "মোট দর্শনার্থী সাধक:"
     },
     "മലയാളം": {
-        "title": "AI സಾರഥി",
+        "title": "AI സാരഥി",
         "tagline": "ഭഗവദ്ഗീതയുടെ ദിവ്യവെളിച്ചത്തിൽ ജീവിതത്തിലെയും ബിസിനസ്സിലെയും തീരുമാനങ്ങൾക്ക് കൃത്യമായ വഴികാട്ടി",
         "modes": [
             "🌱 വ്യക്തിജീവിതം (Personal Guidance)",
@@ -331,7 +330,8 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗવദ്गीതാ तத்துவங்களின் டிஜிറ്റൽ മാർഗ്ഗരേഖ",
+        "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗವദ്गीതാ तத்துவங்களின் ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -343,6 +343,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
         "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
+        "quota_msg": "ॐ ਇਸ ਸਮੇਂ ਬਹੁਤ ਸਾਰੇ ਸਾਧਕ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
         "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
         "visitor_label": "ਕੁੱਲ ਸਾਧਕ:"
     }
@@ -405,11 +406,11 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. अधिक कोटा असलेले मोफत मॉडेल (gemini-1.5-flash)
+# ९. १००% चालू व अधिक मोफत कोटा असलेले अधिकृत मॉडेल (gemini-2.0-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=prompt_with_context
     )
     return response.text
@@ -422,7 +423,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट बॉक्स
+# ११. प्रश्न इनपुट बॉक्स व सभ्य त्रुटी हाताळणी
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -435,7 +436,11 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 st.markdown(full_response)
                 st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
             except Exception as e:
-                st.error(f"तांत्रिक अडचण: {str(e)}")
+                err_text = str(e)
+                if "429" in err_text or "RESOURCE_EXHAUSTED" in err_text:
+                    st.warning(curr["quota_msg"], icon="🕉️")
+                else:
+                    st.error(f"तांत्रिक अडचण: {err_text}")
 
 # १२. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""

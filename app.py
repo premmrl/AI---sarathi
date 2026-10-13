@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल लेआउट CSS (वरचा भाग न कापता एकाच स्क्रीनवर बसण्यासाठी)
+# २. परफेक्ट मोबाइल लेआउट CSS (वर योग्य मोकळी जागा दिलेली)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -20,28 +20,28 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* कंटेनरची वरची जागा योग्य प्रमाणात वाढवली */
+    /* वरून कार्ड खाली घेण्यासाठी मुख्य कंटेनरचे स्पेसिंग वाढवले */
     .block-container {
-        padding-top: 1.2rem !important;
+        padding-top: 2.8rem !important;
         padding-bottom: 4.5rem !important;
         max-width: 520px !important;
     }
 
-    /* मुख्य हेडर कार्ड - ओम आणि नाव पूर्ण दिसण्यासाठी */
+    /* मुख्य हेडर कार्ड - वर योग्य मार्जिन आणि पॅडिंग */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.2px solid rgba(251, 191, 36, 0.55);
         border-radius: 16px;
-        padding: 10px 12px 8px 12px;
+        padding: 12px 14px 10px 14px;
         text-align: center;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(245, 158, 11, 0.18);
         backdrop-filter: blur(10px);
-        margin-top: 8px !important;
-        margin-bottom: 6px;
+        margin-top: 14px !important;
+        margin-bottom: 8px;
     }
 
     .om-icon {
-        font-size: 30px;
+        font-size: 32px;
         line-height: 1.1;
         filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
         margin-bottom: 2px;
@@ -72,7 +72,7 @@ st.markdown("""
         font-size: 12px !important;
         font-weight: 700 !important;
         letter-spacing: 0.3px !important;
-        margin-bottom: 1px !important;
+        margin-bottom: 2px !important;
     }
 
     /* भाषा निवड बॉक्स */
@@ -211,10 +211,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर
+# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर (चालू आकडा २४ वरून पुढे)
 @st.cache_resource
 def get_global_counter():
-    return {"count": 22}
+    return {"count": 24}
 
 counter_store = get_global_counter()
 
@@ -295,7 +295,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫೌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -317,9 +317,9 @@ LOCALIZED_CONTENT = {
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
             "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
-        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
-        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
+        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
         "visitor_label": "মোট দর্শনার্থী সাধक:"
     },
     "മലയാളം": {
@@ -331,7 +331,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്ഗീതാ तத்துவங்களின் டிஜிറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {

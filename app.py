@@ -9,84 +9,84 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. कॉम्पॅक्ट आणि ऑल-इन-वन स्क्रीन CSS
+# २. परफेक्ट मोबाइल फिट CSS (कापले न जाता एकाच स्क्रीनवर दिसण्यासाठी)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
 
-    /* मोबाईल स्क्रीनवर स्क्रोल न होता एकाच फ्रेममध्ये बसवण्यासाठी */
     .stApp {
         background: radial-gradient(circle at 50% -10%, #2e1065 0%, #1e1b4b 35%, #0f172a 70%, #030712 100%) !important;
         font-family: 'Mukta', sans-serif !important;
         color: #ffffff !important;
     }
 
-    /* मुख्य कंटेनरचे अतिरिक्त पॅडिंग कमी करणे */
+    /* मुख्य कंटेनर पॅडिंग */
     .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 5rem !important;
-        max-width: 580px !important;
+        padding-top: 0.2rem !important;
+        padding-bottom: 4.5rem !important;
+        max-width: 520px !important;
     }
 
-    /* कॉम्पॅक्ट हेडर कार्ड */
+    /* कॉम्पॅक्ट हेडर कार्ड - वरचे अक्षर न कापता दिसण्यासाठी */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.2px solid rgba(251, 191, 36, 0.55);
-        border-radius: 18px;
-        padding: 12px 14px 10px 14px;
+        border-radius: 16px;
+        padding: 8px 12px 6px 12px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 18px rgba(245, 158, 11, 0.2);
-        backdrop-filter: blur(12px);
-        margin-bottom: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(245, 158, 11, 0.18);
+        backdrop-filter: blur(10px);
+        margin-top: 2px;
+        margin-bottom: 6px;
     }
 
     .om-icon {
-        font-size: 34px;
+        font-size: 28px;
         line-height: 1;
-        filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9));
-        margin-bottom: 2px;
+        filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
+        margin-bottom: 1px;
     }
 
     .title-glow {
-        font-size: 28px;
+        font-size: 25px;
         font-weight: 800;
         background: linear-gradient(135deg, #FFFDF0 0%, #FEF08A 25%, #F59E0B 65%, #B45309 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: 0.8px;
-        margin: 2px 0 4px 0;
-        filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.35));
+        letter-spacing: 0.6px;
+        margin: 1px 0 2px 0;
+        filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.35));
     }
 
     .sub-tagline {
         color: #e2e8f0;
-        font-size: 12.5px;
+        font-size: 11.5px;
         font-weight: 400;
-        line-height: 1.4;
+        line-height: 1.35;
         opacity: 0.95;
     }
 
     /* भाषा निवड लेबल */
     .stSelectbox label p {
         color: #FDE68A !important;
-        font-size: 12.5px !important;
+        font-size: 12px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.4px !important;
-        margin-bottom: 2px !important;
+        letter-spacing: 0.3px !important;
+        margin-bottom: 1px !important;
     }
 
     /* भाषा निवड ड्रॉपडाऊन */
     div[data-baseweb="select"] {
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         border: 1.2px solid rgba(251, 191, 36, 0.55) !important;
-        background-color: rgba(30, 41, 59, 0.8) !important;
-        min-height: 38px !important;
+        background-color: rgba(30, 41, 59, 0.85) !important;
+        min-height: 36px !important;
     }
 
     div[data-baseweb="select"] * {
         color: #FEF08A !important;
         font-weight: 700 !important;
-        font-size: 14px !important;
+        font-size: 13.5px !important;
     }
 
     /* मोड सिलेक्टर (रेडिओ बटन्स) */
@@ -94,19 +94,19 @@ st.markdown("""
         display: flex !important;
         justify-content: center !important;
         background: rgba(30, 41, 59, 0.65) !important;
-        padding: 4px 6px !important;
-        border-radius: 25px !important;
+        padding: 3px 6px !important;
+        border-radius: 22px !important;
         border: 1px solid rgba(251, 191, 36, 0.4) !important;
         gap: 6px !important;
-        margin: 6px 0 8px 0 !important;
+        margin: 4px 0 6px 0 !important;
     }
 
     div[role="radiogroup"] label {
-        padding: 5px 12px !important;
-        border-radius: 18px !important;
+        padding: 4px 10px !important;
+        border-radius: 16px !important;
         background: transparent !important;
         color: #f8fafc !important;
-        font-size: 12.5px !important;
+        font-size: 12px !important;
         font-weight: 600 !important;
     }
 
@@ -114,9 +114,9 @@ st.markdown("""
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
-        border-radius: 16px !important;
-        padding: 12px 14px !important;
-        margin-bottom: 10px !important;
+        border-radius: 14px !important;
+        padding: 10px 12px !important;
+        margin-bottom: 8px !important;
     }
 
     div[data-testid="stChatMessage"] * {
@@ -134,8 +134,8 @@ st.markdown("""
     div[data-testid="stChatMessage"] p, 
     div[data-testid="stChatMessage"] li {
         color: #f1f5f9 !important;
-        font-size: 14.5px !important;
-        line-height: 1.6 !important;
+        font-size: 14px !important;
+        line-height: 1.55 !important;
     }
 
     /* इनपुट बॉक्स */
@@ -143,15 +143,15 @@ st.markdown("""
     div[data-testid="stChatInput"] > div,
     .stChatInputContainer {
         background-color: #0f172a !important;
-        border: 1.5px solid rgba(251, 191, 36, 0.65) !important;
-        border-radius: 16px !important;
+        border: 1.4px solid rgba(251, 191, 36, 0.65) !important;
+        border-radius: 14px !important;
     }
 
     div[data-testid="stChatInput"] textarea,
     .stChatInputContainer textarea {
         color: #ffffff !important;
         background-color: #0f172a !important;
-        font-size: 14px !important;
+        font-size: 13.5px !important;
         font-weight: 600 !important;
         caret-color: #fbbf24 !important;
     }
@@ -162,51 +162,51 @@ st.markdown("""
         font-weight: 400 !important;
     }
 
-    /* कॉम्पॅक्ट फुटर व संस्था ब्रँडिंग */
+    /* कॉम्पॅक्ट फुटर */
     .footer-container {
         text-align: center;
-        margin-top: 10px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(251, 191, 36, 0.25);
+        margin-top: 6px;
+        padding-top: 4px;
+        border-top: 1px solid rgba(251, 191, 36, 0.2);
     }
 
     .brand-title {
         color: #FCD34D;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 1.2px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        margin-bottom: 2px;
+        margin-bottom: 1px;
     }
 
     .footer-text {
         color: #cbd5e1;
-        font-size: 11px;
-        line-height: 1.4;
+        font-size: 10px;
+        line-height: 1.35;
     }
 
     /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
         background: rgba(245, 158, 11, 0.15);
         border: 1.2px solid rgba(251, 191, 36, 0.6);
         color: #FEF08A;
-        padding: 4px 14px;
-        border-radius: 16px;
-        font-size: 12px;
+        padding: 3px 12px;
+        border-radius: 14px;
+        font-size: 11.5px;
         font-weight: 600;
-        margin-top: 6px;
+        margin-top: 4px;
     }
 
     .views-counter-tag {
         background: #D97706;
         color: #FFFBEB;
-        padding: 2px 8px;
-        border-radius: 5px;
+        padding: 1px 7px;
+        border-radius: 4px;
         font-weight: 800;
-        font-size: 11.5px;
+        font-size: 11px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -214,7 +214,7 @@ st.markdown("""
 # ३. स्थानिक रिअल-टाइम व्हिजिटर काऊंटर
 @st.cache_resource
 def get_global_counter():
-    return {"count": 16}
+    return {"count": 19}
 
 counter_store = get_global_counter()
 
@@ -315,10 +315,10 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
+            "💼 व्यवसाय ও কর্মजीवन (Business & Career)"
         ],
-        "placeholder": "আপনার प्रश्न বা সংশয় এখানে লিখুন...",
-        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
+        "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
         "visitor_label": "মোট দর্শনার্থী সাধক:"
     },
@@ -353,7 +353,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ५. मुख्य हेडर कार्ड (फ्रंट स्क्रीनवर त्वरित दृश्यमान)
+# ५. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -436,7 +436,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# ११. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि अचूक काऊंटर
+# ११. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

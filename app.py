@@ -9,86 +9,84 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. संपूर्ण CSS डिझाइन आणि फॉन्ट विझिबिलिटी
+# २. कॉम्पॅक्ट आणि ऑल-इन-वन स्क्रीन CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
 
+    /* मोबाईल स्क्रीनवर स्क्रोल न होता एकाच फ्रेममध्ये बसवण्यासाठी */
     .stApp {
         background: radial-gradient(circle at 50% -10%, #2e1065 0%, #1e1b4b 35%, #0f172a 70%, #030712 100%) !important;
         font-family: 'Mukta', sans-serif !important;
         color: #ffffff !important;
     }
 
-    /* मुख्य हेडर कार्ड */
+    /* मुख्य कंटेनरचे अतिरिक्त पॅडिंग कमी करणे */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 5rem !important;
+        max-width: 580px !important;
+    }
+
+    /* कॉम्पॅक्ट हेडर कार्ड */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
-        border: 1.5px solid rgba(251, 191, 36, 0.55);
-        border-radius: 24px;
-        padding: 26px 20px 22px 20px;
+        border: 1.2px solid rgba(251, 191, 36, 0.55);
+        border-radius: 18px;
+        padding: 12px 14px 10px 14px;
         text-align: center;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65), 0 0 28px rgba(245, 158, 11, 0.25);
-        backdrop-filter: blur(16px);
-        margin-bottom: 18px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 18px rgba(245, 158, 11, 0.2);
+        backdrop-filter: blur(12px);
+        margin-bottom: 8px;
     }
 
     .om-icon {
-        font-size: 48px;
-        line-height: 1.1;
-        filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.9));
-        margin-bottom: 4px;
+        font-size: 34px;
+        line-height: 1;
+        filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9));
+        margin-bottom: 2px;
     }
 
     .title-glow {
-        font-size: 40px;
+        font-size: 28px;
         font-weight: 800;
         background: linear-gradient(135deg, #FFFDF0 0%, #FEF08A 25%, #F59E0B 65%, #B45309 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: 1px;
-        margin: 4px 0 8px 0;
-        filter: drop-shadow(0 2px 10px rgba(245, 158, 11, 0.4));
+        letter-spacing: 0.8px;
+        margin: 2px 0 4px 0;
+        filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.35));
     }
 
     .sub-tagline {
         color: #e2e8f0;
-        font-size: 15px;
+        font-size: 12.5px;
         font-weight: 400;
-        line-height: 1.6;
+        line-height: 1.4;
         opacity: 0.95;
     }
 
     /* भाषा निवड लेबल */
     .stSelectbox label p {
         color: #FDE68A !important;
-        font-size: 14px !important;
+        font-size: 12.5px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.5px !important;
-        margin-bottom: 4px !important;
+        letter-spacing: 0.4px !important;
+        margin-bottom: 2px !important;
     }
 
     /* भाषा निवड ड्रॉपडाऊन */
     div[data-baseweb="select"] {
-        border-radius: 14px !important;
+        border-radius: 12px !important;
         border: 1.2px solid rgba(251, 191, 36, 0.55) !important;
         background-color: rgba(30, 41, 59, 0.8) !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+        min-height: 38px !important;
     }
 
     div[data-baseweb="select"] * {
         color: #FEF08A !important;
         font-weight: 700 !important;
-        font-size: 15px !important;
-    }
-
-    ul[data-baseweb="menu"] {
-        background-color: #0f172a !important;
-        border: 1px solid rgba(251, 191, 36, 0.45) !important;
-    }
-
-    ul[data-baseweb="menu"] li {
-        color: #f8fafc !important;
-        font-size: 14.5px !important;
+        font-size: 14px !important;
     }
 
     /* मोड सिलेक्टर (रेडिओ बटन्स) */
@@ -96,30 +94,29 @@ st.markdown("""
         display: flex !important;
         justify-content: center !important;
         background: rgba(30, 41, 59, 0.65) !important;
-        padding: 6px !important;
-        border-radius: 30px !important;
+        padding: 4px 6px !important;
+        border-radius: 25px !important;
         border: 1px solid rgba(251, 191, 36, 0.4) !important;
-        gap: 8px !important;
-        margin: 12px 0 18px 0 !important;
+        gap: 6px !important;
+        margin: 6px 0 8px 0 !important;
     }
 
     div[role="radiogroup"] label {
-        padding: 8px 18px !important;
-        border-radius: 20px !important;
+        padding: 5px 12px !important;
+        border-radius: 18px !important;
         background: transparent !important;
         color: #f8fafc !important;
-        font-size: 14px !important;
+        font-size: 12.5px !important;
         font-weight: 600 !important;
     }
 
-    /* चॅट मेसेज कार्ड्स आणि फॉन्ट विझिबिलिटी */
+    /* चॅट मेसेज कार्ड्स */
     div[data-testid="stChatMessage"] {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
         border: 1.2px solid rgba(251, 191, 36, 0.4) !important;
-        border-radius: 18px !important;
-        padding: 16px 20px !important;
-        margin-bottom: 16px !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+        border-radius: 16px !important;
+        padding: 12px 14px !important;
+        margin-bottom: 10px !important;
     }
 
     div[data-testid="stChatMessage"] * {
@@ -132,20 +129,13 @@ st.markdown("""
     div[data-testid="stChatMessage"] h4 {
         color: #FDE68A !important;
         font-weight: 700 !important;
-        margin-top: 12px !important;
-        margin-bottom: 6px !important;
     }
 
     div[data-testid="stChatMessage"] p, 
     div[data-testid="stChatMessage"] li {
         color: #f1f5f9 !important;
-        font-size: 16px !important;
-        line-height: 1.75 !important;
-    }
-
-    div[data-testid="stChatMessage"] strong, 
-    div[data-testid="stChatMessage"] b {
-        color: #FEF08A !important;
+        font-size: 14.5px !important;
+        line-height: 1.6 !important;
     }
 
     /* इनपुट बॉक्स */
@@ -154,15 +144,14 @@ st.markdown("""
     .stChatInputContainer {
         background-color: #0f172a !important;
         border: 1.5px solid rgba(251, 191, 36, 0.65) !important;
-        border-radius: 18px !important;
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        border-radius: 16px !important;
     }
 
     div[data-testid="stChatInput"] textarea,
     .stChatInputContainer textarea {
         color: #ffffff !important;
         background-color: #0f172a !important;
-        font-size: 15.5px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
         caret-color: #fbbf24 !important;
     }
@@ -173,66 +162,62 @@ st.markdown("""
         font-weight: 400 !important;
     }
 
-    /* फुटर व संस्था ब्रँडिंग */
+    /* कॉम्पॅक्ट फुटर व संस्था ब्रँडिंग */
     .footer-container {
         text-align: center;
-        margin-top: 42px;
-        padding-top: 22px;
+        margin-top: 10px;
+        padding-top: 8px;
         border-top: 1px solid rgba(251, 191, 36, 0.25);
     }
 
     .brand-title {
         color: #FCD34D;
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 700;
-        letter-spacing: 1.5px;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
     }
 
     .footer-text {
         color: #cbd5e1;
-        font-size: 13px;
-        line-height: 1.6;
+        font-size: 11px;
+        line-height: 1.4;
     }
 
     /* भेट देणारे साधक बॅज */
     .visitor-badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         background: rgba(245, 158, 11, 0.15);
-        border: 1.5px solid rgba(251, 191, 36, 0.6);
+        border: 1.2px solid rgba(251, 191, 36, 0.6);
         color: #FEF08A;
-        padding: 6px 18px;
-        border-radius: 20px;
-        font-size: 13.5px;
+        padding: 4px 14px;
+        border-radius: 16px;
+        font-size: 12px;
         font-weight: 600;
-        margin-top: 14px;
-        box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+        margin-top: 6px;
     }
 
     .views-counter-tag {
         background: #D97706;
         color: #FFFBEB;
-        padding: 2px 10px;
-        border-radius: 6px;
+        padding: 2px 8px;
+        border-radius: 5px;
         font-weight: 800;
-        font-size: 13px;
-        letter-spacing: 0.5px;
+        font-size: 11.5px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ३. १००% अचूक आणि न अडकणारा सर्व्हर-आधारित रिअल-टाईम काऊंटर
+# ३. स्थानिक रिअल-टाइम व्हिजिटर काऊंटर
 @st.cache_resource
 def get_global_counter():
-    # सर्व्हर मेमरीमध्ये काऊंटर सुरू करणे
-    return {"count": 1}
+    return {"count": 16}
 
 counter_store = get_global_counter()
 
-# प्रत्येक नवीन साधक/डिव्हाइस आल्यावर १ ने वाढवणे
 if "counted_this_device" not in st.session_state:
     counter_store["count"] += 1
     st.session_state.counted_this_device = True
@@ -330,12 +315,12 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 ব্যবসা ও कर्मজীবন (Business & Career)"
+            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
         ],
-        "placeholder": "আপনার প্রশ্ন বা সংশয় এখানে লিখুন...",
+        "placeholder": "আপনার प्रश्न বা সংশয় এখানে লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
-        "visitor_label": "মোট দর্শনার্থী సాధక:"
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
+        "visitor_label": "মোট দর্শনার্থী সাধক:"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",
@@ -368,7 +353,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
 
-# ५. मुख्य हेडर कार्ड
+# ५. मुख्य हेडर कार्ड (फ्रंट स्क्रीनवर त्वरित दृश्यमान)
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -377,7 +362,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ६. हेडर कार्डच्या खाली भाषा निवड
+# ६. भाषा निवड
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 भाषा निवडा / Choose Language:",
@@ -389,7 +374,7 @@ if chosen_lang != st.session_state.selected_lang:
     st.session_state.selected_lang = chosen_lang
     st.rerun()
 
-# ७. मार्गदर्शन विभाग (वैयक्तिक / व्यवसाय)
+# ७. मार्गदर्शन विभाग
 selected_mode = st.radio(
     "मार्गदर्शन क्षेत्र:",
     curr["modes"],
@@ -397,7 +382,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ८. सिस्टीम प्रॉम्ट
+# ८. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
@@ -408,7 +393,6 @@ system_prompt = (
     "३. कर्म, धर्म, अनासक्ती, मनःशांती आणि निर्णयक्षमतेवर भर दे."
 )
 
-# ९. Google GenAI क्लायंट
 api_token = st.secrets.get("GEMINI_API_KEY", "").strip()
 
 if not api_token:
@@ -421,7 +405,6 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# १०. चालू मॉडेल (gemini-3.8-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
@@ -430,7 +413,7 @@ def get_sarathi_response(query):
     )
     return response.text
 
-# ११. चॅट हिस्ट्री
+# ९. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -438,7 +421,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# १२. प्रश्न इनपुट व स्पष्ट चिंतन इंडिकेटर
+# १०. प्रश्न इनपुट बॉक्स
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -453,7 +436,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             except Exception as e:
                 st.error(f"तांत्रिक अडचण: {str(e)}")
 
-# १३. तळटीप ब्रँडिंग आणि अचूक रिअल-टाईम काऊंटर
+# ११. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि अचूक काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

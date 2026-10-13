@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल फिट CSS (कापले न जाता एकाच स्क्रीनवर दिसण्यासाठी)
+# २. परफेक्ट मोबाइल लेआउट CSS (वरचा भाग न कापता एकाच स्क्रीनवर बसण्यासाठी)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -20,41 +20,41 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* मुख्य कंटेनर पॅडिंग */
+    /* कंटेनरची वरची जागा योग्य प्रमाणात वाढवली */
     .block-container {
-        padding-top: 0.2rem !important;
+        padding-top: 1.2rem !important;
         padding-bottom: 4.5rem !important;
         max-width: 520px !important;
     }
 
-    /* कॉम्पॅक्ट हेडर कार्ड - वरचे अक्षर न कापता दिसण्यासाठी */
+    /* मुख्य हेडर कार्ड - ओम आणि नाव पूर्ण दिसण्यासाठी */
     .hero-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(217, 119, 6, 0.1) 100%);
         border: 1.2px solid rgba(251, 191, 36, 0.55);
         border-radius: 16px;
-        padding: 8px 12px 6px 12px;
+        padding: 10px 12px 8px 12px;
         text-align: center;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(245, 158, 11, 0.18);
         backdrop-filter: blur(10px);
-        margin-top: 2px;
+        margin-top: 8px !important;
         margin-bottom: 6px;
     }
 
     .om-icon {
-        font-size: 28px;
-        line-height: 1;
+        font-size: 30px;
+        line-height: 1.1;
         filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
-        margin-bottom: 1px;
+        margin-bottom: 2px;
     }
 
     .title-glow {
-        font-size: 25px;
+        font-size: 26px;
         font-weight: 800;
         background: linear-gradient(135deg, #FFFDF0 0%, #FEF08A 25%, #F59E0B 65%, #B45309 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: 0.6px;
-        margin: 1px 0 2px 0;
+        margin: 1px 0 3px 0;
         filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.35));
     }
 
@@ -75,7 +75,7 @@ st.markdown("""
         margin-bottom: 1px !important;
     }
 
-    /* भाषा निवड ड्रॉपडाऊन */
+    /* भाषा निवड बॉक्स */
     div[data-baseweb="select"] {
         border-radius: 10px !important;
         border: 1.2px solid rgba(251, 191, 36, 0.55) !important;
@@ -89,7 +89,7 @@ st.markdown("""
         font-size: 13.5px !important;
     }
 
-    /* मोड सिलेक्टर (रेडिओ बटन्स) */
+    /* रेडिओ बटन्स */
     div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
@@ -211,10 +211,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. स्थानिक रिअल-टाइम व्हिजिटर काऊंटर
+# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर
 @st.cache_resource
 def get_global_counter():
-    return {"count": 19}
+    return {"count": 22}
 
 counter_store = get_global_counter()
 
@@ -295,7 +295,7 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫೌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -315,12 +315,12 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও কর্মजीवन (Business & Career)"
+            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
         "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
-        "visitor_label": "মোট দর্শনার্থী সাধক:"
+        "visitor_label": "মোট দর্শনার্থী সাধक:"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",

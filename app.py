@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल लेआउट CSS व WhatsApp शेअर बटण स्टाइल
+# २. मोबाइल लेआउट CSS व WhatsApp शेअर बटण स्टाइल
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -220,28 +220,33 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. क्लाउड-आधारित व्हिजिटर काऊंटर (शून्यपासून सुरुवात आणि कायमस्वरूपी सेव्ह)
+# ३. १००% सुरक्षित व कायमस्वरूपी क्लाउड व्हिजिटर काऊंटर
 def get_persistent_views():
-    namespace = "vighnaharta-gold-foundation"
-    key = "ai-sarathi-live-v1"
+    namespace = "vighnaharta-gold"
+    key_name = "ai-sarathi-live-counter"
     
-    should_hit = False
-    if "counted_this_device" not in st.session_state:
-        st.session_state.counted_this_device = True
-        should_hit = True
+    should_increment = False
+    if "device_visit_registered" not in st.session_state:
+        st.session_state.device_visit_registered = True
+        should_increment = True
 
     try:
-        if should_hit:
-            url = f"https://api.counterapi.dev/v1/{namespace}/{key}/up"
+        if should_increment:
+            api_url = f"https://api.counterapi.dev/v1/{namespace}/{key_name}/up"
         else:
-            url = f"https://api.counterapi.dev/v1/{namespace}/{key}"
+            api_url = f"https://api.counterapi.dev/v1/{namespace}/{key_name}"
             
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=3) as resp:
-            data = json.loads(resp.read().decode())
-            return data.get("count", 1)
+        req = urllib.request.Request(
+            api_url, 
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        )
+        with urllib.request.urlopen(req, timeout=3.0) as response:
+            res_data = json.loads(response.read().decode())
+            val = res_data.get("count", 1)
+            st.session_state["cached_count"] = val
+            return val
     except Exception:
-        return 1
+        return st.session_state.get("cached_count", 1)
 
 current_views = get_persistent_views()
 
@@ -342,11 +347,11 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मजीवन (Business & Career)"],
-        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
         "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
-        "question_label": "সাধকের प्रश्न:",
+        "question_label": "সাধকের প্রশ্ন:",
         "answer_label": "AI সারথির পথনির্দেশ:",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
         "visitor_label": "মোট দর্শনার্থী সাধक:"
@@ -434,7 +439,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ९. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
+# ९. Google GenAI क्लायंट व समृद्ध प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक अत्यंत ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "

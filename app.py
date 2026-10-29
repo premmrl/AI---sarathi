@@ -217,19 +217,6 @@ current_views = counter_store["count"]
 
 # ४. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
-    "मराठी": {
-        "title": "AI सारथी",
-        "tagline": "जीवनातील आणि व्यवसायातील गुंतागुंतीच्या निर्णयांना भगवद्गीतेच्या दिव्य प्रकाशात अचूक दिशा",
-        "modes": [
-            "🌱 वैयक्तिक जीवन (Personal Guidance)",
-            "💼 व्यवसाय आणि करिअर (Business & Career)"
-        ],
-        "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
-        "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
-        "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
-        "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
-        "visitor_label": "एकूण भेट देणारे साधक:"
-    },
     "हिंदी": {
         "title": "AI सारथी",
         "tagline": "जीवन और व्यापार के कठिन निर्णयों को भगवद्गीता के दिव्य प्रकाश में सही दिशा",
@@ -242,6 +229,19 @@ LOCALIZED_CONTENT = {
         "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
         "visitor_label": "कुल आगंतुक साधक:"
+    },
+    "मराठी": {
+        "title": "AI सारथी",
+        "tagline": "जीवनातील आणि व्यवसायातील गुंतागुंतीच्या निर्णयांना भगवद्गीतेच्या दिव्य प्रकाशात अचूक दिशा",
+        "modes": [
+            "🌱 वैयक्तिक जीवन (Personal Guidance)",
+            "💼 व्यवसाय आणि करिअर (Business & Career)"
+        ],
+        "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
+        "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
+        "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
+        "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
+        "visitor_label": "एकूण भेट देणारे साधक:"
     },
     "English": {
         "title": "AI Sarathi",
@@ -313,7 +313,7 @@ LOCALIZED_CONTENT = {
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
+            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
         "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशিকা খুঁজছেন...",
@@ -331,7 +331,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
         "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗವദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തத்துவங்களின் ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -349,12 +349,40 @@ LOCALIZED_CONTENT = {
     }
 }
 
+# ५. पद्धत १: ब्राउझर/मोबाईलची भाषा ओळखणे (डीफॉल्ट: हिंदी)
+LANG_CODE_MAP = {
+    "hi": "हिंदी",
+    "mr": "मराठी",
+    "en": "English",
+    "gu": "ગુજરાતી",
+    "kn": "ಕನ್ನಡ",
+    "te": "తెలుగు",
+    "ta": "தமிழ்",
+    "bn": "বাংলা",
+    "ml": "മലയാളം",
+    "pa": "ਪੰਜਾਬੀ"
+}
+
+def detect_device_language():
+    try:
+        headers = st.context.headers
+        accept_lang = headers.get("Accept-Language", "").lower()
+        if accept_lang:
+            for lang_tag in accept_lang.split(","):
+                clean_tag = lang_tag.split(";")[0].strip()
+                prefix = clean_tag.split("-")[0]
+                if prefix in LANG_CODE_MAP:
+                    return LANG_CODE_MAP[prefix]
+    except Exception:
+        pass
+    return "हिंदी"
+
 if "selected_lang" not in st.session_state:
-    st.session_state.selected_lang = "मराठी"
+    st.session_state.selected_lang = detect_device_language()
 
-curr = LOCALIZED_CONTENT[st.session_state.selected_lang]
+curr = LOCALIZED_CONTENT.get(st.session_state.selected_lang, LOCALIZED_CONTENT["हिंदी"])
 
-# ५. मुख्य हेडर कार्ड
+# ६. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -363,7 +391,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ६. भाषा निवड
+# ७. भाषा निवड ड्रॉपडाऊन
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 भाषा निवडा / Choose Language:",
@@ -375,7 +403,7 @@ if chosen_lang != st.session_state.selected_lang:
     st.session_state.selected_lang = chosen_lang
     st.rerun()
 
-# ७. मार्गदर्शन विभाग
+# ८. मार्गदर्शन विभाग
 selected_mode = st.radio(
     "मार्गदर्शन क्षेत्र:",
     curr["modes"],
@@ -383,7 +411,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ८. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
+# ९. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
@@ -406,7 +434,7 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# ९. अधिकृत कार्यरत मॉडेल (gemini-3.8-flash)
+# १०. अधिकृत कार्यरत मॉडेल (gemini-3.8-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
@@ -415,7 +443,7 @@ def get_sarathi_response(query):
     )
     return response.text
 
-# १०. चॅट हिस्ट्री
+# ११. चॅट हिस्ट्री
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -423,7 +451,7 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
+# १२. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -442,7 +470,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 else:
                     st.error(f"तांत्रिक अडचण: {err_text}")
 
-# १२. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
+# १३. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

@@ -240,6 +240,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "अपना प्रश्न, दुविधा या चिंता यहाँ लिखें...",
         "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
         "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
+        "error_msg": "ॐ तांत्रिक कारणास्तव प्रतिसाद मिळण्यास अडचण येत आहे. कृपया पुन्हा प्रयत्न करा.",
         "share_btn_text": "📲 WhatsApp पर शेयर करें",
         "question_label": "साधक का प्रश्न / दुविधा:",
         "answer_label": "AI सारथी का दिव्य मार्गदर्शन:",
@@ -253,6 +254,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
         "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
         "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
+        "error_msg": "ॐ तांत्रिक कारणास्तव प्रतिसाद मिळण्यास अडचण येत आहे. कृपया पुन्हा विचारून पहावे.",
         "share_btn_text": "📲 WhatsApp वर शेअर करा",
         "question_label": "साधकाचा प्रश्न / चिंता:",
         "answer_label": "AI सारथीचे दिव्य मार्गदर्शन:",
@@ -266,6 +268,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "Ask your question, dilemma, or life situation here...",
         "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
         "quota_msg": "ॐ Many seekers are seeking guidance right now. Please ask your question again in a little while.",
+        "error_msg": "ॐ We encountered a temporary technical glitch. Please try asking again.",
         "share_btn_text": "📲 Share on WhatsApp",
         "question_label": "Seeker's Question / Dilemma:",
         "answer_label": "AI Sarathi's Guidance:",
@@ -279,6 +282,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "તમારો પ્રશ્ન કે મૂંઝવણ અહીં લખો...",
         "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
         "quota_msg": "ॐ ઘણા સાધકો હાલ માર્ગદર્શન લઈ રહ્યા છે. કૃપા કરીને થોડા સમય પછી ફરી પૂછો.",
+        "error_msg": "ॐ ટેકનિકલ કારણોસર થોડી ક્ષતિ આવી છે. કૃપા કરીને ફરી પૂછો.",
         "share_btn_text": "📲 WhatsApp પર શેર કરો",
         "question_label": "સાધકનો પ્રશ્ન / મૂંઝવણ:",
         "answer_label": "AI સારથીનું દિવ્ય માર્ગદર્શન:",
@@ -292,6 +296,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸಂದೇಹವನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ...",
         "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
         "quota_msg": "ॐ ಸದ್ಯಕ್ಕೆ ಅನೇಕ ಸಾಧಕರು ಮಾರ್ಗದರ್ಶನ ಪಡೆಯುತ್ತಿದ್ದಾರೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+        "error_msg": "ॐ ತಾಂತ್ರಿಕ ಕಾರಣದಿಂದ ಸಮಸ್ಯೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         "share_btn_text": "📲 WhatsApp ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
         "question_label": "ಸಾಧಕರ ಪ್ರಶ್ನೆ:",
         "answer_label": "AI ಸಾರಥಿಯ ಮಾರ್ಗದರ್ಶನ:",
@@ -305,6 +310,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
         "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
+        "error_msg": "ॐ సాంకేతిక కారణాల వల్ల అంతరాయం ఏర్పడింది. దయచేసి మళ్లీ ప్రయత్నించండి.",
         "share_btn_text": "📲 WhatsApp లో షేర్ చేయండి",
         "question_label": "సాధకుని ప్రశ్న:",
         "answer_label": "AI సారథి మార్గదర్శనం:",
@@ -318,6 +324,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
         "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
         "quota_msg": "ॐ தற்போது பல பக்தர்கள் வழிகாட்டுதல் பெற்று வருகின்றனர். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
+        "error_msg": "ॐ தொழில்நுட்பக் கோளாறு காரணமாகத் தாமதம் ஏற்பட்டுள்ளது. மீண்டும் முயலவும்.",
         "share_btn_text": "📲 WhatsApp-ல் பகிரவும்",
         "question_label": "கேள்வி:",
         "answer_label": "AI சாரதியின் வழிகாட்டுதல்:",
@@ -327,10 +334,11 @@ LOCALIZED_CONTENT = {
     "বাংলা": {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
-        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও কর্মজীবন (Business & Career)"],
-        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मजीवन (Business & Career)"],
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
+        "error_msg": "ॐ প্রযুক্তিগত কারণে সাময়িক সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
         "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
         "question_label": "সাধকের প্রশ্ন:",
         "answer_label": "AI সারথির পথনির্দেশ:",
@@ -344,10 +352,11 @@ LOCALIZED_CONTENT = {
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
         "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
+        "error_msg": "ॐ സാങ്കേതിക തകരാർ കാരണം തടസ്സമുണ്ടായി. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
         "share_btn_text": "📲 WhatsApp-ൽ പങ്കിടുക",
         "question_label": "ചോദ്യം:",
         "answer_label": "AI സാരഥിയുടെ മാർഗ്ഗനിർദ്ദേശം:",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -357,6 +366,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
         "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
         "quota_msg": "ॐ ਇਸ ਸਮੇਂ ਬਹੁਤ ਸਾਰੇ ਸਾਧਕ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+        "error_msg": "ॐ ਤਕਨੀਕੀ ਕਾਰਨ ਕਰਕੇ ਸਮੱਸਿਆ ਆਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
         "share_btn_text": "📲 WhatsApp 'ਤੇ ਸਾਂਝਾ ਕਰੋ",
         "question_label": "ਸਾਧਕ ਦਾ ਸਵਾਲ:",
         "answer_label": "AI ਸਾਰਥੀ ਦਾ ਮਾਰਗਦਰਸ਼ਨ:",
@@ -420,15 +430,16 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ९. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
+# ९. Google GenAI क्लायंट व सुधारित प्रॉम्ट
 system_prompt = (
-    "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
+    "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक अत्यंत ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
     f"वापरकर्त्याने निवडलेली भाषा: {st.session_state.selected_lang}. निवडलेला विभाग: {selected_mode}. "
     "महत्त्वाचे नियम: "
-    f"१. संपूर्ण उत्तर १००% शुद्ध, आदरार्थी आणि सहज समजणाऱ्या {st.session_state.selected_lang} भाषेतच दे. "
-    "२. उत्तरात थेट भगवद्गीतेतील समर्पक श्लोक किंवा श्रीकृष्ण-अर्जुन संवादाचा सारांश देऊन व्यावहारिक समुपदेशन कर. "
-    "३. कर्म, धर्म, अनासक्ती, मनःशांती आणि निर्णयक्षमतेवर भर दे."
+    f"१. संपूर्ण उत्तर १००% शुद्ध, आदरार्थी, आत्मीय आणि सहज समजणाऱ्या {st.session_state.selected_lang} भाषेतच दे. "
+    "२. उत्तराची सुरुवात साधकाच्या मनाला धीर देणाऱ्या आणि त्याची स्थिती समजून घेणाऱ्या प्रेमळ शब्दांनी कर. "
+    "३. उत्तरात थेट भगवद्गीतेतील समर्पक श्लोक किंवा श्रीकृष्ण-अर्जुन संवादाचा सारांश देऊन व्यावहारिक समुपदेशन कर. "
+    "४. उत्तराच्या शेवटी साधकाला स्वतःच्या जीवनात तात्काळ अमलात आणता येईल असा एक छोटा, व्यावहारिक उपाय (Actionable Step) नक्की सांग."
 )
 
 api_token = st.secrets.get("GEMINI_API_KEY", "").strip()
@@ -443,16 +454,18 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# १०. मॉडेल कॉल (gemini-3.8-flash)
-def get_sarathi_response(query):
+# १०. स्ट्रीमिंग जनरेटर फंक्शन (जलद व अक्षरे टाईप होताना दिसण्यासाठी)
+def stream_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
-    response = client.models.generate_content(
+    response_stream = client.models.generate_content_stream(
         model="gemini-3.8-flash",
         contents=prompt_with_context
     )
-    return response.text
+    for chunk in response_stream:
+        if chunk.text:
+            yield chunk.text
 
-# प्रश्न व उत्तर दोन्ही जोडून WhatsApp शेअर लिंक तयार करणे
+# WhatsApp शेअर लिंक तयार करणे
 def generate_whatsapp_link(question_text, answer_text):
     q_label = curr.get("question_label", "साधकाचा प्रश्न:")
     a_label = curr.get("answer_label", "AI सारथीचे दिव्य मार्गदर्शन:")
@@ -484,29 +497,30 @@ for idx, message in enumerate(st.session_state.sarathi_messages):
                 unsafe_allow_html=True
             )
 
-# १२. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
+# १२. प्रश्न इनपुट बॉक्स व स्ट्रीमिंग चॅट प्रक्रिया
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner(curr["thinking"]):
-            try:
-                full_response = get_sarathi_response(user_prompt)
-                st.markdown(full_response)
-                wa_link = generate_whatsapp_link(user_prompt, full_response)
-                st.markdown(
-                    f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
-                    unsafe_allow_html=True
-                )
-                st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
-            except Exception as e:
-                err_text = str(e)
-                if "429" in err_text or "RESOURCE_EXHAUSTED" in err_text:
-                    st.warning(curr["quota_msg"], icon="🕉️")
-                else:
-                    st.error(f"तांत्रिक अडचण: {err_text}")
+        try:
+            # थेट अक्षरे टाईप होताना दिसतील (Streaming)
+            full_response = st.write_stream(stream_sarathi_response(user_prompt))
+            
+            # उत्तर पूर्ण झाल्यावर लगेच खाली WhatsApp शेअर बटण येईल
+            wa_link = generate_whatsapp_link(user_prompt, full_response)
+            st.markdown(
+                f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
+                unsafe_allow_html=True
+            )
+            st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
+        except Exception as e:
+            err_text = str(e)
+            if "429" in err_text or "RESOURCE_EXHAUSTED" in err_text:
+                st.warning(curr["quota_msg"], icon="🕉️")
+            else:
+                st.warning(curr.get("error_msg", "ॐ तांत्रिक कारणास्तव अडचण आली आहे. पुन्हा प्रयत्न करा."), icon="🕉️")
 
 # १३. तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""

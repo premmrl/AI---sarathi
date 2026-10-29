@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -215,7 +216,7 @@ if "counted_this_device" not in st.session_state:
 
 current_views = counter_store["count"]
 
-# ४. स्थानिक भाषांतर डेटा (१० भाषा)
+# ४. स्थानिक भाषांतर डेटा व BCP-47 ऑडिओ भाषा कोड (१० भाषा)
 LOCALIZED_CONTENT = {
     "मराठी": {
         "title": "AI सारथी",
@@ -228,7 +229,9 @@ LOCALIZED_CONTENT = {
         "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
         "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
         "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
-        "visitor_label": "एकूण भेट देणारे साधक:"
+        "visitor_label": "एकूण भेट देणारे साधक:",
+        "voice_lang": "mr-IN",
+        "speak_btn": "🎙️ आवाजाद्वारे बोला (Speak)"
     },
     "हिंदी": {
         "title": "AI सारथी",
@@ -241,7 +244,9 @@ LOCALIZED_CONTENT = {
         "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
         "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
-        "visitor_label": "कुल आगंतुक साधक:"
+        "visitor_label": "कुल आगंतुक साधक:",
+        "voice_lang": "hi-IN",
+        "speak_btn": "🎙️ बोलकर पूछें (Speak)"
     },
     "English": {
         "title": "AI Sarathi",
@@ -254,7 +259,9 @@ LOCALIZED_CONTENT = {
         "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
         "quota_msg": "ॐ Many seekers are seeking guidance right now. Please ask your question again in a little while.",
         "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
-        "visitor_label": "Total Seekers Visited:"
+        "visitor_label": "Total Seekers Visited:",
+        "voice_lang": "en-US",
+        "speak_btn": "🎙️ Speak Question"
     },
     "ગુજરાતી": {
         "title": "AI સારથી",
@@ -267,7 +274,9 @@ LOCALIZED_CONTENT = {
         "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
         "quota_msg": "ॐ ઘણા સાધકો હાલ માર્ગદર્શન લઈ રહ્યા છે. કૃપા કરીને થોડા સમય પછી ફરી પૂછો.",
         "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
-        "visitor_label": "કુલ મુલાકાતી સાધકો:"
+        "visitor_label": "કુલ મુલાકાતી સાધકો:",
+        "voice_lang": "gu-IN",
+        "speak_btn": "🎙️ બોલીને પૂછો (Speak)"
     },
     "ಕನ್ನಡ": {
         "title": "AI ಸಾರಥಿ",
@@ -280,7 +289,9 @@ LOCALIZED_CONTENT = {
         "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
         "quota_msg": "ॐ ಸದ್ಯಕ್ಕೆ ಅನೇಕ ಸಾಧಕರು ಮಾರ್ಗದರ್ಶನ ಪಡೆಯುತ್ತಿದ್ದಾರೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
-        "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:"
+        "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:",
+        "voice_lang": "kn-IN",
+        "speak_btn": "🎙️ ಮಾತನಾಡಿ ಕೇಳಿ (Speak)"
     },
     "తెలుగు": {
         "title": "AI సారథి",
@@ -291,8 +302,11 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
+        "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
         "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
-        "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
+        "visitor_label": "మొత్తం సందర్శించిన సాధకులు:",
+        "voice_lang": "te-IN",
+        "speak_btn": "🎙️ మాట్లాడి అడగండి (Speak)"
     },
     "தமிழ்": {
         "title": "AI சாரதி",
@@ -303,20 +317,26 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
         "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
+        "quota_msg": "ॐ தற்போது பல பக்தர்கள் வழிகாட்டுதல் பெற்று வருகின்றனர். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
         "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
-        "visitor_label": "பார்வையிட்ட பக்தர்கள்:"
+        "visitor_label": "பார்வையிட்ட பக்தர்கள்:",
+        "voice_lang": "ta-IN",
+        "speak_btn": "🎙️ பேசி கேளுங்கள் (Speak)"
     },
     "বাংলা": {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": [
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मজীবন (Business & Career)"
+            "💼 व्यवसाय ও কর্মजीवन (Business & Career)"
         ],
         "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशिका খুঁজছেন...",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशिका",
-        "visitor_label": "মোট দর্শনার্থী সাধक:"
+        "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
+        "visitor_label": "মোট দর্শনার্থী সাধक:",
+        "voice_lang": "bn-IN",
+        "speak_btn": "🎙️ মুখে বলে জিজ্ঞাসা করুন"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",
@@ -327,8 +347,11 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
-        "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
+        "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗವദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
+        "visitor_label": "ആകെ സന്ദർശിച്ചവർ:",
+        "voice_lang": "ml-IN",
+        "speak_btn": "🎙️ സംസാരിച്ച് ചോദിക്കൂ (Speak)"
     },
     "ਪੰਜਾਬੀ": {
         "title": "AI ਸਾਰਥੀ",
@@ -339,8 +362,11 @@ LOCALIZED_CONTENT = {
         ],
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
         "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
+        "quota_msg": "ॐ ਇਸ ਸਮੇਂ ਬਹੁਤ ਸਾਰੇ ਸਾਧਕ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
         "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
-        "visitor_label": "ਕੁੱਲ ਸਾਧਕ:"
+        "visitor_label": "ਕੁੱਲ ਸਾਧਕ:",
+        "voice_lang": "pa-IN",
+        "speak_btn": "🎙️ ਬੋਲ ਕੇ ਪੁੱਛੋ (Speak)"
     }
 }
 
@@ -418,7 +444,101 @@ for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ११. प्रश्न इनपुट बॉक्स व सभ्य त्रुटी हाताळणी
+# ११. ब्राउझर-आधारित मोफत व्हॉइस इनपुट कम्पोनंट (Web Speech API)
+voice_lang_code = curr.get("voice_lang", "mr-IN")
+btn_label = curr.get("speak_btn", "🎙️ आवाजाद्वारे बोला")
+
+speech_component_code = f"""
+<div style="display: flex; justify-content: center; align-items: center; margin: 6px 0;">
+    <button id="micBtn" onclick="toggleSpeech()" style="
+        background: linear-gradient(135deg, #d97706, #b45309);
+        color: #ffffff;
+        border: 1.2px solid #fcd34d;
+        border-radius: 20px;
+        padding: 6px 16px;
+        font-size: 13px;
+        font-family: sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    ">
+        <span id="micIcon">🎙️</span>
+        <span id="btnText">{btn_label}</span>
+    </button>
+</div>
+
+<script>
+    var recognition = null;
+    var isListening = false;
+
+    if ('webkitSpeechRecognition' in window) {{
+        recognition = new webkitSpeechRecognition();
+    }} else if ('SpeechRecognition' in window) {{
+        recognition = new SpeechRecognition();
+    }}
+
+    function toggleSpeech() {{
+        var btn = document.getElementById("micBtn");
+        var btnText = document.getElementById("btnText");
+
+        if (!recognition) {{
+            alert("आपल्या ब्राउझरमध्ये व्हॉइस स्पीच सपोर्ट उपलब्ध नाही. कृपया Chrome किंवा Safari वापरावे.");
+            return;
+        }}
+
+        if (isListening) {{
+            recognition.stop();
+            isListening = false;
+            btnText.innerText = "{btn_label}";
+            btn.style.background = "linear-gradient(135deg, #d97706, #b45309)";
+            return;
+        }}
+
+        recognition.lang = "{voice_lang_code}";
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = function() {{
+            isListening = true;
+            btnText.innerText = "ऐकत आहे... बोला";
+            btn.style.background = "linear-gradient(135deg, #dc2626, #991b1b)";
+        }};
+
+        recognition.onresult = function(event) {{
+            var transcript = event.results[0][0].transcript;
+            var doc = window.parent.document;
+            var chatInput = doc.querySelector('div[data-testid="stChatInput"] textarea');
+            if (chatInput) {{
+                chatInput.value = transcript;
+                chatInput.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                chatInput.focus();
+            }}
+        }};
+
+        recognition.onerror = function(event) {{
+            console.log("Speech recognition error:", event.error);
+            isListening = false;
+            btnText.innerText = "{btn_label}";
+            btn.style.background = "linear-gradient(135deg, #d97706, #b45309)";
+        }};
+
+        recognition.onend = function() {{
+            isListening = false;
+            btnText.innerText = "{btn_label}";
+            btn.style.background = "linear-gradient(135deg, #d97706, #b45309)";
+        }};
+
+        recognition.start();
+    }}
+</script>
+"""
+
+components.html(speech_component_code, height=48)
+
+# १२. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -437,7 +557,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 else:
                     st.error(f"तांत्रिक अडचण: {err_text}")
 
-# १२. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
+# १३. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>

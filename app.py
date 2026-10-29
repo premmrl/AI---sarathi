@@ -1,4 +1,5 @@
 import streamlit as st
+import urllib.parse
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -9,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल लेआउट CSS
+# २. परफेक्ट मोबाइल लेआउट CSS व शेअर बटण स्टाइल
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -155,6 +156,27 @@ st.markdown("""
         font-weight: 400 !important;
     }
 
+    /* WhatsApp Share बटण डिझाइन */
+    .whatsapp-share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        color: #ffffff !important;
+        text-decoration: none !important;
+        padding: 5px 12px;
+        border-radius: 18px;
+        font-size: 11.5px;
+        font-weight: 700;
+        margin-top: 6px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.15s ease-in-out;
+    }
+    .whatsapp-share-btn:hover {
+        transform: scale(1.03);
+        color: #ffffff !important;
+    }
+
     .footer-container {
         text-align: center;
         margin-top: 6px;
@@ -227,6 +249,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "अपना प्रश्न, दुविधा या चिंता यहाँ लिखें...",
         "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
         "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
+        "share_btn_text": "📲 WhatsApp पर शेयर करें",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
         "visitor_label": "कुल आगंतुक साधक:"
     },
@@ -240,6 +263,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
         "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
         "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
+        "share_btn_text": "📲 WhatsApp वर शेअर करा",
         "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
         "visitor_label": "एकूण भेट देणारे साधक:"
     },
@@ -253,6 +277,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "Ask your question, dilemma, or life situation here...",
         "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
         "quota_msg": "ॐ Many seekers are seeking guidance right now. Please ask your question again in a little while.",
+        "share_btn_text": "📲 Share on WhatsApp",
         "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
         "visitor_label": "Total Seekers Visited:"
     },
@@ -266,6 +291,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "તમારો પ્રશ્ન કે મૂંઝવણ અહીં લખો...",
         "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
         "quota_msg": "ॐ ઘણા સાધકો હાલ માર્ગદર્શન લઈ રહ્યા છે. કૃપા કરીને થોડા સમય પછી ફરી પૂછો.",
+        "share_btn_text": "📲 WhatsApp પર શેર કરો",
         "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
         "visitor_label": "કુલ મુલાકાતી સાધકો:"
     },
@@ -279,6 +305,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸಂದೇಹವನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ...",
         "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
         "quota_msg": "ॐ ಸದ್ಯಕ್ಕೆ ಅನೇಕ ಸಾಧಕರು ಮಾರ್ಗದರ್ಶನ ಪಡೆಯುತ್ತಿದ್ದಾರೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+        "share_btn_text": "📲 WhatsApp ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
         "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
         "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:"
     },
@@ -292,6 +319,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
         "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
+        "share_btn_text": "📲 WhatsApp లో షేర్ చేయండి",
         "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
@@ -305,6 +333,7 @@ LOCALIZED_CONTENT = {
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
         "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
         "quota_msg": "ॐ தற்போது பல பக்தர்கள் வழிகாட்டுதல் பெற்று வருகின்றனர். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
+        "share_btn_text": "📲 WhatsApp-ல் பகிரவும்",
         "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
         "visitor_label": "பார்வையிட்ட பக்தர்கள்:"
     },
@@ -315,10 +344,11 @@ LOCALIZED_CONTENT = {
             "🌱 व्यक्तिगत जीवन (Personal Guidance)",
             "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
         ],
-        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার कालজয়ী निर्देशিকা",
+        "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
         "visitor_label": "মোট দর্শনার্থী সাধक:"
     },
     "മലയാളം": {
@@ -331,7 +361,8 @@ LOCALIZED_CONTENT = {
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
         "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തத்துவங்களின் ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
+        "share_btn_text": "📲 WhatsApp-ൽ പങ്കിടുക",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗವദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -344,12 +375,13 @@ LOCALIZED_CONTENT = {
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
         "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
         "quota_msg": "ॐ ਇਸ ਸਮੇਂ ਬਹੁਤ ਸਾਰੇ ਸਾਧਕ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+        "share_btn_text": "📲 WhatsApp 'ਤੇ ਸਾਂਝਾ ਕਰੋ",
         "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
         "visitor_label": "ਕੁੱਲ ਸਾਧਕ:"
     }
 }
 
-# ५. पद्धत १: ब्राउझर/मोबाईलची भाषा ओळखणे (डीफॉल्ट: हिंदी)
+# ५. ब्राऊझर भाषा ओळखणे (डीफॉल्ट: हिंदी)
 LANG_CODE_MAP = {
     "hi": "हिंदी",
     "mr": "मराठी",
@@ -443,13 +475,31 @@ def get_sarathi_response(query):
     )
     return response.text
 
-# ११. चॅट हिस्ट्री
+# व्हॉट्सॲप शेअर लिंक तयार करणारे फंक्शन
+def generate_whatsapp_link(answer_text):
+    share_text = (
+        f"🕉️ *AI सारथी - भगवद्गीता मार्गदर्शन*\n\n"
+        f"{answer_text}\n\n"
+        f"🌿 *मार्गदर्शन मिळवण्यासाठी खालील लिंकवर क्लिक करा:*\n"
+        f"https://ai-sarathi.streamlit.app/\n\n"
+        f"— *An Initiative by Vighnaharta Gold Foundation*"
+    )
+    encoded_url = urllib.parse.quote(share_text)
+    return f"https://api.whatsapp.com/send?text={encoded_url}"
+
+# ११. चॅट हिस्ट्री व शेअर बटण
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
 for message in st.session_state.sarathi_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        if message["role"] == "assistant":
+            wa_link = generate_whatsapp_link(message["content"])
+            st.markdown(
+                f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
+                unsafe_allow_html=True
+            )
 
 # १२. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
 if user_prompt := st.chat_input(curr["placeholder"]):
@@ -462,6 +512,11 @@ if user_prompt := st.chat_input(curr["placeholder"]):
             try:
                 full_response = get_sarathi_response(user_prompt)
                 st.markdown(full_response)
+                wa_link = generate_whatsapp_link(full_response)
+                st.markdown(
+                    f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
+                    unsafe_allow_html=True
+                )
                 st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
             except Exception as e:
                 err_text = str(e)

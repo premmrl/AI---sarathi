@@ -1,7 +1,5 @@
 import streamlit as st
 import urllib.parse
-import urllib.request
-import json
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -175,82 +173,29 @@ st.markdown("""
 
     .footer-container {
         text-align: center;
-        margin-top: 6px;
-        padding-top: 4px;
+        margin-top: 14px;
+        padding-top: 8px;
         border-top: 1px solid rgba(251, 191, 36, 0.2);
     }
 
     .brand-title {
         color: #FCD34D;
-        font-size: 10px;
+        font-size: 10.5px;
         font-weight: 700;
-        letter-spacing: 1px;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        margin-bottom: 1px;
+        margin-bottom: 2px;
     }
 
     .footer-text {
         color: #cbd5e1;
-        font-size: 10px;
-        line-height: 1.35;
-    }
-
-    .visitor-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: rgba(245, 158, 11, 0.15);
-        border: 1.2px solid rgba(251, 191, 36, 0.6);
-        color: #FEF08A;
-        padding: 3px 12px;
-        border-radius: 14px;
-        font-size: 11.5px;
-        font-weight: 600;
-        margin-top: 4px;
-    }
-
-    .views-counter-tag {
-        background: #D97706;
-        color: #FFFBEB;
-        padding: 1px 7px;
-        border-radius: 4px;
-        font-weight: 800;
-        font-size: 11px;
+        font-size: 10.5px;
+        line-height: 1.4;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ३. १००% सुरक्षित व कायमस्वरूपी क्लाउड व्हिजिटर काऊंटर
-def get_persistent_views():
-    namespace = "vighnaharta-gold"
-    key_name = "ai-sarathi-live-counter"
-    
-    should_increment = False
-    if "device_visit_registered" not in st.session_state:
-        st.session_state.device_visit_registered = True
-        should_increment = True
-
-    try:
-        if should_increment:
-            api_url = f"https://api.counterapi.dev/v1/{namespace}/{key_name}/up"
-        else:
-            api_url = f"https://api.counterapi.dev/v1/{namespace}/{key_name}"
-            
-        req = urllib.request.Request(
-            api_url, 
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-        )
-        with urllib.request.urlopen(req, timeout=3.0) as response:
-            res_data = json.loads(response.read().decode())
-            val = res_data.get("count", 1)
-            st.session_state["cached_count"] = val
-            return val
-    except Exception:
-        return st.session_state.get("cached_count", 1)
-
-current_views = get_persistent_views()
-
-# ४. स्थानिक भाषांतर डेटा (१० भाषा)
+# ३. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
     "हिंदी": {
         "title": "AI सारथी",
@@ -262,8 +207,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp पर शेयर करें",
         "question_label": "साधक का प्रश्न / दुविधा:",
         "answer_label": "AI सारथी का दिव्य मार्गदर्शन:",
-        "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
-        "visitor_label": "कुल आगंतुक साधक:"
+        "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल"
     },
     "मराठी": {
         "title": "AI सारथी",
@@ -275,8 +219,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp वर शेअर करा",
         "question_label": "साधकाचा प्रश्न / चिंता:",
         "answer_label": "AI सारथीचे दिव्य मार्गदर्शन:",
-        "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
-        "visitor_label": "एकूण भेट देणारे साधक:"
+        "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम"
     },
     "English": {
         "title": "AI Sarathi",
@@ -288,8 +231,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 Share on WhatsApp",
         "question_label": "Seeker's Question / Dilemma:",
         "answer_label": "AI Sarathi's Guidance:",
-        "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
-        "visitor_label": "Total Seekers Visited:"
+        "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita"
     },
     "ગુજરાતી": {
         "title": "AI સારથી",
@@ -301,8 +243,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp પર શેર કરો",
         "question_label": "સાધકનો પ્રશ્ન / મૂંઝવણ:",
         "answer_label": "AI સારથીનું દિવ્ય માર્ગદર્શન:",
-        "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
-        "visitor_label": "કુલ મુલાકાતી સાધકો:"
+        "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ"
     },
     "ಕನ್ನಡ": {
         "title": "AI ಸಾರಥಿ",
@@ -314,8 +255,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
         "question_label": "ಸಾಧಕರ ಪ್ರಶ್ನೆ:",
         "answer_label": "AI ಸಾರಥಿಯ ಮಾರ್ಗದರ್ಶನ:",
-        "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
-        "visitor_label": "ಒಟ್ಟು ಭೇಟಿ ನೀಡಿದ ಸಾಧಕರು:"
+        "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ"
     },
     "తెలుగు": {
         "title": "AI సారథి",
@@ -327,8 +267,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp లో షేర్ చేయండి",
         "question_label": "సాధకుని ప్రశ్న:",
         "answer_label": "AI సారథి మార్గదర్శనం:",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
-        "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ"
     },
     "தமிழ்": {
         "title": "AI சாரதி",
@@ -340,21 +279,19 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp-ல் பகிரவும்",
         "question_label": "கேள்வி:",
         "answer_label": "AI சாரதியின் வழிகாட்டுதல்:",
-        "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
-        "visitor_label": "பார்வையிட்ட பக்தர்கள்:"
+        "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்"
     },
     "বাংলা": {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
-        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मजीवन (Business & Career)"],
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मজীবন (Business & Career)"],
         "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
         "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
         "question_label": "সাধকের প্রশ্ন:",
         "answer_label": "AI সারথির পথনির্দেশ:",
-        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা",
-        "visitor_label": "মোট দর্শনার্থী সাধक:"
+        "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী নির্দেশিকা"
     },
     "മലയാളം": {
         "title": "AI സാരഥി",
@@ -366,8 +303,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp-ൽ പങ്കിടുക",
         "question_label": "ചോദ്യം:",
         "answer_label": "AI സാരഥിയുടെ മാർഗ്ഗനിർദ്ദേശം:",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
-        "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ"
     },
     "ਪੰਜਾਬੀ": {
         "title": "AI ਸਾਰਥੀ",
@@ -379,12 +315,11 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp 'ਤੇ ਸਾਂਝਾ ਕਰੋ",
         "question_label": "ਸਾਧਕ ਦਾ ਸਵਾਲ:",
         "answer_label": "AI ਸਾਰਥੀ ਦਾ ਮਾਰਗਦਰਸ਼ਨ:",
-        "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
-        "visitor_label": "ਕੁੱਲ ਸਾਧਕ:"
+        "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ"
     }
 }
 
-# ५. ब्राऊझर भाषा ओळखणे (डीफॉल्ट: हिंदी)
+# ४. ब्राऊझर भाषा ओळखणे (डीफॉल्ट: हिंदी)
 LANG_CODE_MAP = {
     "hi": "हिंदी", "mr": "मराठी", "en": "English", "gu": "ગુજરાતી",
     "kn": "ಕನ್ನಡ", "te": "తెలుగు", "ta": "தமிழ்", "bn": "বাংলা",
@@ -410,7 +345,7 @@ if "selected_lang" not in st.session_state:
 
 curr = LOCALIZED_CONTENT.get(st.session_state.selected_lang, LOCALIZED_CONTENT["हिंदी"])
 
-# ६. मुख्य हेडर कार्ड
+# ५. मुख्य हेडर कार्ड
 st.markdown(f"""
     <div class="hero-card">
         <div class="om-icon">🕉️</div>
@@ -419,7 +354,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# ७. भाषा निवड ड्रॉपडाऊन
+# ६. भाषा निवड ड्रॉपडाऊन
 LANGUAGES = list(LOCALIZED_CONTENT.keys())
 chosen_lang = st.selectbox(
     "🌐 भाषा निवडा / Choose Language:",
@@ -431,7 +366,7 @@ if chosen_lang != st.session_state.selected_lang:
     st.session_state.selected_lang = chosen_lang
     st.rerun()
 
-# ८. मार्गदर्शन विभाग
+# ७. मार्गदर्शन विभाग
 selected_mode = st.radio(
     "मार्गदर्शन क्षेत्र:",
     curr["modes"],
@@ -439,7 +374,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ९. Google GenAI क्लायंट व समृद्ध प्रॉम्ट
+# ८. Google GenAI क्लायंट व समृद्ध प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक अत्यंत ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
@@ -464,7 +399,7 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# १०. स्थिर मॉडेल कॉल (gemini-3.8-flash)
+# ९. मॉडेल कॉल (gemini-3.8-flash)
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
@@ -487,7 +422,7 @@ def generate_whatsapp_link(question_text, answer_text):
     )
     return f"https://api.whatsapp.com/send?text={urllib.parse.quote(share_text)}"
 
-# ११. चॅट हिस्ट्री व WhatsApp शेअर बटण
+# १०. चॅट हिस्ट्री व WhatsApp शेअर बटण
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -505,7 +440,7 @@ for idx, message in enumerate(st.session_state.sarathi_messages):
                 unsafe_allow_html=True
             )
 
-# १२. प्रश्न इनपुट बॉक्स व चक्रव्यूह (Spinner) सह चॅट प्रक्रिया
+# ११. प्रश्न इनपुट बॉक्स व चक्रव्यूह (Spinner) सह चॅट प्रक्रिया
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -529,14 +464,10 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 else:
                     st.error(f"तांत्रिक अडचण: {err_text}")
 
-# १३. तळटीप ब्रँडिंग आणि काऊंटर
+# १२. तळटीप ब्रँडिंग (काऊंटर बॉक्स पूर्णपणे हटवला आहे)
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
         <div class="footer-text">{curr["foundation_text"]}</div>
-        <div class="visitor-badge">
-            👁️ {curr["visitor_label"]} 
-            <span class="views-counter-tag">Views {current_views}</span>
-        </div>
     </div>
 """, unsafe_allow_html=True)

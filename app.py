@@ -220,13 +220,11 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. क्लाउड-आधारित कायमस्वरूपी व्हिजिटर काऊंटर (सर्व्हर रीस्टार्ट झाल्यावरही टिकून राहणारा)
+# ३. क्लाउड-आधारित व्हिजिटर काऊंटर (शून्यपासून सुरुवात आणि कायमस्वरूपी सेव्ह)
 def get_persistent_views():
-    # युनिक की (हवे असल्यास VighnahartaGoldSarathi बदलून नवीन की सुरू करता येते)
     namespace = "vighnaharta-gold-foundation"
-    key = "ai-sarathi-views"
+    key = "ai-sarathi-live-v1"
     
-    # साधकाने या सेशनात पहिल्यांदा उघडले असल्यास संख्या +1 करणे
     should_hit = False
     if "counted_this_device" not in st.session_state:
         st.session_state.counted_this_device = True
@@ -241,10 +239,9 @@ def get_persistent_views():
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=3) as resp:
             data = json.loads(resp.read().decode())
-            return data.get("count", 124)
+            return data.get("count", 1)
     except Exception:
-        # जर नेटवर्क अडचण आली, तर किमान मूळ बेस व्हॅल्यू दाखवणे
-        return 124
+        return 1
 
 current_views = get_persistent_views()
 

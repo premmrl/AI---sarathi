@@ -1,5 +1,7 @@
 import streamlit as st
 import urllib.parse
+import urllib.request
+import json
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -218,18 +220,33 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ३. सर्व्हर-आधारित रिअल-टाईम व्हिजिटर काऊंटर
-@st.cache_resource
-def get_global_counter():
-    return {"count": 30}
+# ३. क्लाउड-आधारित कायमस्वरूपी व्हिजिटर काऊंटर (सर्व्हर रीस्टार्ट झाल्यावरही टिकून राहणारा)
+def get_persistent_views():
+    # युनिक की (हवे असल्यास VighnahartaGoldSarathi बदलून नवीन की सुरू करता येते)
+    namespace = "vighnaharta-gold-foundation"
+    key = "ai-sarathi-views"
+    
+    # साधकाने या सेशनात पहिल्यांदा उघडले असल्यास संख्या +1 करणे
+    should_hit = False
+    if "counted_this_device" not in st.session_state:
+        st.session_state.counted_this_device = True
+        should_hit = True
 
-counter_store = get_global_counter()
+    try:
+        if should_hit:
+            url = f"https://api.counterapi.dev/v1/{namespace}/{key}/up"
+        else:
+            url = f"https://api.counterapi.dev/v1/{namespace}/{key}"
+            
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode())
+            return data.get("count", 124)
+    except Exception:
+        # जर नेटवर्क अडचण आली, तर किमान मूळ बेस व्हॅल्यू दाखवणे
+        return 124
 
-if "counted_this_device" not in st.session_state:
-    counter_store["count"] += 1
-    st.session_state.counted_this_device = True
-
-current_views = counter_store["count"]
+current_views = get_persistent_views()
 
 # ४. स्थानिक भाषांतर डेटा (१० भाषा)
 LOCALIZED_CONTENT = {
@@ -301,14 +318,14 @@ LOCALIZED_CONTENT = {
     "తెలుగు": {
         "title": "AI సారథి",
         "tagline": "భగవద్గీత దివ్య వెలుగులో జీవిత మరియు వ్యాపార నిర్ణయాలకు సరైన దిశా నిర్దేశం",
-        "modes": ["🌱 వ్యక్తిగత జీవితം (Personal Life)", "💼 వ్యాపారం & వృత్తి (Business & Career)"],
+        "modes": ["🌱 వ్యక్తిగత జీవితం (Personal Life)", "💼 వ్యాపారం & వృత్తి (Business & Career)"],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
         "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
         "share_btn_text": "📲 WhatsApp లో షేర్ చేయండి",
         "question_label": "సాధకుని ప్రశ్న:",
         "answer_label": "AI సారథి మార్గదర్శనం:",
-        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోಲ್డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
+        "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
         "visitor_label": "మొత్తం సందర్శించిన సాధకులు:"
     },
     "தமிழ்": {
@@ -328,7 +345,7 @@ LOCALIZED_CONTENT = {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
         "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मजीवन (Business & Career)"],
-        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
+        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে নির্দেশিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
         "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
@@ -347,7 +364,7 @@ LOCALIZED_CONTENT = {
         "share_btn_text": "📲 WhatsApp-ൽ പങ്കിടുക",
         "question_label": "ചോദ്യം:",
         "answer_label": "AI സാരഥിയുടെ മാർഗ്ഗനിർദ്ദേശം:",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തத்துவങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തത്വങ്ങളുടെ ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
@@ -420,7 +437,7 @@ selected_mode = st.radio(
     label_visibility="collapsed"
 )
 
-# ९. Google GenAI क्लायंट व समृद्ध प्रॉम्ट
+# ९. Google GenAI क्लायंट व सिस्टीम प्रॉम्ट
 system_prompt = (
     "तू 'AI सारथी' आहेस - भगवद्गीतेच्या तत्त्वज्ञानावर आधारित एक अत्यंत ज्ञानी, शांत, संवेदनशील आणि मार्गदर्शक डिजिटल मित्र. "
     "हा उपक्रम 'विघ्नहर्ता गोल्ड फाउंडेशन' यांच्या संकल्पनेतून चालवला जात आहे. "
@@ -493,7 +510,6 @@ if user_prompt := st.chat_input(curr["placeholder"]):
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-        # तात्काळ स्क्रीनवर दिसणारा आश्वासक संदेश (Spinner)
         with st.spinner(curr["thinking"]):
             try:
                 full_response = get_sarathi_response(user_prompt)

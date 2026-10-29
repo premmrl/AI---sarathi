@@ -1,5 +1,8 @@
 import streamlit as st
 import urllib.parse
+import io
+import textwrap
+from PIL import Image, ImageDraw, ImageFont
 from google import genai
 
 # १. पेज कॉन्फिगरेशन
@@ -10,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# २. परफेक्ट मोबाइल लेआउट CSS व शेअर बटण स्टाइल
+# २. परफेक्ट मोबाइल लेआउट CSS व शेअर बटणे
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;600;700;800&display=swap');
@@ -156,6 +159,14 @@ st.markdown("""
         font-weight: 400 !important;
     }
 
+    .action-button-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+    }
+
     .whatsapp-share-btn {
         display: inline-flex;
         align-items: center;
@@ -167,13 +178,7 @@ st.markdown("""
         border-radius: 18px;
         font-size: 11.5px;
         font-weight: 700;
-        margin-top: 6px;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-        transition: transform 0.15s ease-in-out;
-    }
-    .whatsapp-share-btn:hover {
-        transform: scale(1.03);
-        color: #ffffff !important;
     }
 
     .footer-container {
@@ -241,14 +246,12 @@ LOCALIZED_CONTENT = {
     "हिंदी": {
         "title": "AI सारथी",
         "tagline": "जीवन और व्यापार के कठिन निर्णयों को भगवद्गीता के दिव्य प्रकाश में सही दिशा",
-        "modes": [
-            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय और करियर (Business & Career)"
-        ],
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय और करियर (Business & Career)"],
         "placeholder": "अपना प्रश्न, दुविधा या चिंता यहाँ लिखें...",
         "thinking": "ॐ AI सारथी भगवद्गीता के प्रकाश में मार्गदर्शन प्राप्त कर रहे हैं...",
         "quota_msg": "ॐ इस समय कई साधक एक साथ मार्गदर्शन प्राप्त कर रहे हैं। कृपया कुछ समय पश्चात पुनः प्रयास करें।",
         "share_btn_text": "📲 WhatsApp पर शेयर करें",
+        "card_btn_text": "🖼️ सुविचार कार्ड डाउनलोड करें",
         "question_label": "साधक का प्रश्न / दुविधा:",
         "answer_label": "AI सारथी का दिव्य मार्गदर्शन:",
         "foundation_text": "परिकल्पना एवं संचालन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीता के शाश्वत सिद्धांतों पर आधारित सामाजिक डिजिटल पहल",
@@ -257,14 +260,12 @@ LOCALIZED_CONTENT = {
     "मराठी": {
         "title": "AI सारथी",
         "tagline": "जीवनातील आणि व्यवसायातील गुंतागुंतीच्या निर्णयांना भगवद्गीतेच्या दिव्य प्रकाशात अचूक दिशा",
-        "modes": [
-            "🌱 वैयक्तिक जीवन (Personal Guidance)",
-            "💼 व्यवसाय आणि करिअर (Business & Career)"
-        ],
+        "modes": ["🌱 वैयक्तिक जीवन (Personal Guidance)", "💼 व्यवसाय आणि करिअर (Business & Career)"],
         "placeholder": "आपला प्रश्न, चिंता किंवा द्विधा मनःस्थिती येथे मांडा...",
         "thinking": "ॐ AI सारथी भगवद्गीतेच्या प्रकाशात मार्गदर्शन शोधत आहे...",
         "quota_msg": "ॐ सध्या अनेक साधक एकाच वेळी मार्गदर्शन घेत असल्यामुळे सारथी व्यस्त आहेत. कृपया काही वेळाने पुन्हा प्रश्न विचारावा.",
         "share_btn_text": "📲 WhatsApp वर शेअर करा",
+        "card_btn_text": "🖼️ सुविचार कार्ड डाऊनलोड करा",
         "question_label": "साधकाचा प्रश्न / चिंता:",
         "answer_label": "AI सारथीचे दिव्य मार्गदर्शन:",
         "foundation_text": "प्रकल्प संकल्पना व संचलन: <b>विघ्नहर्ता गोल्ड फाउंडेशन</b><br>भगवद्गीतेच्या कालातीत तत्त्वांवर आधारित समाजहितैषी डिजिटल उपक्रम",
@@ -273,14 +274,12 @@ LOCALIZED_CONTENT = {
     "English": {
         "title": "AI Sarathi",
         "tagline": "Guiding life and business decisions in the divine light of the Bhagavad Gita",
-        "modes": [
-            "🌱 Personal Life & Inner Peace",
-            "💼 Business, Leadership & Career"
-        ],
+        "modes": ["🌱 Personal Life & Inner Peace", "💼 Business, Leadership & Career"],
         "placeholder": "Ask your question, dilemma, or life situation here...",
         "thinking": "ॐ AI Sarathi is seeking divine guidance from the Bhagavad Gita...",
         "quota_msg": "ॐ Many seekers are seeking guidance right now. Please ask your question again in a little while.",
         "share_btn_text": "📲 Share on WhatsApp",
+        "card_btn_text": "🖼️ Download Quote Card",
         "question_label": "Seeker's Question / Dilemma:",
         "answer_label": "AI Sarathi's Guidance:",
         "foundation_text": "Initiative by <b>Vighnaharta Gold Foundation</b><br>A digital guide rooted in the timeless wisdom of the Bhagavad Gita",
@@ -289,14 +288,12 @@ LOCALIZED_CONTENT = {
     "ગુજરાતી": {
         "title": "AI સારથી",
         "tagline": "જીવન અને વેપારના નિર્ણયોને ભગવદ્ગીતાના દિવ્ય પ્રકાશમાં સચોટ માર્ગદર્શન",
-        "modes": [
-            "🌱 વ્યક્તિગત જીવન (Personal Guidance)",
-            "💼 વ્યવસાય અને કારકિર્દી (Business & Career)"
-        ],
+        "modes": ["🌱 વ્યક્તિગત જીવન (Personal Guidance)", "💼 વ્યવસાય અને કારકિર્દી (Business & Career)"],
         "placeholder": "તમારો પ્રશ્ન કે મૂંઝવણ અહીં લખો...",
         "thinking": "ॐ AI સારથી ભગવદ્ગીતાના પ્રકાશમાં માર્ગદર્શન મેળવી રહ્યા છે...",
         "quota_msg": "ॐ ઘણા સાધકો હાલ માર્ગદર્શન લઈ રહ્યા છે. કૃપા કરીને થોડા સમય પછી ફરી પૂછો.",
         "share_btn_text": "📲 WhatsApp પર શેર કરો",
+        "card_btn_text": "🖼️ સુવિચાર કાર્ડ ડાઉનલોડ કરો",
         "question_label": "સાધકનો પ્રશ્ન / મૂંઝવણ:",
         "answer_label": "AI સારથીનું દિવ્ય માર્ગદર્શન:",
         "foundation_text": "સંચાલન: <b>વિઘ્નહર્તા ગોલ્ડ ફાઉન્ડેશન</b><br>ભગવદ્ગીતાના શાશ્વત સિદ્ધાંતો પર આધારિત ડિજિટલ પહેલ",
@@ -305,14 +302,12 @@ LOCALIZED_CONTENT = {
     "ಕನ್ನಡ": {
         "title": "AI ಸಾರಥಿ",
         "tagline": "ಭಗವದ್ಗೀತೆಯ ದಿವ್ಯ ಬೆಳಕಿನಲ್ಲಿ ಜೀವನ ಮತ್ತು ವ್ಯವಹಾರದ ನಿರ್ಧಾರಗಳಿಗೆ ಸೂಕ್ತ ಮಾರ್ಗದರ್ಶನ",
-        "modes": [
-            "🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal Life)",
-            "💼 ಉದ್ಯೋಗ ಮತ್ತು ವ್ಯಾಪಾರ (Business & Career)"
-        ],
+        "modes": ["🌱 ವೈಯಕ್ತಿಕ ಜೀವನ (Personal Life)", "💼 ಉದ್ಯೋಗ ಮತ್ತು ವ್ಯಾಪಾರ (Business & Career)"],
         "placeholder": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಅಥವಾ ಸಂದೇಹವನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ...",
         "thinking": "ॐ AI ಸಾರಥಿ ಭಗವದ್ಗೀತೆಯ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ...",
         "quota_msg": "ॐ ಸದ್ಯಕ್ಕೆ ಅನೇಕ ಸಾಧಕರು ಮಾರ್ಗದರ್ಶನ ಪಡೆಯುತ್ತಿದ್ದಾರೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         "share_btn_text": "📲 WhatsApp ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
+        "card_btn_text": "🖼️ ಕಾರ್ಡ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
         "question_label": "ಸಾಧಕರ ಪ್ರಶ್ನೆ:",
         "answer_label": "AI ಸಾರಥಿಯ ಮಾರ್ಗದರ್ಶನ:",
         "foundation_text": "ಉಪಕ್ರಮ: <b>ವಿಘ್ನಹರ್ತಾ ಗೋಲ್ಡ್ ಫೌಂಡೇಶನ್</b><br>ಭಗವದ್ಗೀತೆಯ ತತ್ವಗಳ ಆಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ",
@@ -321,14 +316,12 @@ LOCALIZED_CONTENT = {
     "తెలుగు": {
         "title": "AI సారథి",
         "tagline": "భగవద్గీత దివ్య వెలుగులో జీవిత మరియు వ్యాపార నిర్ణయాలకు సరైన దిశా నిర్దేశం",
-        "modes": [
-            "🌱 వ్యక్తిగత జీవితం (Personal Life)",
-            "💼 వ్యాపారం & వృత్తి (Business & Career)"
-        ],
+        "modes": ["🌱 వ్యక్తిగత జీవితం (Personal Life)", "💼 వ్యాపారం & వృత్తి (Business & Career)"],
         "placeholder": "మీ ప్రశ్న లేదా సందేహాన్ని ఇక్కడ అడగండి...",
         "thinking": "ॐ AI సారథి భగవద్గీత వెలుగులో సమాధానాన్ని అన్వేషిస్తున్నారు...",
         "quota_msg": "ॐ ప్రస్తుతం అనేకమంది సాధకులు మార్గదర్శనం పొందుతున్నారు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
         "share_btn_text": "📲 WhatsApp లో షేర్ చేయండి",
+        "card_btn_text": "🖼️ కోట్ కార్డ్ డౌన్‌లోడ్ చేయండి",
         "question_label": "సాధకుని ప్రశ్న:",
         "answer_label": "AI సారథి మార్గదర్శనం:",
         "foundation_text": "సంకల్పం: <b>విఘ్నహర్త గోల్డ్ ఫౌండేషన్</b><br>భగవద్గీత శాశ్వత సూత్రాలపై ఆధారపడిన డిజిటల్ చొరవ",
@@ -337,14 +330,12 @@ LOCALIZED_CONTENT = {
     "தமிழ்": {
         "title": "AI சாரதி",
         "tagline": "பகவத் கீதையின் தெய்வீக ஒளியில் வாழ்க்கை மற்றும் வணிக முடிவுகளுக்கு தெளிவான வழிகாட்டுதல்",
-        "modes": [
-            "🌱 தனிப்பட்ட வாழ்க்கை (Personal Life)",
-            "💼 வணிகம் & தொழில் (Business & Career)"
-        ],
+        "modes": ["🌱 தனிப்பட்ட வாழ்க்கை (Personal Life)", "💼 வணிகம் & தொழில் (Business & Career)"],
         "placeholder": "உங்கள் கேள்வி அல்லது கவலையை இங்கே பகிருங்கள்...",
         "thinking": "ॐ AI சாரதி பகவத் கீதையிலிருந்து வழிகாட்டுதலைப் பெறுகிறார்...",
         "quota_msg": "ॐ தற்போது பல பக்தர்கள் வழிகாட்டுதல் பெற்று வருகின்றனர். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
         "share_btn_text": "📲 WhatsApp-ல் பகிரவும்",
+        "card_btn_text": "🖼️ கார்டைப் பதிவிறக்கவும்",
         "question_label": "கேள்வி:",
         "answer_label": "AI சாரதியின் வழிகாட்டுதல்:",
         "foundation_text": "முயற்சி: <b>விக்னஹர்த்தா கோல்ட் ஃபவுண்டேஷன்</b><br>பகவத் கீதையின் வழிகாட்டுதல் திட்டம்",
@@ -353,14 +344,12 @@ LOCALIZED_CONTENT = {
     "বাংলা": {
         "title": "AI সারথি",
         "tagline": "ভগবদ্গীতার দিব্য আলোকে জীবন ও ব্যবসার সিদ্ধান্তের সঠিক পথনির্দেশ",
-        "modes": [
-            "🌱 व्यक्तिगत जीवन (Personal Guidance)",
-            "💼 व्यवसाय ও कर्मजीवन (Business & Career)"
-        ],
-        "placeholder": "আপনার प्रश्न বা সংশয় येथे লিখুন...",
+        "modes": ["🌱 व्यक्तिगत जीवन (Personal Guidance)", "💼 व्यवसाय ও कर्मजीवन (Business & Career)"],
+        "placeholder": "আপনার প্রশ্ন বা সংশয় येथे লিখুন...",
         "thinking": "ॐ AI সারথি শ্রীমদ্ভগবদ্গীতার আলোকে निर्देशিকা খুঁজছেন...",
         "quota_msg": "ॐ বর্তমানে বহু সাধক পথনির্দেশ নিচ্ছেন। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।",
         "share_btn_text": "📲 WhatsApp এ শেয়ার করুন",
+        "card_btn_text": "🖼️ বাণী কার্ড ডাউনলোড করুন",
         "question_label": "সাধকের প্রশ্ন:",
         "answer_label": "AI সারথির পথনির্দেশ:",
         "foundation_text": "উদ্যোগ: <b>বিঘ্নহর্তা গোল্ড ফাউন্ডেশন</b><br>শ্রীমদ্ভগবদ্গীতার কালজয়ী निर्देशিকা",
@@ -369,30 +358,26 @@ LOCALIZED_CONTENT = {
     "മലയാളം": {
         "title": "AI സാരഥി",
         "tagline": "ഭഗവദ്ഗീതയുടെ ദിവ്യവെളിച്ചത്തിൽ ജീവിതത്തിലെയും ബിസിനസ്സിലെയും തീരുമാനങ്ങൾക്ക് കൃത്യമായ വഴികാട്ടി",
-        "modes": [
-            "🌱 വ്യക്തിജീവിതം (Personal Guidance)",
-            "💼 ബിസിനസ്സും കരിയറും (Business & Career)"
-        ],
+        "modes": ["🌱 വ്യക്തിജീവിതം (Personal Guidance)", "💼 ബിസിനസ്സും കരിയറും (Business & Career)"],
         "placeholder": "നിങ്ങളുടെ ചോദ്യം ഇവിടെ കുറിക്കുക...",
         "thinking": "ॐ AI സാരഥി ഭഗവദ്ഗീതയിൽ നിന്ന് മാർഗ്ഗദർശനം തേടുന്നു...",
         "quota_msg": "ॐ ഇപ്പോൾ നിരവധി സാധകർ മാർഗ്ഗദർശനം തേടുന്നു. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
         "share_btn_text": "📲 WhatsApp-ൽ പങ്കിടുക",
+        "card_btn_text": "🖼️ കാർഡ് ഡൗൺലോഡ് ചെയ്യുക",
         "question_label": "ചോദ്യം:",
         "answer_label": "AI സാരഥിയുടെ മാർഗ്ഗനിർദ്ദേശം:",
-        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗವദ്गीതാ തத்துவங்களின் டிജിറ്റൽ മാർഗ്ഗരേഖ",
+        "foundation_text": "സംരംഭം: <b>വിഘ്നഹർത്ത ഗോൾഡ് ഫൗണ്ടേഷൻ</b><br>ഭഗവദ്गीതാ തത്വங்களின் ഡിജിറ്റൽ മാർഗ്ഗരേഖ",
         "visitor_label": "ആകെ സന്ദർശിച്ചവർ:"
     },
     "ਪੰਜਾਬੀ": {
         "title": "AI ਸਾਰਥੀ",
         "tagline": "ਭਗਵਦ ਗੀਤਾ ਦੇ ਦਿਵਯ ਚਾਨਣ ਵਿੱਚ ਜ਼ਿੰਦਗੀ ਅਤੇ ਕਾਰੋਬਾਰ ਦੇ ਫੈਸਲਿਆਂ ਲਈ ਸਹੀ ਦਿਸ਼ਾ",
-        "modes": [
-            "🌱 ਨਿੱਜੀ ਜੀਵਨ (Personal Guidance)",
-            "💼 ਕਾਰੋਬਾਰ ਅਤੇ ਕਰੀਅਰ (Business & Career)"
-        ],
+        "modes": ["🌱 ਨਿੱਜੀ ਜੀਵਨ (Personal Guidance)", "💼 ਕਾਰੋਬਾਰ ਅਤੇ ਕਰੀਅਰ (Business & Career)"],
         "placeholder": "ਆਪਣਾ ਸਵਾਲ ਜਾਂ ਦੁਵਿਧਾ ਇੱਥੇ ਪੁੱਛੋ...",
         "thinking": "ॐ AI ਸਾਰਥੀ ਭਗਵਦ ਗੀਤਾ ਤੋਂ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ...",
         "quota_msg": "ॐ ਇਸ ਸਮੇਂ ਬਹੁਤ ਸਾਰੇ ਸਾਧਕ ਮਾਰਗਦਰਸ਼ਨ ਲੈ ਰਹੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
         "share_btn_text": "📲 WhatsApp 'ਤੇ ਸਾਂਝਾ ਕਰੋ",
+        "card_btn_text": "🖼️ ਸੁਵਿਚਾਰ ਕਾਰਡ ਡਾਊਨਲੋਡ ਕਰੋ",
         "question_label": "ਸਾਧਕ ਦਾ ਸਵਾਲ:",
         "answer_label": "AI ਸਾਰਥੀ ਦਾ ਮਾਰਗਦਰਸ਼ਨ:",
         "foundation_text": "ਉਪਰਾਲਾ: <b>ਵਿਘਨਹਰਤਾ ਗੋਲਡ ਫਾਊਂਡੇਸ਼ਨ</b><br>ਭਗਵਦ ਗੀਤਾ ਦੇ ਸਿਧਾਂਤਾਂ 'ਤੇ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਹਿਲ",
@@ -402,16 +387,9 @@ LOCALIZED_CONTENT = {
 
 # ५. ब्राऊझर भाषा ओळखणे (डीफॉल्ट: हिंदी)
 LANG_CODE_MAP = {
-    "hi": "हिंदी",
-    "mr": "मराठी",
-    "en": "English",
-    "gu": "ગુજરાતી",
-    "kn": "ಕನ್ನಡ",
-    "te": "తెలుగు",
-    "ta": "தமிழ்",
-    "bn": "বাংলা",
-    "ml": "മലയാളം",
-    "pa": "ਪੰਜਾਬੀ"
+    "hi": "हिंदी", "mr": "मराठी", "en": "English", "gu": "ગુજરાતી",
+    "kn": "ಕನ್ನಡ", "te": "తెలుగు", "ta": "தமிழ்", "bn": "বাংলা",
+    "ml": "മലയാളം", "pa": "ਪੰਜਾਬੀ"
 }
 
 def detect_device_language():
@@ -485,7 +463,7 @@ def init_genai_client(key):
 
 client = init_genai_client(api_token)
 
-# १०. अधिकृत कार्यरत मॉडेल (gemini-3.8-flash)
+# १०. मॉडेल कॉल
 def get_sarathi_response(query):
     prompt_with_context = f"{system_prompt}\n\n[विभाग: {selected_mode}]\nप्रश्न: {query}"
     response = client.models.generate_content(
@@ -494,11 +472,10 @@ def get_sarathi_response(query):
     )
     return response.text
 
-# प्रश्न आणि उत्तर दोन्ही एकत्रित करून WhatsApp शेअर लिंक तयार करणारे फंक्शन
+# WhatsApp शेअर लिंक
 def generate_whatsapp_link(question_text, answer_text):
-    q_label = curr.get("question_label", "साधकाचा प्रश्न / चिंता:")
+    q_label = curr.get("question_label", "साधकाचा प्रश्न:")
     a_label = curr.get("answer_label", "AI सारथीचे दिव्य मार्गदर्शन:")
-    
     share_text = (
         f"🕉️ *AI सारथी - भगवद्गीता मार्गदर्शन*\n\n"
         f"❓ *{q_label}*\n\"{question_text}\"\n\n"
@@ -507,10 +484,54 @@ def generate_whatsapp_link(question_text, answer_text):
         f"https://ai-sarathi.streamlit.app/\n\n"
         f"— *An Initiative by Vighnaharta Gold Foundation*"
     )
-    encoded_url = urllib.parse.quote(share_text)
-    return f"https://api.whatsapp.com/send?text={encoded_url}"
+    return f"https://api.whatsapp.com/send?text={urllib.parse.quote(share_text)}"
 
-# ११. चॅट हिस्ट्री व शेअर बटण
+# ११. सुविचार इमेज कार्ड जनरेटर (Pillow द्वारे)
+def create_quote_card_image(text_content):
+    width, height = 1080, 1080
+    image = Image.new("RGB", (width, height), color="#1e1b4b")
+    draw = ImageDraw.Draw(image)
+
+    # बॅकग्राउंड ग्रेडियंट इफेक्ट
+    for y in range(height):
+        ratio = y / height
+        r = int(46 * (1 - ratio) + 15 * ratio)
+        g = int(16 * (1 - ratio) + 23 * ratio)
+        b = int(101 * (1 - ratio) + 42 * ratio)
+        draw.line([(0, y), (width, y)], fill=(r, g, b))
+
+    # गोल्डन बॉर्डर
+    draw.rectangle([(25, 25), (width - 25, height - 25)], outline="#FBBF24", width=4)
+    draw.rectangle([(40, 40), (width - 40, height - 40)], outline="rgba(251, 191, 36, 0.4)", width=2)
+
+    font_large = ImageFont.load_default()
+    font_med = ImageFont.load_default()
+
+    # हेडर
+    header_title = "॥ ॐ AI सारथी - भगवद्गीता मार्गदर्शन ॥"
+    draw.text((width // 2 - 190, 80), header_title, fill="#FEF08A", font=font_large)
+
+    # सारांश मजकूर फॉरमॅटिंग
+    clean_lines = [l.strip() for l in text_content.split("\n") if l.strip() and not l.startswith("#")]
+    summary_text = " ".join(clean_lines[:4])
+    wrapped = textwrap.fill(summary_text, width=42)
+
+    # कार्ड मजकूर
+    draw.text((90, 240), wrapped, fill="#F8FAFC", font=font_med, spacing=14)
+
+    # तळटीप ब्रँडिंग
+    footer_text1 = "मार्गदर्शन मिळवण्यासाठी: ai-sarathi.streamlit.app"
+    footer_text2 = "An Initiative by Vighnaharta Gold Foundation"
+    draw.line([(90, height - 140), (width - 90, height - 140)], fill="#FBBF24", width=2)
+    draw.text((width // 2 - 200, height - 110), footer_text1, fill="#FDE68A", font=font_med)
+    draw.text((width // 2 - 180, height - 75), footer_text2, fill="#CBD5E1", font=font_med)
+
+    buf = io.BytesIO()
+    image.save(buf, format="PNG")
+    buf.seek(0)
+    return buf
+
+# १२. चॅट हिस्ट्री व ॲक्शन बटणे
 if "sarathi_messages" not in st.session_state:
     st.session_state.sarathi_messages = []
 
@@ -518,18 +539,29 @@ for idx, message in enumerate(st.session_state.sarathi_messages):
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
         if message["role"] == "assistant":
-            # मागील विचारलेला प्रश्न शोधणे
             prev_question = ""
             if idx > 0 and st.session_state.sarathi_messages[idx - 1]["role"] == "user":
                 prev_question = st.session_state.sarathi_messages[idx - 1]["content"]
-            
-            wa_link = generate_whatsapp_link(prev_question, message["content"])
-            st.markdown(
-                f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
-                unsafe_allow_html=True
-            )
 
-# १२. प्रश्न इनपुट बॉक्स व चॅट प्रक्रिया
+            wa_link = generate_whatsapp_link(prev_question, message["content"])
+            img_bytes = create_quote_card_image(message["content"])
+
+            col1, col2 = st.columns([1, 1])
+            with col1:
+                st.markdown(
+                    f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
+                    unsafe_allow_html=True
+                )
+            with col2:
+                st.download_button(
+                    label=curr.get("card_btn_text", "🖼️ सुविचार कार्ड डाऊनलोड करा"),
+                    data=img_bytes,
+                    file_name="Gita_Sarathi_Quote.png",
+                    mime="image/png",
+                    key=f"dl_btn_{idx}"
+                )
+
+# १३. इनपुट बॉक्स व प्रोसेसिंग
 if user_prompt := st.chat_input(curr["placeholder"]):
     st.session_state.sarathi_messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
@@ -541,10 +573,22 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 full_response = get_sarathi_response(user_prompt)
                 st.markdown(full_response)
                 wa_link = generate_whatsapp_link(user_prompt, full_response)
-                st.markdown(
-                    f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
-                    unsafe_allow_html=True
-                )
+                img_bytes = create_quote_card_image(full_response)
+
+                col1, col2 = st.columns([1, 1])
+                with col1:
+                    st.markdown(
+                        f'<a href="{wa_link}" target="_blank" class="whatsapp-share-btn">{curr.get("share_btn_text", "📲 WhatsApp वर शेअर करा")}</a>',
+                        unsafe_allow_html=True
+                    )
+                with col2:
+                    st.download_button(
+                        label=curr.get("card_btn_text", "🖼️ सुविचार कार्ड डाऊनलोड करा"),
+                        data=img_bytes,
+                        file_name="Gita_Sarathi_Quote.png",
+                        mime="image/png",
+                        key="dl_btn_latest"
+                    )
                 st.session_state.sarathi_messages.append({"role": "assistant", "content": full_response})
             except Exception as e:
                 err_text = str(e)
@@ -553,7 +597,7 @@ if user_prompt := st.chat_input(curr["placeholder"]):
                 else:
                     st.error(f"तांत्रिक अडचण: {err_text}")
 
-# १३. कॉम्पॅक्ट तळटीप ब्रँडिंग आणि काऊंटर
+# १४. तळटीप ब्रँडिंग आणि काऊंटर
 st.markdown(f"""
     <div class="footer-container">
         <div class="brand-title">AN INITIATIVE BY VIGHNAHARTA GOLD FOUNDATION</div>
